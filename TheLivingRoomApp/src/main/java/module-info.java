@@ -7,6 +7,6 @@ module com.example.testafbootstrapjavafx {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
 
-    opens DoNotTouch to javafx.fxml;
-    exports DoNotTouch;
+    opens Launch to javafx.fxml;
+    exports Launch;
 }
