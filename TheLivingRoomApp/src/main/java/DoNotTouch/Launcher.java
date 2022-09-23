@@ -14,6 +14,9 @@ import org.kordamp.bootstrapfx.scene.layout.Panel;
 import java.io.IOException;
 
 public class Launcher extends Application {
+    public static void main(String[] args) {
+        launch();
+    }
     @Override
     public void start(Stage stage) throws IOException {
         /*
@@ -27,13 +30,12 @@ public class Launcher extends Application {
         stage.show();
          */
 
-
         Panel panel = new Panel("This is the title");
         panel.getStyleClass().add("panel-primary");                            //(2)
         BorderPane content = new BorderPane();
         content.setPadding(new Insets(20));
         Button button = new Button("Hello BootstrapFX");
-        button.getStyleClass().setAll("btn","btn-danger");                     //(2)
+        button.getStyleClass().setAll("btn","btn-default");                     //(2)
         content.setCenter(button);
         panel.setBody(content);
 
@@ -44,9 +46,5 @@ public class Launcher extends Application {
         stage.setScene(scene);
         stage.sizeToScene();
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }
