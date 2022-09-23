@@ -42,9 +42,11 @@ public class Launcher extends Application {
         Scene scene = new Scene(panel);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());       //(3)
 
-        stage.setTitle("BootstrapFX");
+        stage.setTitle("The Living Room App");
         stage.setScene(scene);
-        stage.sizeToScene();
+        //stage.sizeToScene();
+        stage.setWidth(800);
+        stage.setHeight(640);
         stage.show();
     }
 }
