@@ -1,10 +1,14 @@
 package Classes;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Task {
     private String title;
     private Timer frequency;
+    private Date date;
+    private LocalDateTime time;
     private String status;
     private String assignee;
     private String description;
@@ -29,6 +33,22 @@ public class Task {
 
     public void setFrequency(Timer frequency) {
         this.frequency = frequency;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public String getStatus() {
@@ -80,18 +100,6 @@ public class Task {
     }
 
     public void setComment(String comment) {
-        Map<Integer, String> map = null;
-        if (allComments.isEmpty()) {
-            map.put(1, comment);
-            allComments.add(map);
-        } else {
-            int i = allComments.size() - 1;
-            map = allComments.get(i);
-            Map.Entry<Integer, String> entry = (Map.Entry<Integer, String>) map.entrySet();
-            Integer newKey = entry.getKey();
-            map.put(newKey, comment);
-            allComments.add(map);
-        }
     }
 
     public boolean isDeleteIfResolved() {
