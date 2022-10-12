@@ -18,26 +18,5 @@ public class Main extends Application {
         stage.setTitle("The Living Room App");
         stage.setScene(scene);
         stage.show();
-
-        /*
-        Panel panel = new Panel("This is the title");
-        panel.getStyleClass().add("panel-primary");                            //(2)
-        BorderPane content = new BorderPane();
-        content.setPadding(new Insets(20));
-        Button button = new Button("Hello BootstrapFX");
-        button.getStyleClass().setAll("btn","btn-default");                     //(2)
-        content.setCenter(button);
-        panel.setBody(content);
-
-        Scene scene = new Scene(panel);
-        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());       //(3)
-
-        stage.setTitle("The Living Room App");
-        stage.setScene(scene);
-        //stage.sizeToScene();
-        stage.setWidth(800);
-        stage.setHeight(640);
-        stage.show();
-         */
     }
 }
