@@ -6,6 +6,9 @@ module com.example.testafbootstrapjavafx {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
+    requires org.mongodb.bson;
+    requires org.mongodb.driver.sync.client;
+    requires org.mongodb.driver.core;
 
     opens Launch to javafx.fxml;
     exports Launch;
