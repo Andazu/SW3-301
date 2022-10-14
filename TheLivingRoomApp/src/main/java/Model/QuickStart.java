@@ -1,14 +1,13 @@
 // THIS IS AN EXAMPLE FOR MONGODB COMMUNICATION
 
-<<<<<<< Updated upstream:TheLivingRoomApp/src/main/java/Model/QuickStart.java
 package Model;
 
 import static com.mongodb.client.model.Filters.eq;
 
+import Model.Task;
+import Model.User;
 import com.mongodb.client.*;
 import org.bson.Document;
-=======
-package models;
 import com.mongodb.client.*;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -22,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
->>>>>>> Stashed changes:TheLivingRoomApp/src/main/java/models/QuickStart.java
 
 public class QuickStart {
     public static void main( String[] args ) {

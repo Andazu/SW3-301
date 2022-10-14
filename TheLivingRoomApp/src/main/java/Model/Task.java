@@ -35,7 +35,7 @@ public class Task {
 
     public void exportDocument(){
         try {
-            MongoDBLocal mongoDBLocal = new MongoDBLocal();
+            models.MongoDBLocal mongoDBLocal = new models.MongoDBLocal();
             mongoDBLocal.checkConnection();
 
             Document document = new Document();
