@@ -1,11 +1,28 @@
 // THIS IS AN EXAMPLE FOR MONGODB COMMUNICATION
 
+<<<<<<< Updated upstream:TheLivingRoomApp/src/main/java/Model/QuickStart.java
 package Model;
 
 import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.client.*;
 import org.bson.Document;
+=======
+package models;
+import com.mongodb.client.*;
+
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+>>>>>>> Stashed changes:TheLivingRoomApp/src/main/java/models/QuickStart.java
 
 public class QuickStart {
     public static void main( String[] args ) {
@@ -55,12 +72,25 @@ public class QuickStart {
             collection2.updateOne(Filters.eq("name", "Ram"), Updates.set("city", "Lego City"));
              */
 
-            MongoDatabase database = mongoClient.getDatabase("project");
-            MongoCollection<Document> collection = database.getCollection("users");
+            User user = new User("Anne", "Hansen", "example@gmail.com", "+4531405826", false);
+            user.exportDocument();
 
-            User testUser = new User("Anne", "Hansen", "example@gmail.com", "+4531405826", false);
-            database.getCollection("users").insertOne(testUser);
+            // Random data to save
+            ArrayList<String> comments = new ArrayList<String>();
+            comments.add("wack");
+            comments.add("nice job");
+            comments.add("bomboclaat");
+            comments.add("buyaka buyaka");
 
+            ArrayList<String> assignees = new ArrayList<String>();
+            assignees.add("assigneeID1");
+            assignees.add("assigneeID2");
+
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+            Task task = new Task("Sandwich Time", "Butter + chicken", "Every week", "Extremely urgent", "Miscellaneous", 75, true, comments, assignees, date);
+            task.exportDocument();
         }
         catch (Exception e) {
             System.out.println("Something went wrong.");

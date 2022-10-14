@@ -1,5 +1,9 @@
 package Model;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.bson.Document;
+
 public class User {
     private String firstName;
     private String lastName;
@@ -13,6 +17,26 @@ public class User {
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.admin = admin;
+    }
+
+    public void exportDocument(){
+        try {
+            MongoDBLocal mongoDBLocal = new MongoDBLocal();
+            mongoDBLocal.checkConnection();
+
+            Document document = new Document();
+            document.append("firstName", this.firstName);
+            document.append("lastName", this.lastName);
+            document.append("emailAddress", this.emailAddress);
+            document.append("phoneNumber", this.phoneNumber);
+            document.append("admin", this.admin);
+
+            MongoClient mongoClient = MongoClients.create(mongoDBLocal.getUrl());
+            mongoClient.getDatabase("project").getCollection("users").insertOne(document);
+        }
+        catch (Exception e) {
+            System.out.println("Something went wrong with MongoDB during exportDocument call.");
+        }
     }
 
     public String getFirstName() {

@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/Task.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/MongoDBLocal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/Classes/QuickStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/QuickStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/QuickStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/QuickStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/models/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +86,7 @@
       <workItem from="1665564696718" duration="5281000" />
       <workItem from="1665571516531" duration="2895000" />
       <workItem from="1665650487799" duration="3646000" />
-      <workItem from="1665732624269" duration="1415000" />
+      <workItem from="1665732624269" duration="8057000" />
     </task>
     <servers />
   </component>
