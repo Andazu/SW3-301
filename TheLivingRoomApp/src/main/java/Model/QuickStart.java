@@ -81,8 +81,8 @@ public class QuickStart {
             comments.add("buyaka buyaka");
 
             ArrayList<String> assignees = new ArrayList<String>();
-            assignees.add("assigneeID1");
-            assignees.add("assigneeID2");
+            assignees.add("assigneeId1");
+            assignees.add("assigneeId2");
 
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
