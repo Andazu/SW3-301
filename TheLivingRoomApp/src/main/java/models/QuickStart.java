@@ -1,6 +1,6 @@
 // THIS IS AN EXAMPLE FOR MONGODB COMMUNICATION
 
-package Classes;
+package models;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -17,12 +17,12 @@ public class QuickStart {
         String uri = "mongodb+srv://admin:admin@cluster0.ztdigfr.mongodb.net/?retryWrites=true&w=majority";
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             //Getting a database and collection
-            MongoDatabase database = mongoClient.getDatabase("sample_mflix");
-            MongoCollection<Document> collection = database.getCollection("movies");
+            //MongoDatabase database = mongoClient.getDatabase("sample_mflix");
+            //MongoCollection<Document> collection = database.getCollection("movies");
 
             //Finding specific document and printing data
-            Document doc = collection.find(eq("title", "Back to the Future")).first();
-            System.out.println(doc.toJson());
+            //Document doc = collection.find(eq("title", "Back to the Future")).first();
+            //System.out.println(doc.toJson());
 
             //Creating a collection
             //database.createCollection("gamers");
@@ -58,6 +58,13 @@ public class QuickStart {
             MongoCollection<Document> collection2 = database.getCollection("gamers");
             collection2.updateOne(Filters.eq("name", "Ram"), Updates.set("city", "Lego City"));
              */
+
+            MongoDatabase database = mongoClient.getDatabase("project");
+            MongoCollection<Document> collection = database.getCollection("users");
+
+            User testUser = new User("Anne", "Hansen", "example@gmail.com", "+4531405826", false);
+            database.getCollection("users").insertOne(testUser);
+
         }
         catch (Exception e) {
             System.out.println("Something went wrong.");
