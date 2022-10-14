@@ -1,15 +1,11 @@
 // THIS IS AN EXAMPLE FOR MONGODB COMMUNICATION
 
-package models;
+package Model;
 
 import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
 import org.bson.Document;
-import org.bson.conversions.Bson;
-import java.util.Iterator;
 
 public class QuickStart {
     public static void main( String[] args ) {

@@ -10,6 +10,8 @@ module com.example.testafbootstrapjavafx {
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.driver.core;
 
-    opens Launch to javafx.fxml;
-    exports Launch;
+    opens Controller to javafx.fxml;
+    exports Controller;
+    exports Launcher;
+    opens Launcher to javafx.fxml;
 }

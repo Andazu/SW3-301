@@ -1,4 +1,4 @@
-package Launch;
+package Launcher;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("start-page.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 800, 640);
         //scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
