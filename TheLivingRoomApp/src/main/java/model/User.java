@@ -1,7 +1,6 @@
-package Model;
+package model;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
+import com.mongodb.client.*;
 import org.bson.Document;
 
 public class User {
@@ -21,7 +20,7 @@ public class User {
 
     public void exportDocument(){
         try {
-            models.MongoDBLocal mongoDBLocal = new models.MongoDBLocal();
+            MongoDBLocal mongoDBLocal = new MongoDBLocal();
             mongoDBLocal.checkConnection();
 
             Document document = new Document();
