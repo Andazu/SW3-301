@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddTaskController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddTaskController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="912.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0">
+            <TextField fx:id="titleTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" promptText="Title" />
+            <TextField fx:id="descriptionTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" promptText="Description" />
+            <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="210.0" promptText="Date" />
+            <ComboBox fx:id="frequencyDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Frequency" />
+            <ComboBox fx:id="urgencyDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Urgency" />
+            <ComboBox fx:id="typeDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Type" />
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <DatePicker prefHeight="25.0" prefWidth="210.0" promptText="datePicker" />
+                  <Label text="Assignee" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="generalRadioButton" mnemonicParsing="false" onAction="#setGeneralRadioButton" text="General" />
+                        <RadioButton fx:id="specificRadioButton" mnemonicParsing="false" onAction="#setSpecificRadioButton" text="Specific" />
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
-            <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" />
-            <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" />
-            <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" />
-            <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" />
+            </VBox>
+            <ComboBox fx:id="assigneeDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Pick Assignee" visible="false" />
          </children>
       </VBox>
    </center>
@@ -38,12 +48,12 @@
          <children>
             <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="cancelButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="cancelButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="submitButton" mnemonicParsing="false" text="Submit" />
+                  <Button fx:id="submitButton" mnemonicParsing="false" onAction="#handleSubmit" text="Submit" />
                </children>
             </HBox>
          </children>

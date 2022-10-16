@@ -3,8 +3,8 @@ package model;
 import com.mongodb.client.*;
 import org.bson.Document;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Task {
     private String title;
@@ -16,51 +16,7 @@ public class Task {
     private boolean active;
     private ArrayList<String> comments;
     private ArrayList<String> assignees;
-    private Date date;
-
-    public Task(String title, String description, ArrayList<String> assignees) {
-        this.title = title;
-        this.description = description;
-        this.assignees = assignees;
-    }
-
-    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, Date date) {
-        this.title = title;
-        this.description = description;
-        this.frequency = frequency;
-        this.urgency = urgency;
-        this.type = type;
-        this.progress = progress;
-        this.active = active;
-        this.comments = comments;
-        this.assignees = assignees;
-        this.date = date;
-    }
-
-    public void exportDocument(){
-        try {
-            MongoDBLocal mongoDBLocal = new MongoDBLocal();
-            mongoDBLocal.checkConnection();
-
-            Document document = new Document();
-            document.append("title", this.title);
-            document.append("description", this.description);
-            document.append("frequency", this.frequency);
-            document.append("urgency", this.urgency);
-            document.append("type", this.type);
-            document.append("progress", this.progress);
-            document.append("active", this.active);
-            document.append("comments", this.comments);
-            document.append("assignees", this.assignees);
-            document.append("date", this.date);
-
-            MongoClient mongoClient = MongoClients.create(mongoDBLocal.getUrl());
-            mongoClient.getDatabase("project").getCollection("tasks").insertOne(document);
-        }
-        catch (Exception e) {
-            System.out.println("Something went wrong with MongoDB during exportDocument call.");
-        }
-    }
+    private LocalDate date;
 
     public String getTitle() {
         return title;
@@ -134,11 +90,71 @@ public class Task {
         this.assignees = assignees;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Task(String title, String description, ArrayList<String> assignees) {
+        this.title = title;
+        this.description = description;
+        this.assignees = assignees;
+    }
+
+    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, LocalDate date) {
+        this.title = title;
+        this.description = description;
+        this.frequency = frequency;
+        this.urgency = urgency;
+        this.type = type;
+        this.progress = progress;
+        this.active = active;
+        this.comments = comments;
+        this.assignees = assignees;
+        this.date = date;
+    }
+
+    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> assignees, LocalDate date) {
+        this.title = title;
+        this.description = description;
+        this.frequency = frequency;
+        this.urgency = urgency;
+        this.type = type;
+        this.progress = progress;
+        this.active = active;
+        this.assignees = assignees;
+        this.date = date;
+    }
+
+    public static Task createTaskToDisplay(ArrayList<Object> values) {
+        return new Task((String) values.get(1), (String) values.get(2), (ArrayList<String>) values.get(9));
+    }
+
+    public void exportDocument(){
+        try {
+            MongoDBLocal mongoDBLocal = new MongoDBLocal();
+            mongoDBLocal.checkConnection();
+
+            Document document = new Document();
+            document.append("title", this.title);
+            document.append("description", this.description);
+            document.append("frequency", this.frequency);
+            document.append("urgency", this.urgency);
+            document.append("type", this.type);
+            document.append("progress", this.progress);
+            document.append("active", this.active);
+            document.append("comments", this.comments);
+            document.append("assignees", this.assignees);
+            document.append("date", this.date);
+
+            MongoClient mongoClient = MongoClients.create(mongoDBLocal.getUrl());
+            mongoClient.getDatabase("project").getCollection("tasks").insertOne(document);
+        }
+        catch (Exception e) {
+            System.out.println("Something went wrong with MongoDB during exportDocument call.");
+        }
     }
 }

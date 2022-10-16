@@ -1,5 +1,6 @@
 package controller;
 
+import com.mongodb.client.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,14 +9,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.MongoDBLocal;
 import model.Task;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
+import static com.mongodb.client.model.Filters.eq;
 
 public class OverviewController implements Initializable {
 
@@ -28,19 +32,16 @@ public class OverviewController implements Initializable {
     private Scene scene;
     private Parent root;
 
-    private ArrayList<Task> tasks() {
+    private ArrayList<Task> tasksFromDB() {
         ArrayList<Task> taskList = new ArrayList<>();
 
-        ArrayList<String> assignee = new ArrayList<>();
-        assignee.add("Nikoline");
+        MongoCollection<Document> coll = MongoDBLocal.getTaskColl();
 
-        for (int i = 0; i < 10; i++) {
+        for (Document doc : coll.find(eq("active", true))) {//Task dbTask = new Task();
+            ArrayList<Object> values = new ArrayList<>(doc.values());
 
-            Task task = new Task("The given task", "A new task", assignee);
-
-            taskList.add(task);
+            taskList.add(Task.createTaskToDisplay(values));
         }
-
         return taskList;
     }
 
@@ -48,7 +49,7 @@ public class OverviewController implements Initializable {
         try {
             root = FXMLLoader.load(getClass().getResource("taskForm.fxml"));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root, 800, 500);
+            scene = new Scene(root, 1024, 700);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
@@ -59,7 +60,7 @@ public class OverviewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tasks = new ArrayList<>(tasks());
+        tasks = new ArrayList<>(tasksFromDB());
 
         int columns = 0;
         int rows = 1;

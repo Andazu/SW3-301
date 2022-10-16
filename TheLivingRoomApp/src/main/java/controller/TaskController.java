@@ -24,7 +24,7 @@ public class TaskController {
     private ImageView information;
 
     @FXML
-    private ComboBox dropdownMenu;
+    private ComboBox<String> dropdownMenu;
 
     public void setTask(Task task) {
         progressBar.setProgress(0);
@@ -33,7 +33,7 @@ public class TaskController {
         //minus.setId();
         //edit.setId();
         //information.setId();
-        dropdownMenu.getItems().add(task.getAssignees());
-        dropdownMenu.setValue(task.getAssignees());
+        dropdownMenu.getItems().add(task.getAssignees().get(0));
+        dropdownMenu.setValue(task.getAssignees().get(0));
     }
 }

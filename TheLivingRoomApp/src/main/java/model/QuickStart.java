@@ -7,8 +7,8 @@ import com.mongodb.client.*;
 import static com.mongodb.client.model.Filters.eq;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class QuickStart {
     public static void main( String[] args ) {
@@ -72,7 +72,7 @@ public class QuickStart {
             assignees.add("assigneeId1");
             assignees.add("assigneeId2");
 
-            Date date = new Date();
+            LocalDate date = LocalDate.of(2022,10,1);
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
             User testUser = new User("Anne", "Hansen", "example@gmail.com", "+4531405826", false);

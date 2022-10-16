@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
    <children>
       <StackPane prefHeight="75.0" prefWidth="494.0">
          <children>
@@ -16,26 +17,34 @@
             <Label fx:id="taskLabel" text="The given task" />
          </children>
       </StackPane>
-      <ImageView fx:id="checkmark" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:/Users/louisesteffens/Library/CloudStorage/OneDrive-Personal/Dokumenter/Semester3/Project/SW3-301/TheLivingRoomApp/src/main/resources/launcher/images/checkmarkicon.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="minus" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:/Users/louisesteffens/Library/CloudStorage/OneDrive-Personal/Dokumenter/Semester3/Project/SW3-301/TheLivingRoomApp/src/main/resources/launcher/images/minusIcon.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="edit" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:/Users/louisesteffens/Library/CloudStorage/OneDrive-Personal/Dokumenter/Semester3/Project/SW3-301/TheLivingRoomApp/src/main/resources/launcher/images/editicon.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="information" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:/Users/louisesteffens/Library/CloudStorage/OneDrive-Personal/Dokumenter/Semester3/Project/SW3-301/TheLivingRoomApp/src/main/resources/launcher/images/informationicon.png" />
-         </image>
-      </ImageView>
+      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0">
+               <Image url="@../launcher/images/checkmarkicon.png" />
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0">
+               <Image url="@../launcher/images/minusIcon.png" />
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0">
+               <Image url="@../launcher/images/editicon.png" />
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0">
+               <Image url="@../launcher/images/informationicon.png" />
+            </ImageView>
+         </graphic>
+      </Button>
       <ComboBox fx:id="dropdownMenu" prefHeight="27.0" prefWidth="133.0" />
    </children>
 </HBox>
