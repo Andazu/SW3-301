@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" stylesheets="@../css/overview-employee-page.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewController">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -53,7 +53,7 @@
       </ScrollPane>
    </center>
    <bottom>
-      <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#getTaskForm" text="+ Task" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
+      <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#openTaskFormPage" text="+ Task" textAlignment="CENTER" BorderPane.alignment="CENTER_RIGHT">
          <font>
             <Font size="18.0" />
          </font>

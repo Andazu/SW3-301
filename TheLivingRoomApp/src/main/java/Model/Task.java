@@ -6,6 +6,8 @@ import org.bson.Document;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import static com.mongodb.client.model.Filters.eq;
+
 public class Task {
     private String title;
     private String description;
@@ -131,6 +133,19 @@ public class Task {
 
     public static Task createTaskToDisplay(ArrayList<Object> values) {
         return new Task((String) values.get(1), (String) values.get(2), (ArrayList<String>) values.get(9));
+    }
+
+    public static ArrayList<Task> getActiveTasksFromDB() {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        MongoCollection<Document> coll = MongoDBLocal.getDBColl("tasks");
+
+        for (Document doc : coll.find(eq("active", true))) {
+            ArrayList<Object> values = new ArrayList<>(doc.values());
+
+            taskList.add(createTaskToDisplay(values));
+        }
+        return taskList;
     }
 
     public void exportDocument(){

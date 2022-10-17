@@ -26,7 +26,7 @@ public class TaskController {
     @FXML
     private ComboBox<String> dropdownMenu;
 
-    public void setTask(Task task) {
+    public void setTaskBoxToUI(Task task) {
         progressBar.setProgress(0);
         taskLabel.setText(task.getTitle());
         //checkmark.setId();

@@ -24,11 +24,11 @@ public class MongoDBLocal {
         }
     }
 
-    public static MongoCollection<Document> getTaskColl() {
+    public static MongoCollection<Document> getDBColl(String collPath) {
         MongoDBLocal mongoDBLocal = new MongoDBLocal();
         mongoDBLocal.checkConnection();
         MongoClient mongoClient = MongoClients.create(mongoDBLocal.getUrl());
-        MongoCollection<Document> coll = mongoClient.getDatabase("project").getCollection("tasks");
+        MongoCollection<Document> coll = mongoClient.getDatabase("project").getCollection(collPath);
         return coll;
     }
 }

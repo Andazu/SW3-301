@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddTaskController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" stylesheets="@../css/task-form-page.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskFormController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="912.0" BorderPane.alignment="CENTER">
          <children>
@@ -26,8 +26,8 @@
                   <Label text="Assignee" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <RadioButton fx:id="generalRadioButton" mnemonicParsing="false" onAction="#setGeneralRadioButton" text="General" />
-                        <RadioButton fx:id="specificRadioButton" mnemonicParsing="false" onAction="#setSpecificRadioButton" text="Specific" />
+                        <RadioButton fx:id="generalRadioButton" mnemonicParsing="false" onAction="#setGeneralRadioButtonActive" text="General" />
+                        <RadioButton fx:id="specificRadioButton" mnemonicParsing="false" onAction="#setSpecificRadioButtonActive" text="Specific" />
                      </children>
                   </HBox>
                </children>
@@ -48,12 +48,12 @@
          <children>
             <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="cancelButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+                  <Button fx:id="cancelButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#cancelAndReturnToOverviewPage" text="Cancel" />
                </children>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="submitButton" mnemonicParsing="false" onAction="#handleSubmit" text="Submit" />
+                  <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitAndReturnToOverviewPage" text="Submit" />
                </children>
             </HBox>
          </children>
