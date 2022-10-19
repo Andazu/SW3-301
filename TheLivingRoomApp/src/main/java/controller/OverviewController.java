@@ -15,8 +15,7 @@ import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class OverviewController implements Initializable {
-    private StageMethods stageMethods = new StageMethods();
+public class OverviewController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
     private GridPane taskGrid;
     @FXML
@@ -29,11 +28,11 @@ public class OverviewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) { populateOverviewPageWithTaskBoxes(); }
 
     public void openTaskFormPage(ActionEvent event) {
-        stageMethods.switchStage(overviewEmployeeBorderPane,"task-form-page.fxml");
+        switchScene(overviewEmployeeBorderPane,"task-form-page.fxml");
     }
 
     public void populateOverviewPageWithTaskBoxes() {
-        tasks = new ArrayList<>(Task.getActiveTasksFromDB());
+        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true));
 
         int columns = 1;
         int rows = 1;
