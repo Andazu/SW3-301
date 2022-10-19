@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-page.fxml" afterDir="false" />
-=======
->>>>>>> parent of 5210178 (gitignore)
-=======
->>>>>>> parent of 5210178 (gitignore)
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,14 +128,7 @@
       <workItem from="1665732624269" duration="8317000" />
       <workItem from="1665742871381" duration="827000" />
       <workItem from="1666165512580" duration="589000" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
       <workItem from="1666168859432" duration="172000" />
->>>>>>> parent of 5210178 (gitignore)
-=======
-      <workItem from="1666168859432" duration="172000" />
->>>>>>> parent of 5210178 (gitignore)
     </task>
     <servers />
   </component>
