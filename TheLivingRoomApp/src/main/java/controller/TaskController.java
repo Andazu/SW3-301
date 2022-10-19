@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import model.Task;
+import org.bson.Document;
 
 public class TaskController {
     @FXML
@@ -25,7 +26,7 @@ public class TaskController {
     private ImageView edit;
 
     @FXML
-    private ImageView information;
+    private Button information;
 
     @FXML
     private ComboBox<String> dropdownMenu;
@@ -36,15 +37,16 @@ public class TaskController {
         //check.setId();
         //minus.setId();
         //edit.setId();
-        //information.setId();
+        information.setId(task.getId());
         dropdownMenu.getItems().add(task.getAssignees().get(0));
         dropdownMenu.setValue(task.getAssignees().get(0));
     }
     public void showDescription() {
+        Document doc = DatabaseMethods.getTaskById(information.getId());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Description");
+        alert.setTitle(doc.get("title").toString() + " Description");
         alert.setHeaderText(null);
-        alert.setContentText("TEEESTT");
+        alert.setContentText(doc.get("description").toString());
 
         alert.showAndWait();
     }

@@ -3,6 +3,7 @@ package controller;
 import com.mongodb.client.*;
 import model.*;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,13 @@ public interface DatabaseMethods {
         catch (Exception e) {
             System.out.println("Something went wrong with MongoDB.");
         }
+    }
+
+    static Document getTaskById(String id) {
+        MongoCollection<Document> coll = getDBColl("tasks");
+        ObjectId objectId = new ObjectId(id);
+        Document doc = coll.find(eq("_id", objectId)).first();
+        return doc;
     }
 
      static MongoCollection<Document> getDBColl(String collPath) {

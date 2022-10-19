@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import static com.mongodb.client.model.Filters.eq;
 
 public class Task {
+    private String id;
     private String title;
     private String description;
     private String frequency;
@@ -19,7 +20,13 @@ public class Task {
     private ArrayList<String> comments;
     private ArrayList<String> assignees;
     private LocalDate date;
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getTitle() {
         return title;
     }
@@ -100,7 +107,8 @@ public class Task {
         this.date = date;
     }
 
-    public Task(String title, String description, ArrayList<String> assignees) {
+    public Task(String id, String title, String description, ArrayList<String> assignees) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.assignees = assignees;

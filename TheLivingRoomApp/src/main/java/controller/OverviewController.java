@@ -53,5 +53,8 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
             e.printStackTrace();
         }
     }
+    static Task createTaskToDisplay(ArrayList<Object> values) {
+        return new Task(values.get(0).toString(), (String) values.get(1), (String) values.get(2), (ArrayList<String>) values.get(9));
+    }
 }
 
