@@ -13,8 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class TaskFormController implements Initializable {
-    private StageMethods stageMethods = new StageMethods();
+public class TaskFormController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
     private TextField titleTextField;
     @FXML
@@ -78,14 +77,14 @@ public class TaskFormController implements Initializable {
     }
 
     public void cancelAndReturnToOverviewPage(ActionEvent event) {
-        stageMethods.switchStage(taskFormBorderPane, "overview-employee-page.fxml");
+        switchScene(taskFormBorderPane, "overview-employee-page.fxml");
     }
 
     public void submitAndReturnToOverviewPage(ActionEvent event) {
         Task createdTask = createTaskFromForm();
-        createdTask.exportDocument();
+        exportTaskToDatabase(createdTask);
 
-        stageMethods.switchStage(taskFormBorderPane, "overview-employee-page.fxml");
+        switchScene(taskFormBorderPane, "overview-employee-page.fxml");
     }
 
     public Task createTaskFromForm() {
@@ -107,7 +106,7 @@ public class TaskFormController implements Initializable {
     }
 
     public void addEmployeesToDropdown() {
-        ArrayList<String> employees = User.getEmployeesFromDB();
+        ArrayList<String> employees = DatabaseMethods.getEmployeesFromDB(false);
 
         for (int i = 0; i < employees.size(); i++) {
             assigneeDropdownMenu.getItems().add(employees.get(i));

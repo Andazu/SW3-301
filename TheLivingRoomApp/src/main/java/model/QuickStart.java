@@ -59,7 +59,7 @@ public class QuickStart {
              */
 
             User user = new User("Anne", "Hansen", "example@gmail.com", "+4531405826", false);
-            user.exportDocument();
+            //user.exportDocument();
 
             // Random data to save
             ArrayList<String> comments = new ArrayList<String>();
@@ -79,7 +79,7 @@ public class QuickStart {
             //database.getCollection("users").insertOne(testUser);
 
             Task task = new Task("Sandwich Time", "Butter + chicken", "Every week", "Extremely urgent", "Miscellaneous", 75, true, comments, assignees, date);
-            task.exportDocument();
+            //task.exportDocument();
         }
         catch (Exception e) {
             System.out.println("Something went wrong.");

@@ -130,46 +130,4 @@ public class Task {
         this.assignees = assignees;
         this.date = date;
     }
-
-    public static Task createTaskToDisplay(ArrayList<Object> values) {
-        return new Task((String) values.get(1), (String) values.get(2), (ArrayList<String>) values.get(9));
-    }
-
-    public static ArrayList<Task> getActiveTasksFromDB() {
-        ArrayList<Task> taskList = new ArrayList<>();
-
-        MongoCollection<Document> coll = MongoDBLocal.getDBColl("tasks");
-
-        for (Document doc : coll.find(eq("active", true))) {
-            ArrayList<Object> values = new ArrayList<>(doc.values());
-
-            taskList.add(createTaskToDisplay(values));
-        }
-        return taskList;
-    }
-
-    public void exportDocument(){
-        try {
-            MongoDBLocal mongoDBLocal = new MongoDBLocal();
-            mongoDBLocal.checkConnection();
-
-            Document document = new Document();
-            document.append("title", this.title);
-            document.append("description", this.description);
-            document.append("frequency", this.frequency);
-            document.append("urgency", this.urgency);
-            document.append("type", this.type);
-            document.append("progress", this.progress);
-            document.append("active", this.active);
-            document.append("comments", this.comments);
-            document.append("assignees", this.assignees);
-            document.append("date", this.date);
-
-            MongoClient mongoClient = MongoClients.create(mongoDBLocal.getUrl());
-            mongoClient.getDatabase("project").getCollection("tasks").insertOne(document);
-        }
-        catch (Exception e) {
-            System.out.println("Something went wrong with MongoDB during exportDocument call.");
-        }
-    }
 }
