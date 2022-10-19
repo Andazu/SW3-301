@@ -37,4 +37,13 @@ public class TaskController {
         dropdownMenu.getItems().add(task.getAssignees().get(0));
         dropdownMenu.setValue(task.getAssignees().get(0));
     }
+    public void showDescription() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Description");
+        alert.setHeaderText(null);
+        alert.setContentText("TEEESTT");
+
+        alert.showAndWait();
+    }
+
 }
