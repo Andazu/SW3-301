@@ -1,5 +1,8 @@
 package controller;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,6 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import model.Task;
 import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import static controller.DatabaseMethods.getDBColl;
 
 public class TaskController {
     @FXML
@@ -37,7 +43,7 @@ public class TaskController {
         //check.setId();
         //minus.setId();
         //edit.setId();
-        information.setId(task.getId());
+        information.setId(task.getId().toString());
         dropdownMenu.getItems().add(task.getAssignees().get(0));
         dropdownMenu.setValue(task.getAssignees().get(0));
     }
@@ -57,6 +63,12 @@ public class TaskController {
 
         // get node to remove
         Node p = n.getParent();
+
+        // Convert HBox id to ObjectId type
+        ObjectId id = new ObjectId(p.getId());
+
+        MongoCollection<Document> collection = getDBColl("tasks");
+        collection.updateOne(Filters.eq("_id", id), Updates.set("active", false));
 
         // remove p from parent's child list
         ((GridPane) p.getParent()).getChildren().remove(p);

@@ -2,6 +2,7 @@ package model;
 
 import com.mongodb.client.*;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import static com.mongodb.client.model.Filters.eq;
 
 public class Task {
-    private String id;
+    private ObjectId id;
     private String title;
     private String description;
     private String frequency;
@@ -20,11 +21,11 @@ public class Task {
     private ArrayList<String> comments;
     private ArrayList<String> assignees;
     private LocalDate date;
-    public String getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
     public String getTitle() {
@@ -107,7 +108,7 @@ public class Task {
         this.date = date;
     }
 
-    public Task(String id, String title, String description, ArrayList<String> assignees) {
+    public Task(ObjectId id, String title, String description, ArrayList<String> assignees) {
         this.id = id;
         this.title = title;
         this.description = description;
