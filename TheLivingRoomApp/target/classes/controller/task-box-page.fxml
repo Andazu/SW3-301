@@ -31,7 +31,7 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="i" onAction="#showDescription"/>
+      <Button fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#showDescription" prefHeight="25.0" prefWidth="25.0" text="i" />
       <ComboBox fx:id="dropdownMenu" prefHeight="27.0" prefWidth="133.0" promptText="Add assignee" />
    </children>
 </HBox>

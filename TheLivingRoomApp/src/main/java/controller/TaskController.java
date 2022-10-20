@@ -14,6 +14,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import static controller.DatabaseMethods.getDBColl;
+import static controller.DatabaseMethods.getTaskById;
 
 public class TaskController {
     @FXML
@@ -40,12 +41,8 @@ public class TaskController {
     public void setTaskBoxToUI(Task task) {
         progressBar.setProgress(0);
         taskLabel.setText(task.getTitle());
-        //check.setId();
-        //minus.setId();
-        //edit.setId();
         information.setId(task.getId().toString());
         dropdownMenu.getItems().add(task.getAssignees().get(0));
-        dropdownMenu.setValue(task.getAssignees().get(0));
     }
     public void showDescription() {
         Document doc = DatabaseMethods.getTaskById(information.getId());
