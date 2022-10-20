@@ -72,7 +72,7 @@ public interface DatabaseMethods {
             document.append("description", task.getDescription());
             document.append("frequency", task.getFrequency());
             document.append("urgency", task.getUrgency());
-            document.append("type", task.getUrgency());
+            document.append("type", task.getType());
             document.append("progress", task.getProgress());
             document.append("active", task.isActive());
             document.append("comments", task.getComments());

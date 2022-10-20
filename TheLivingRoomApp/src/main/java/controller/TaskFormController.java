@@ -89,7 +89,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
     public Task createTaskFromForm() {
         ArrayList<String> list = new ArrayList<>();
-        list.add(assigneeDropdownMenu.getValue().toString());
+        list.add(assigneeDropdownMenu.getValue() != null ? assigneeDropdownMenu.getValue().toString() : "General");
 
         return assignValuesFromUI(list);
     }
@@ -97,9 +97,9 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     public Task assignValuesFromUI(ArrayList<String> commentsList) {
         String title = titleTextField.getText();
         String description = descriptionTextField.getText();
-        String frequency = frequencyDropdownMenu.getValue().toString();
-        String urgency = urgencyDropdownMenu.getValue().toString();
-        String type = typeDropdownMenu.getValue().toString();
+        String frequency = frequencyDropdownMenu.getValue() != null ? frequencyDropdownMenu.getValue().toString() : null;
+        String urgency = urgencyDropdownMenu.getValue() != null ? urgencyDropdownMenu.getValue().toString() : null;
+        String type = typeDropdownMenu.getValue() != null ? typeDropdownMenu.getValue().toString() : null;
         LocalDate date = datePicker.getValue();
 
         return new Task(title, description, frequency, urgency, type, 0, true, commentsList, date);
