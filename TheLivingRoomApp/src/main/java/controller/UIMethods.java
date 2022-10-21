@@ -1,9 +1,10 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,5 +17,27 @@ public interface UIMethods {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    default void makeModalDialog(String fxmlFile, int width, int height) {
+        try {
+            Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(fxmlFile));
+            BorderPane dialogBox = loader.load();
+
+            Scene dialogScene = new Scene(dialogBox, width, height);
+            dialog.setScene(dialogScene);
+            dialog.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    default void makeButtonsCancelAndDefault(Button cancel,Button ok) {
+        cancel.setCancelButton(true);
+        ok.setDefaultButton(true);
     }
 }
