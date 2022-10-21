@@ -119,7 +119,7 @@ public interface DatabaseMethods {
 
     default void addCommentToDB(ObjectId id, String comment) {
         MongoCollection<Document> collection = getDBColl("tasks");
-        collection.updateOne(Filters.eq("_id", id), Updates.set("comments", comment));
+        collection.updateOne(Filters.eq("_id", id), Updates.addToSet("comments", comment));
 
     }
 }
