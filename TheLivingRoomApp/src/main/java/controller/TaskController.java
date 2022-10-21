@@ -13,6 +13,9 @@ import model.Task;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+
 import static controller.DatabaseMethods.getDBColl;
 import static controller.DatabaseMethods.getTaskById;
 
@@ -38,11 +41,15 @@ public class TaskController {
     @FXML
     private ComboBox<String> dropdownMenu;
 
+    @FXML
+    private ComboBox<String> dropdownMenuPercent;
+
     public void setTaskBoxToUI(Task task) {
-        progressBar.setProgress(0);
+        progressBar.setProgress(task.getProgress());
         taskLabel.setText(task.getTitle());
         information.setId(task.getId().toString());
         dropdownMenu.getItems().add(task.getAssignees().get(0));
+        dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
     }
     public void showDescription() {
         Document doc = DatabaseMethods.getTaskById(information.getId());
@@ -69,5 +76,18 @@ public class TaskController {
 
         // remove p from parent's child list
         ((GridPane) p.getParent()).getChildren().remove(p);
+    }
+
+    public void updateProgressBar(ActionEvent event) throws ParseException {
+        Node n = (Node) event.getSource();
+
+        // get node to remove
+        Node p = n.getParent();
+
+        // Convert HBox id to ObjectId type
+        ObjectId id = new ObjectId(p.getId());
+
+        MongoCollection<Document> collection = getDBColl("tasks");
+        collection.updateOne(Filters.eq("_id", id), Updates.set("progress", new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue())));
     }
 }

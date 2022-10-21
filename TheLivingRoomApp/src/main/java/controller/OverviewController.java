@@ -58,7 +58,7 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
         }
     }
     static Task createTaskToDisplay(ArrayList<Object> values) {
-        return new Task((ObjectId) values.get(0), (String) values.get(1), (String) values.get(2), (ArrayList<String>) values.get(9));
+        return new Task((ObjectId) values.get(0), (String) values.get(1), (String) values.get(2), (double) values.get(6), (ArrayList<String>) values.get(9));
     }
 }
 

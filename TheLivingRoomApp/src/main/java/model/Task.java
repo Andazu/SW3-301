@@ -16,7 +16,7 @@ public class Task {
     private String frequency;
     private String urgency;
     private String type;
-    private int progress;
+    private double progress;
     private boolean active;
     private ArrayList<String> comments;
     private ArrayList<String> assignees;
@@ -68,11 +68,11 @@ public class Task {
         this.type = type;
     }
 
-    public int getProgress() {
+    public double getProgress() {
         return progress;
     }
 
-    public void setProgress(int progress) {
+    public void setProgress(double progress) {
         this.progress = progress;
     }
 
@@ -108,10 +108,11 @@ public class Task {
         this.date = date;
     }
 
-    public Task(ObjectId id, String title, String description, ArrayList<String> assignees) {
+    public Task(ObjectId id, String title, String description, double progress, ArrayList<String> assignees) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.progress = progress;
         this.assignees = assignees;
     }
 
