@@ -4,11 +4,14 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1000.0" stylesheets="@../css/task-box-page.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="1000.0" stylesheets="@../css/task-box-page.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
    <children>
       <StackPane prefHeight="75.0" prefWidth="494.0">
          <children>
@@ -21,13 +24,21 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="✎" onAction="#addCommentToTask">
+      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addCommentToTask" prefHeight="25.0" prefWidth="25.0" text="✎">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
       <Button fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#showDescription" prefHeight="25.0" prefWidth="25.0" text="i" />
       <ComboBox fx:id="dropdownMenuPercent" onAction="#updateProgressBar" prefHeight="27.0" prefWidth="122.0" promptText="Progress %" />
-      <ComboBox fx:id="dropdownMenu" prefHeight="27.0" prefWidth="122.0" promptText="Add assignee" />
+      <ScrollPane maxHeight="-Infinity" minHeight="50.0" minWidth="100.0" prefHeight="50.0" prefWidth="125.0">
+         <content>
+            <GridPane fx:id="gridPane" alignment="CENTER_LEFT" prefHeight="5.0" prefWidth="5.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
    </children>
 </HBox>

@@ -13,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import launcher.Main;
 import model.User;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,5 +87,20 @@ public interface UIMethods {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(message);
         alert.show();
+    }
+
+    default void descriptionInformation(Document doc) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(doc.get("title").toString() + " Description");
+        alert.setHeaderText(null);
+        alert.setContentText(doc.get("description").toString());
+
+        alert.showAndWait();
+    }
+
+    default Node returnParentNode(ActionEvent event) {
+        Node triggerActionNode = (Node) event.getSource();
+        Node parent = triggerActionNode.getParent();
+        return parent;
     }
 }

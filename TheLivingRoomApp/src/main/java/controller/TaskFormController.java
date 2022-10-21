@@ -1,17 +1,11 @@
 package controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import model.Task;
 import model.User;
 
@@ -75,9 +69,10 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         populateTaskFormWithAssigneeBoxes();
     }
 
-    public void setSelectedAssigneesInvisible(boolean isVisible) {
+    public void setSelectedAssigneesVisible(boolean isVisible) {
         selectedAssignees.setVisible(isVisible);
         scrollPane.setVisible(isVisible);
+        deleteSelected.setVisible(isVisible);
     }
 
     public void setSpecificRadioButtonActive(ActionEvent event) {
@@ -126,17 +121,29 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         String urgency = urgencyDropdownMenu.getValue().toString();
         String type = typeDropdownMenu.getValue().toString();
         LocalDate date = datePicker.getValue();
-        ArrayList<String> assignees = new ArrayList<>(DatabaseMethods.getSelectedAssigneesFromDBToUI());
+
+        ArrayList<String> assignees = addAssigneesToTask();
 
         return new Task(title, description, frequency, urgency, type, 0, true, assignees, date);
     }
 
-    public void logicForRadioButtonsOnAction(RadioButton button, boolean setVisible) {
+    public ArrayList<String> addAssigneesToTask() {
+        ArrayList<String> assignees = new ArrayList<>();
+        if (generalRadioButton.isSelected()) {
+            assignees.add("General");
+        } else {
+            assignees = DatabaseMethods.getSelectedAssigneesFromDBToUI();
+        }
+        return assignees;
+    }
+
+    public void logicForRadioButtonsOnAction(RadioButton button, boolean isDisable) {
         try {
             if (button.isSelected()) {
                 button.setSelected(false);
-                pickAssigneeButton.setDisable(setVisible);
-                scrollPane.setDisable(setVisible);
+                pickAssigneeButton.setDisable(isDisable);
+                scrollPane.setDisable(isDisable);
+                deleteSelected.setDisable(isDisable);
             }
         } catch (IllegalAccessError e) {
             e.printStackTrace();
@@ -173,15 +180,13 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
                     rows++;
                 }
-                setSelectedAssigneesInvisible(false);
+                setSelectedAssigneesVisible(true);
             } else {
-                setSelectedAssigneesInvisible(true);
+                setSelectedAssigneesVisible(false);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        setSelectedAssigneesInvisible(true);
     }
 }

@@ -203,17 +203,17 @@ public interface DatabaseMethods {
 
     }
 
-    default void updateTask(Node parent) {
-        ObjectId id = new ObjectId(parent.getId());
+    default void updateTask(String id) {
+        ObjectId objectId = new ObjectId(id);
 
         MongoCollection<Document> collection = getDBColl("tasks");
-        collection.updateOne(Filters.eq("_id", id), Updates.set("active", false));
+        collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", false));
     }
 
-    default void updateProgressBarInDB(Node parent, ComboBox dropdownMenuPercent) throws ParseException {
-        ObjectId id = new ObjectId(parent.getId());
+    default void updateProgressBarInDB(String id, ComboBox dropdownMenuPercent) throws ParseException {
+        ObjectId objectId = new ObjectId(id);
 
         MongoCollection<Document> collection = getDBColl("tasks");
-        collection.updateOne(Filters.eq("_id", id), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue().toString()))));
+        collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue().toString()))));
     }
 }
