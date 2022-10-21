@@ -1,4 +1,4 @@
-module com.example.testafbootstrapjavafx {
+module com.example {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -11,7 +11,10 @@ module com.example.testafbootstrapjavafx {
     requires org.mongodb.driver.core;
 
     opens controller to javafx.fxml;
+    opens launcher to javafx.fxml;
+    opens model to javafx.fxml;
+
+    exports model;
     exports controller;
     exports launcher;
-    opens launcher to javafx.fxml;
 }

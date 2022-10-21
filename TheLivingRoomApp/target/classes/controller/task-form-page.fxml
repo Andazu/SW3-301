@@ -5,46 +5,18 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="taskFormBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" stylesheets="@../css/task-form-page.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskFormController">
-   <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="912.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="titleTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" promptText="Title" />
-            <TextField fx:id="descriptionTextField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="210.0" promptText="Description" />
-            <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="210.0" promptText="Date" />
-            <ComboBox fx:id="frequencyDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Frequency" />
-            <ComboBox fx:id="urgencyDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Urgency" />
-            <ComboBox fx:id="typeDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Type" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label text="Assignee" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <RadioButton fx:id="generalRadioButton" mnemonicParsing="false" onAction="#setGeneralRadioButtonActive" text="General" />
-                        <RadioButton fx:id="specificRadioButton" mnemonicParsing="false" onAction="#setSpecificRadioButtonActive" text="Specific" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <ComboBox fx:id="assigneeDropdownMenu" prefHeight="25.0" prefWidth="210.0" promptText="Pick Assignee" visible="false" />
-         </children>
-      </VBox>
-   </center>
-   <top>
-      <Label alignment="CENTER" text="Create New Task" BorderPane.alignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-   </top>
+<BorderPane fx:id="taskFormBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1028.0" stylesheets="@../css/task-form-page.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskFormController">
    <bottom>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="28.0" prefWidth="1028.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
@@ -59,4 +31,98 @@
          </children>
       </HBox>
    </bottom>
+   <center>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox prefHeight="100.0" prefWidth="250.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="250.0">
+                     <children>
+                        <Label text="Title">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="titleTextField" prefHeight="25.0" prefWidth="210.0" promptText="Title" />
+                        <Label text="Description">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="descriptionTextField" prefHeight="25.0" prefWidth="210.0" promptText="Description" />
+                        <Label text="Date">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="250.0" promptText="Date" />
+                        <Label text="Frequency">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="frequencyDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Frequency" />
+                        <Label text="Urgency">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="urgencyDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Urgency" />
+                        <Label text="Type">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="typeDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Type" />
+                        <Label text="Assignee">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                           <children>
+                              <RadioButton fx:id="specificRadioButton" mnemonicParsing="false" onAction="#setSpecificRadioButtonActive" text="Specific" />
+                              <RadioButton fx:id="generalRadioButton" mnemonicParsing="false" onAction="#setGeneralRadioButtonActive" text="General" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="pickAssigneeButton" alignment="CENTER" mnemonicParsing="false" onAction="#openTableViewWithEmployees" text="Pick Assignees" />
+                           </children>
+                        </HBox>
+                        <Label fx:id="selectedAssignees" text="Selected Assignees">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fx:id="scrollPane" prefHeight="137.0" prefWidth="250.0">
+                           <content>
+                              <GridPane fx:id="selectedEmployeeGridPane" prefHeight="10.0" prefWidth="10.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                        <Button fx:id="deleteSelected" mnemonicParsing="false" onAction="#deleteSelectedAssignees" text="Delete Selected" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" text="Create New Task">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

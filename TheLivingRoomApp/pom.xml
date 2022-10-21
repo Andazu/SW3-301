@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>TestAfBootstrapJavaFX</artifactId>
+    <artifactId>TheLivingRoomApp</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>TestAfBootstrapJavaFX</name>
+    <name>The Living Room</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

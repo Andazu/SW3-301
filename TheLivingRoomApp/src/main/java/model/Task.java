@@ -18,7 +18,7 @@ public class Task {
     private String type;
     private double progress;
     private boolean active;
-    private ArrayList<String> comments = new ArrayList<>(100);
+    private ArrayList<String> comments = new ArrayList<>(50);
     private ArrayList<String> assignees;
     private LocalDate date;
     public ObjectId getId() {

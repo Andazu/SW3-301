@@ -1,17 +1,33 @@
 package controller;
 
+import com.mongodb.MongoException;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
+import com.mongodb.client.model.changestream.FullDocument;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.InsertOneResult;
+import com.mongodb.client.result.UpdateResult;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import model.*;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.ne;
 import static controller.OverviewController.createTaskToDisplay;
 
 public interface DatabaseMethods {
@@ -26,11 +42,17 @@ public interface DatabaseMethods {
         }
     }
 
-    static Document getTaskById(String id) {
-        MongoCollection<Document> coll = getDBColl("tasks");
+    static Document getDocumentById(String id, String collName) {
+        MongoCollection<Document> coll = getDBColl(collName);
         ObjectId objectId = new ObjectId(id);
         Document doc = coll.find(eq("_id", objectId)).first();
         return doc;
+    }
+
+    static void updateSelectedAssigneeDoc(String id, String collName, boolean delete) {
+        MongoCollection<Document> collection = getDBColl(collName);
+        ObjectId objectId = new ObjectId(id);
+        collection.updateOne(Filters.eq("_id", objectId), Updates.set("delete", delete));
     }
 
      static MongoCollection<Document> getDBColl(String collPath) {
@@ -53,18 +75,75 @@ public interface DatabaseMethods {
         return taskList;
     }
 
-     static ArrayList<String> getEmployeesFromDB(boolean isAdmin) {
-        ArrayList<String> employees = new ArrayList<>();
+     static ArrayList<User> getEmployeesFromDB(boolean isAdmin) {
+        ArrayList<User> employees = new ArrayList<>();
 
         MongoCollection<Document> coll = getDBColl("users");
 
-        for (Document doc : coll.find(eq("admin", isAdmin))) {
+        for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
-            String fullName = values.get(1).toString() + ' ' + values.get(2).toString();
 
-            employees.add(fullName);
+            employees.add(new User(values.get(0).toString(), values.get(1).toString(), values.get(2).toString(), values.get(6).toString()));
         }
         return employees;
+    }
+
+    static ArrayList<User> getSelectedAssigneesFromDB() {
+         ArrayList<User> selectedAssignees = new ArrayList<>();
+
+         MongoCollection<Document> coll = getDBColl("selectedEmployees");
+
+        for (Document doc : coll.find()) {
+            ArrayList<Object> values = new ArrayList<>(doc.values());
+
+            selectedAssignees.add(new User(values.get(0).toString(), values.get(1).toString(), values.get(2).toString()));
+        }
+        return selectedAssignees;
+    }
+
+    static ArrayList<String> getSelectedAssigneesFromDBToUI() {
+        ArrayList<String> selectedAssignees = new ArrayList<>();
+
+        MongoCollection<Document> coll = getDBColl("selectedEmployees");
+
+        for (Document doc : coll.find()) {
+            ArrayList<Object> values = new ArrayList<>(doc.values());
+
+            selectedAssignees.add(values.get(1).toString());
+        }
+        return selectedAssignees;
+    }
+
+    default void deleteSelectedEmployees() {
+        checkConnection();
+        MongoCollection<Document> coll = getDBColl("selectedEmployees");
+
+        coll.deleteMany(ne("fullName", " "));
+    }
+
+    default void deleteSelectedEmployeesFromFormPage() {
+        checkConnection();
+        MongoCollection<Document> coll = getDBColl("selectedEmployees");
+
+        coll.deleteMany(eq("delete", true));
+    }
+
+    default void exportSelectedEmployeesToDB(User user) {
+         try {
+             checkConnection();
+
+             Document document = new Document();
+             ObjectId objectId = new ObjectId(user.getIdProperty());
+             document.append("_id", objectId);
+             document.append("fullName", user.getFirstNameProperty() + ' ' + user.getLastNameProperty());
+             document.append("role", user.getRoleNameProperty());
+             document.append("delete", false);
+
+             MongoClient mongoClient = MongoClients.create(url);
+             mongoClient.getDatabase("project").getCollection("selectedEmployees").insertOne(document);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
     }
 
     default void exportTaskToDatabase(Task task){
@@ -117,9 +196,24 @@ public interface DatabaseMethods {
         return id;
     }
 
-    default void addCommentToDB(ObjectId id, String comment) {
+    default void addCommentToDB(BorderPane addCommentBorderPane, String comment) {
+        ObjectId id = new ObjectId(addCommentBorderPane.getId());
         MongoCollection<Document> collection = getDBColl("tasks");
         collection.updateOne(Filters.eq("_id", id), Updates.addToSet("comments", comment));
 
+    }
+
+    default void updateTask(Node parent) {
+        ObjectId id = new ObjectId(parent.getId());
+
+        MongoCollection<Document> collection = getDBColl("tasks");
+        collection.updateOne(Filters.eq("_id", id), Updates.set("active", false));
+    }
+
+    default void updateProgressBarInDB(Node parent, ComboBox dropdownMenuPercent) throws ParseException {
+        ObjectId id = new ObjectId(parent.getId());
+
+        MongoCollection<Document> collection = getDBColl("tasks");
+        collection.updateOne(Filters.eq("_id", id), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue().toString()))));
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import model.Task;
+import model.User;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
     public void initialize(URL location, ResourceBundle resources) { populateOverviewPageWithTaskBoxes(); }
 
     public void openTaskFormPage(ActionEvent event) {
+        deleteSelectedEmployees();
         switchScene(overviewEmployeeBorderPane,"task-form-page.fxml");
     }
 
@@ -49,19 +51,20 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
                 TaskController taskController = loader.getController();
                 taskController.setTaskBoxToUI(tasks.get(i));
 
-                rows++;
-
                 taskGrid.add(hBox, columns, rows);
+
+                rows++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     static Task createTaskToDisplay(ArrayList<Object> values) {
-        return new Task((ObjectId) values.get(0), (String) values.get(1), (String) values.get(2), (double) values.get(6), (ArrayList<String>) values.get(9));
+        ObjectId id = new ObjectId(values.get(0).toString());
+        return new Task(id, (String) values.get(1), (String) values.get(2), (Double) values.get(6), (ArrayList<String>) values.get(9));
     }
 
-    public void refreshPage(ActionEvent event){
+    public void refreshPage(ActionEvent event) {
         switchScene(overviewEmployeeBorderPane, "overview-employee-page.fxml");
     }
 }
