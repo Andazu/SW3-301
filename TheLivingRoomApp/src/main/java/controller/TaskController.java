@@ -49,7 +49,7 @@ public class TaskController {
         taskLabel.setText(task.getTitle());
         information.setId(task.getId().toString());
         dropdownMenu.getItems().add(task.getAssignees().get(0));
-        dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
+        dropdownMenuPercent.getItems().addAll("25%","50%","75%");
     }
     public void showDescription() {
         Document doc = DatabaseMethods.getTaskById(information.getId());
@@ -88,6 +88,6 @@ public class TaskController {
         ObjectId id = new ObjectId(p.getId());
 
         MongoCollection<Document> collection = getDBColl("tasks");
-        collection.updateOne(Filters.eq("_id", id), Updates.set("progress", new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue())));
+        collection.updateOne(Filters.eq("_id", id), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue()))));
     }
 }
