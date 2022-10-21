@@ -1,6 +1,10 @@
 package controller;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import model.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -104,5 +108,18 @@ public interface DatabaseMethods {
         catch (Exception e) {
             System.out.println("Something went wrong with MongoDB during exportDocument call.");
         }
+    }
+
+    default ObjectId getTaskIdFromButton(ActionEvent event) {
+        Node n = (Node) event.getSource();
+        Node p = n.getParent();
+        ObjectId id = new ObjectId(p.getId());
+        return id;
+    }
+
+    default void addCommentToDB(ObjectId id, String comment) {
+        MongoCollection<Document> collection = getDBColl("tasks");
+        collection.updateOne(Filters.eq("_id", id), Updates.set("comments", comment));
+
     }
 }

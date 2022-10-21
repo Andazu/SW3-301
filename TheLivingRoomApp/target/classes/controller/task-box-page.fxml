@@ -21,7 +21,7 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="✎">
+      <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="✎" onAction="#addCommentToTask">
          <font>
             <Font size="10.0" />
          </font>

@@ -19,7 +19,7 @@ import java.text.ParseException;
 import static controller.DatabaseMethods.getDBColl;
 import static controller.DatabaseMethods.getTaskById;
 
-public class TaskController {
+public class TaskController implements DatabaseMethods, UIMethods{
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -89,5 +89,10 @@ public class TaskController {
 
         MongoCollection<Document> collection = getDBColl("tasks");
         collection.updateOne(Filters.eq("_id", id), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue()))));
+    }
+
+    public void addCommentToTask(ActionEvent event) {
+        ObjectId id = getTaskIdFromButton(event);
+        makeModalDialogWithId("add-comment-page.fxml", 731, 500, id);
     }
 }
