@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
@@ -47,17 +48,28 @@ public interface UIMethods {
         }
     }
 
-    default void makeModalDialog(String fxmlFile, int width, int height, String id) {
+    default void makeModalDialogForAddComment(String fxmlFile, int width, int height) {
+        Stage stage = makeModalStage();
+        FXMLLoader loader = makeModalLoader(fxmlFile);
+        loader.setController(new CommentController());
+        showDialog(loader, stage, width, height);
+    }
+
+    default Stage makeModalStage() {
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        return dialog;
+    }
+
+    default FXMLLoader makeModalLoader(String fxmlFile) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        return loader;
+    }
+
+    default void showDialog(FXMLLoader loader, Stage dialog, int width, int height) {
         try {
-            Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(fxmlFile));
             BorderPane dialogBox = loader.load();
-
-            dialogBox.setId(id);
-
             Scene dialogScene = new Scene(dialogBox, width, height);
             dialog.setScene(dialogScene);
             dialog.show();
