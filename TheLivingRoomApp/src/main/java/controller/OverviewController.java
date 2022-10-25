@@ -30,7 +30,6 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
     public void initialize(URL location, ResourceBundle resources) { populateOverviewPageWithTaskBoxes(); }
 
     public void openTaskFormPage(ActionEvent event) {
-        deleteSelectedEmployees();
         switchScene(overviewEmployeeBorderPane,"task-form-page.fxml");
     }
 

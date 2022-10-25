@@ -83,7 +83,7 @@ public interface DatabaseMethods {
         for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
 
-            employees.add(new User(values.get(0).toString(), values.get(1).toString(), values.get(2).toString(), values.get(6).toString()));
+            employees.add(new User(values.get(0).toString(), values.get(1).toString() + ' ' + values.get(2).toString(), values.get(6).toString()));
         }
         return employees;
     }
@@ -114,29 +114,15 @@ public interface DatabaseMethods {
         return selectedAssignees;
     }
 
-    default void deleteSelectedEmployees() {
-        checkConnection();
-        MongoCollection<Document> coll = getDBColl("selectedEmployees");
-
-        coll.deleteMany(ne("fullName", " "));
-    }
-
-    default void deleteSelectedEmployeesFromFormPage() {
-        checkConnection();
-        MongoCollection<Document> coll = getDBColl("selectedEmployees");
-
-        coll.deleteMany(eq("delete", true));
-    }
-
     default void exportSelectedEmployeesToDB(User user) {
          try {
              checkConnection();
 
              Document document = new Document();
-             ObjectId objectId = new ObjectId(user.getIdProperty());
+             ObjectId objectId = new ObjectId(user.getId());
              document.append("_id", objectId);
-             document.append("fullName", user.getFirstNameProperty() + ' ' + user.getLastNameProperty());
-             document.append("role", user.getRoleNameProperty());
+             document.append("fullName", user.getFullName());
+             document.append("role", user.getRole());
              document.append("delete", false);
 
              MongoClient mongoClient = MongoClients.create(url);

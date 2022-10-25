@@ -81,59 +81,12 @@ public class User {
         this.fullName = fullName;
     }
 
-    public boolean isDelete() {
-        return delete;
-    }
-
-    public void setDelete(boolean delete) {
-        this.delete = delete;
-    }
-
-    public String getIdProperty() {
-        return idProperty.get();
-    }
-
-    public void setIdProperty(String id) {
-        this.idProperty = new SimpleStringProperty(id);
-    }
-
-    public String getFirstNameProperty() {
-        return firstNameProperty.get();
-    }
-
-    public void setFirstNameProperty(String firstNameProperty) {
-        this.firstNameProperty = new SimpleStringProperty(firstNameProperty);
-    }
-
-    public String getLastNameProperty() {
-        return lastNameProperty.get();
-    }
-
-    public void setLastNameProperty(String lastNameProperty) {
-        this.lastNameProperty = new SimpleStringProperty(lastNameProperty);
-    }
-
-    public String getRoleNameProperty() {
-        return roleNameProperty.get();
-    }
-
-    public void setRoleNameProperty(String roleNameProperty) {
-        this.roleNameProperty = new SimpleStringProperty(roleNameProperty);
-    }
-
     public User(String firstName, String lastName, String emailAddress, String phoneNumber, boolean admin) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.admin = admin;
-    }
-
-    public User(String idProperty, String firstNameProperty, String lastNameProperty, String roleNameProperty) {
-        this.idProperty = new SimpleStringProperty(idProperty);
-        this.firstNameProperty = new SimpleStringProperty(firstNameProperty);
-        this.lastNameProperty = new SimpleStringProperty(lastNameProperty);
-        this.roleNameProperty = new SimpleStringProperty(roleNameProperty);
     }
 
     public User(String id, String fullName, String role) {

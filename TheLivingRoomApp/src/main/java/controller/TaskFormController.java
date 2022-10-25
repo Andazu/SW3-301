@@ -34,8 +34,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     @FXML
     private RadioButton specificRadioButton;
     @FXML
-    private Button pickAssigneeButton;
-    @FXML
     private Button cancelButton;
     @FXML
     private Button submitButton;
@@ -47,8 +45,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     private ScrollPane scrollPane;
     @FXML
     private GridPane selectedEmployeeGridPane;
-    @FXML
-    private Button deleteSelected;
     private ArrayList<User> users;
 
     @Override
@@ -67,12 +63,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 "Cleaner", "Bartender", "Barista");
 
         populateTaskFormWithAssigneeBoxes();
-    }
-
-    public void setSelectedAssigneesVisible(boolean isVisible) {
-        selectedAssignees.setVisible(isVisible);
-        scrollPane.setVisible(isVisible);
-        deleteSelected.setVisible(isVisible);
     }
 
     public void setSpecificRadioButtonActive(ActionEvent event) {
@@ -110,10 +100,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         }
     }
 
-    public void openTableViewWithEmployees(ActionEvent event) {
-        switchScene(taskFormBorderPane, "select-multiple-employees-page.fxml");
-    }
-
     public Task createTaskFromValuesFromUI() {
         String title = titleTextField.getText();
         String description = descriptionTextField.getText();
@@ -131,8 +117,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         ArrayList<String> assignees = new ArrayList<>();
         if (generalRadioButton.isSelected()) {
             assignees.add("General");
-        } else {
-            assignees = DatabaseMethods.getSelectedAssigneesFromDBToUI();
         }
         return assignees;
     }
@@ -141,23 +125,9 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         try {
             if (button.isSelected()) {
                 button.setSelected(false);
-                pickAssigneeButton.setDisable(isDisable);
-                scrollPane.setDisable(isDisable);
-                deleteSelected.setDisable(isDisable);
             }
         } catch (IllegalAccessError e) {
             e.printStackTrace();
-        }
-    }
-
-    public void deleteSelectedAssignees(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Delete The Selected Assignee(s)");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.get() == ButtonType.OK) {
-            deleteSelectedEmployeesFromFormPage();
-            switchScene(taskFormBorderPane, "task-form-page.fxml");
         }
     }
 
@@ -180,11 +150,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
                     rows++;
                 }
-                setSelectedAssigneesVisible(true);
-            } else {
-                setSelectedAssigneesVisible(false);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

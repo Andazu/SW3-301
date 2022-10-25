@@ -33,7 +33,7 @@
         </HBox>
     </bottom>
     <center>
-        <TextArea fx:id="addComment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="202.0" prefWidth="357.0" BorderPane.alignment="CENTER" />
+        <TextArea fx:id="addComment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="226.0" prefWidth="464.0" BorderPane.alignment="CENTER" />
     </center>
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
