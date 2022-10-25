@@ -5,15 +5,19 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -31,10 +35,14 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     private ListView commentHistory;
     @FXML
     private BorderPane addCommentBorderPane;
+    @FXML
+    private GridPane addCommentGridPane;
     private String id;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         makeButtonsCancelAndDefault(cancelButton, addCommentButton);
+
+        displayComments();
     }
 
     public void cancelAndReturnToOverviewPage(ActionEvent event) {
@@ -43,14 +51,63 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
 
     public void addCommentAndReturnToOverviewPage(ActionEvent event) {
         if (addComment.getText() != "") {
-            addCommentToDB(addCommentBorderPane, addComment.getText());
+            addCommentToDB(this.id, addComment.getText());
             closeStage(event);
         } else {
             informationDialog("The Comment Cannot Be Empty");
         }
     }
 
-    public void displayComments(String id) {
+    public void displayComments() {
+        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(this.id));
 
+        int columns = 1;
+        int rows = 1;
+
+        try {
+            for(int i = 0; i < comments.size(); i++) {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("comment-box-page.fxml"));
+
+                HBox hBox = loader.load();
+
+                CommentBoxController commentBoxController = loader.getController();
+                commentBoxController.setCommentToUI(comments.get(i));
+
+                addCommentGridPane.add(hBox, columns, rows);
+
+                rows++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
+    public Button getAddCommentButton() {
+        return addCommentButton;
+    }
+
+    public TextArea getAddComment() {
+        return addComment;
+    }
+
+    public ListView getCommentHistory() {
+        return commentHistory;
+    }
+
+    public BorderPane getAddCommentBorderPane() {
+        return addCommentBorderPane;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

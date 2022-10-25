@@ -119,8 +119,8 @@ public interface DatabaseMethods {
         return new ObjectId(p.getId());
     }
 
-    default void addCommentToDB(BorderPane addCommentBorderPane, String comment) {
-        ObjectId id = new ObjectId(addCommentBorderPane.getId());
+    default void addCommentToDB(String stringId, String comment) {
+        ObjectId id = new ObjectId(stringId);
         MongoCollection<Document> collection = getDBColl("tasks");
         collection.updateOne(Filters.eq("_id", id), Updates.addToSet("comments", comment));
 
@@ -146,20 +146,13 @@ public interface DatabaseMethods {
         }
      }
 
-     static ArrayList<String> getCommentsFromDB(BorderPane addCommentBorderPane) {
-         ArrayList<String> commentList = new ArrayList<>();
+    static ArrayList<String> getCommentsFromDB(String idString) {
+        Document doc = getDocumentById(idString, "tasks");
 
-         Document doc = getDocumentById(addCommentBorderPane.getId(), "tasks");
+        ArrayList<Object> values = new ArrayList<>(doc.values());
 
-
-         for (Object comment : doc.values()) {
-             ArrayList<Object> values = new ArrayList<>(doc.values());
-
-             commentList.add((String) comment);
-         }
-
-         return commentList;
-     }
+        return (ArrayList<String>) values.get(8);
+    }
 
      default void emptyCollection(String path){
          MongoCollection<Document> coll = getDBColl(path);

@@ -48,9 +48,11 @@ public interface UIMethods {
         }
     }
 
-    default void makeModalDialog(String fxmlFile, int width, int height) {
+    default void makeModalDialog(String fxmlFile, int width, int height, Object controller) {
         Stage stage = makeModalStage();
         FXMLLoader loader = makeModalLoader(fxmlFile);
+
+        loader.setController(controller);
         
         showDialog(loader, stage, width, height);
     }

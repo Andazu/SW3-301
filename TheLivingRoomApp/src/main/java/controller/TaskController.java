@@ -79,6 +79,11 @@ public class TaskController implements DatabaseMethods, UIMethods {
 
     public void addCommentToTask(ActionEvent event) {
         Node parent = returnParentNode(event);
-        //makeModalDialog("add-comment-page.fxml", 731, 500, parent.getId());
+
+        CommentController commentController = new CommentController();
+
+        commentController.setId(parent.getId());
+
+        makeModalDialog("add-comment-page.fxml", 731, 500, commentController);
     }
 }

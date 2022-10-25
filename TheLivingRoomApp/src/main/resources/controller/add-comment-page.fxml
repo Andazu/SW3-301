@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="addCommentBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="423.0" prefWidth="645.0" stylesheets="@../css/add-comment-page.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CommentController">
+<BorderPane fx:id="addCommentBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="738.0" stylesheets="@../css/add-comment-page.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <Label alignment="CENTER" text="Add comment" BorderPane.alignment="CENTER">
             <font>
@@ -39,12 +39,12 @@
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
    <right>
-        <TextArea fx:id="addComment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="310.0" promptText="Write comment here..." BorderPane.alignment="CENTER" />
+        <TextArea fx:id="addComment" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="310.0" promptText="Write comment here..." wrapText="true" BorderPane.alignment="CENTER" />
    </right>
    <left>
-      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="265.0" BorderPane.alignment="CENTER">
+      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="227.0" prefWidth="328.0" BorderPane.alignment="CENTER">
          <content>
-            <GridPane prefHeight="1.0" prefWidth="156.0">
+            <GridPane fx:id="addCommentGridPane" prefHeight="1.0" prefWidth="156.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
