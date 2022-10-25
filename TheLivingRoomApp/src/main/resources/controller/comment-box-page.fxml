@@ -2,14 +2,9 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="290.0" xmlns="http://javafx.com/javafx/18.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CommentBoxController">
+<HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefWidth="185.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CommentBoxController">
    <children>
-      <StackPane alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" prefWidth="290.0">
-         <children>
-            <Label fx:id="commentDescription" text="Label" wrapText="true" />
-         </children>
-      </StackPane>
+      <Label fx:id="commentDescription" text="Label" wrapText="true" />
    </children>
 </HBox>

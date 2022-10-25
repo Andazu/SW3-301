@@ -60,7 +60,7 @@ public class TaskController implements DatabaseMethods, UIMethods {
         Node parent = returnParentNode(event);
 
         DescriptionController controller = new DescriptionController(parent.getId());
-        makeModalDialog(controller, "description-page.fxml", 700, 500);
+        makeModalDialog(controller, "description-page.fxml", 600, 450);
     }
 
     public void setTaskToInactive(ActionEvent event) {

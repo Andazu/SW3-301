@@ -7,7 +7,9 @@ public class CommentBoxController {
     @FXML
     private Label commentDescription;
 
-    public void setCommentToUI(String s) {
-        commentDescription.setText(s);
+    public void setCommentToUI(String comment, double labelWidth) {
+        commentDescription.setText(comment);
+        commentDescription.setWrapText(true);
+        commentDescription.setMaxWidth(labelWidth);
     }
 }

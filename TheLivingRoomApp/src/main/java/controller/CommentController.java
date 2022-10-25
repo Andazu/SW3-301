@@ -71,9 +71,10 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
                 loader.setLocation(getClass().getResource("comment-box-page.fxml"));
 
                 HBox hBox = loader.load();
+                hBox.setPrefWidth(300);
 
                 CommentBoxController commentBoxController = loader.getController();
-                commentBoxController.setCommentToUI(comments.get(i));
+                commentBoxController.setCommentToUI(comments.get(i), 295);
 
                 addCommentGridPane.add(hBox, columns, rows);
 
