@@ -200,6 +200,12 @@ public interface DatabaseMethods {
         ObjectId objectId = new ObjectId(id);
 
         MongoCollection<Document> collection = getDBColl("tasks");
-        collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue().toString()))));
-    }
+
+        if(dropdownMenuPercent.getValue() == "0%"){
+            collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", 0.0));
+        }
+        else {
+            collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue().toString()))));
+        }
+     }
 }

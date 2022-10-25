@@ -29,7 +29,7 @@ public class TaskController implements DatabaseMethods, UIMethods {
     public void setTaskBoxToUI(Task task) {
         progressBar.setProgress(task.getProgress());
         taskLabel.setText(task.getTitle());
-        dropdownMenuPercent.getItems().addAll("25%","50%","75%");
+        dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
         setAssigneesToGridPane(task.getAssignees());
     }
 
