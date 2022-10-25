@@ -1,5 +1,7 @@
 package controller;
 
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.Task;
 import model.User;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,8 +54,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     public void initialize(URL location, ResourceBundle resources) {
         makeButtonsCancelAndDefault(cancelButton, submitButton);
 
-        specificRadioButton.setSelected(true);
-
         frequencyDropdownMenu.getItems().addAll(
                 "Once", "Everyday", "Every Other Day", "Every Week", "Every Month"
         );
@@ -65,22 +66,31 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         populateTaskFormWithAssigneeBoxes();
     }
 
-    public void setSpecificRadioButtonActive(ActionEvent event) {
-        logicForRadioButtonsOnAction(generalRadioButton, false);
-
-    }
-    public void setGeneralRadioButtonActive(ActionEvent event) {
-        logicForRadioButtonsOnAction(specificRadioButton, true);
-    }
-
     public void cancelAndReturnToOverviewPage(ActionEvent event) {
         switchScene(taskFormBorderPane, "overview-employee-page.fxml");
     }
 
     public void submitAndReturnToOverviewPage(ActionEvent event) {
         Task createdTask = createTaskFromValuesFromUI();
-        exportTaskToDatabase(createdTask);
 
+        ArrayList<User> selectedUsers = DatabaseMethods.getEmployeesFromDB(false, "tempUsers");
+
+        if(selectedUsers.isEmpty()){
+            ArrayList<String> assignees = new ArrayList<String>();
+            assignees.add("General");
+            createdTask.setAssignees(assignees);
+        } else {
+            for (User user : selectedUsers){
+                String userName = user.getFullName();
+                ArrayList<String> assignees = createdTask.getAssignees();
+                assignees.add(userName);
+
+                createdTask.setAssignees(assignees);
+            }
+        }
+        emptyCollection("tempUsers");
+
+        exportTaskToDatabase(createdTask);
         switchScene(taskFormBorderPane, "overview-employee-page.fxml");
     }
 
@@ -107,32 +117,13 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         String urgency = urgencyDropdownMenu.getValue().toString();
         String type = typeDropdownMenu.getValue().toString();
         LocalDate date = datePicker.getValue();
-
-        ArrayList<String> assignees = addAssigneesToTask();
+        ArrayList<String> assignees = new ArrayList<String>();
 
         return new Task(title, description, frequency, urgency, type, 0, true, assignees, date);
     }
 
-    public ArrayList<String> addAssigneesToTask() {
-        ArrayList<String> assignees = new ArrayList<>();
-        if (generalRadioButton.isSelected()) {
-            assignees.add("General");
-        }
-        return assignees;
-    }
-
-    public void logicForRadioButtonsOnAction(RadioButton button, boolean isDisable) {
-        try {
-            if (button.isSelected()) {
-                button.setSelected(false);
-            }
-        } catch (IllegalAccessError e) {
-            e.printStackTrace();
-        }
-    }
-
     public void populateTaskFormWithAssigneeBoxes() {
-        users = new ArrayList<>(DatabaseMethods.getSelectedAssigneesFromDB());
+        users = new ArrayList<>(DatabaseMethods.getEmployeesFromDB(false, "users"));
 
         int columns = 1;
         int rows = 1;

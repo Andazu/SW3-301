@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SelectedEmployeeBoxController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SelectedEmployeeBoxController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -27,7 +27,7 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="73.0">
          <children>
-            <CheckBox fx:id="checkBox" mnemonicParsing="false" onAction="#setAssigneeToDeletion" />
+            <CheckBox fx:id="checkBox" mnemonicParsing="false" onAction="#selectionEvent" />
          </children>
       </HBox>
    </children>

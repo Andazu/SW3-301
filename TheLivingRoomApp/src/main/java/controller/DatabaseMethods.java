@@ -1,34 +1,22 @@
 package controller;
 
-import com.mongodb.MongoException;
 import com.mongodb.client.*;
-import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.model.changestream.FullDocument;
-import com.mongodb.client.result.DeleteResult;
-import com.mongodb.client.result.InsertOneResult;
-import com.mongodb.client.result.UpdateResult;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import model.*;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.ne;
 import static controller.OverviewController.createTaskToDisplay;
 
 public interface DatabaseMethods {
@@ -48,12 +36,6 @@ public interface DatabaseMethods {
         ObjectId objectId = new ObjectId(id);
         Document doc = coll.find(eq("_id", objectId)).first();
         return doc;
-    }
-
-    static void updateSelectedAssigneeDoc(String id, String collName, boolean delete) {
-        MongoCollection<Document> collection = getDBColl(collName);
-        ObjectId objectId = new ObjectId(id);
-        collection.updateOne(Filters.eq("_id", objectId), Updates.set("delete", delete));
     }
 
      static MongoCollection<Document> getDBColl(String collPath) {
@@ -76,10 +58,10 @@ public interface DatabaseMethods {
         return taskList;
     }
 
-     static ArrayList<User> getEmployeesFromDB(boolean isAdmin) {
+     static ArrayList<User> getEmployeesFromDB(boolean isAdmin, String path) {
         ArrayList<User> employees = new ArrayList<>();
 
-        MongoCollection<Document> coll = getDBColl("users");
+        MongoCollection<Document> coll = getDBColl(path);
 
         for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
@@ -88,51 +70,6 @@ public interface DatabaseMethods {
         }
         return employees;
     }
-
-    static ArrayList<User> getSelectedAssigneesFromDB() {
-         ArrayList<User> selectedAssignees = new ArrayList<>();
-
-         MongoCollection<Document> coll = getDBColl("selectedEmployees");
-
-        for (Document doc : coll.find()) {
-            ArrayList<Object> values = new ArrayList<>(doc.values());
-
-            selectedAssignees.add(new User(values.get(0).toString(), values.get(1).toString(), values.get(2).toString()));
-        }
-        return selectedAssignees;
-    }
-
-    static ArrayList<String> getSelectedAssigneesFromDBToUI() {
-        ArrayList<String> selectedAssignees = new ArrayList<>();
-
-        MongoCollection<Document> coll = getDBColl("selectedEmployees");
-
-        for (Document doc : coll.find()) {
-            ArrayList<Object> values = new ArrayList<>(doc.values());
-
-            selectedAssignees.add(values.get(1).toString());
-        }
-        return selectedAssignees;
-    }
-
-    default void exportSelectedEmployeesToDB(User user) {
-         try {
-             checkConnection();
-
-             Document document = new Document();
-             ObjectId objectId = new ObjectId(user.getId());
-             document.append("_id", objectId);
-             document.append("fullName", user.getFullName());
-             document.append("role", user.getRole());
-             document.append("delete", false);
-
-             MongoClient mongoClient = MongoClients.create(url);
-             mongoClient.getDatabase("project").getCollection("selectedEmployees").insertOne(document);
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-    }
-
     default void exportTaskToDatabase(Task task){
         try {
             checkConnection();
@@ -179,8 +116,7 @@ public interface DatabaseMethods {
     default ObjectId getTaskIdFromButton(ActionEvent event) {
         Node n = (Node) event.getSource();
         Node p = n.getParent();
-        ObjectId id = new ObjectId(p.getId());
-        return id;
+        return new ObjectId(p.getId());
     }
 
     default void addCommentToDB(BorderPane addCommentBorderPane, String comment) {
@@ -223,5 +159,10 @@ public interface DatabaseMethods {
          }
 
          return commentList;
+     }
+
+     default void emptyCollection(String path){
+         MongoCollection<Document> coll = getDBColl(path);
+         coll.deleteMany(new Document());
      }
 }

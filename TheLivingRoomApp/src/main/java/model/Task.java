@@ -1,7 +1,5 @@
 package model;
 
-import com.mongodb.client.*;
-import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;

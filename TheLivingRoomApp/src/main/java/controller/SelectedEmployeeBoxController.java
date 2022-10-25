@@ -1,11 +1,19 @@
 package controller;
 
+import com.mongodb.client.ClientSession;
+import com.mongodb.client.MongoCollection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import model.User;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import javax.management.Query;
+
+import static com.mongodb.client.model.Filters.eq;
+import static controller.DatabaseMethods.getDBColl;
 
 public class SelectedEmployeeBoxController {
     @FXML
@@ -21,11 +29,18 @@ public class SelectedEmployeeBoxController {
         role.setText(user.getRole());
     }
 
-    public void setAssigneeToDeletion(ActionEvent event) {
-        if (checkBox.isSelected()) {
-            DatabaseMethods.updateSelectedAssigneeDoc(checkBox.getId(), "selectedEmployees", true);
-        } else {
-            DatabaseMethods.updateSelectedAssigneeDoc(checkBox.getId(), "selectedEmployees", false);
+    public void selectionEvent(ActionEvent event) {
+        MongoCollection<Document> userColl = getDBColl("users");
+        MongoCollection<Document> tempColl = getDBColl("tempUsers");
+
+        Document docFoundInTemp = tempColl.find(eq("_id", new ObjectId(checkBox.getId()))).first();
+
+        if (docFoundInTemp == null){
+            Document docToBeInserted = userColl.find(eq("_id", new ObjectId(checkBox.getId()))).first();
+            tempColl.insertOne(docToBeInserted);
+        }
+        else{
+            tempColl.deleteOne(docFoundInTemp);
         }
     }
 }

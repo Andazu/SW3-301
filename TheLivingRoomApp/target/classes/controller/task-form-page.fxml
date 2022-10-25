@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="taskFormBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1028.0" stylesheets="@../css/task-form-page.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskFormController">
+<BorderPane fx:id="taskFormBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1028.0" stylesheets="@../css/task-form-page.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskFormController">
    <bottom>
       <HBox prefHeight="28.0" prefWidth="1028.0" BorderPane.alignment="CENTER">
          <children>
@@ -82,23 +81,13 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="250.0">
                      <children>
-                        <Label text="Assignee">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-                           <children>
-                              <RadioButton fx:id="specificRadioButton" mnemonicParsing="false" onAction="#setSpecificRadioButtonActive" text="Specific" />
-                              <RadioButton fx:id="generalRadioButton" mnemonicParsing="false" onAction="#setGeneralRadioButtonActive" text="General" />
-                           </children>
-                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" />
                         <Label fx:id="selectedAssignees" text="Selected Assignees">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ScrollPane fx:id="scrollPane" prefHeight="400.0" prefWidth="250.0">
+                        <ScrollPane fx:id="scrollPane" prefHeight="302.0" prefWidth="250.0">
                            <content>
                               <GridPane fx:id="selectedEmployeeGridPane" prefHeight="10.0" prefWidth="10.0">
                                 <columnConstraints>
