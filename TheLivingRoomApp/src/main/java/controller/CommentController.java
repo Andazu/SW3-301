@@ -8,12 +8,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static controller.DatabaseMethods.getDBColl;
@@ -25,6 +27,8 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     private Button addCommentButton;
     @FXML
     private TextArea addComment;
+    @FXML
+    private ListView commentHistory;
     @FXML
     private BorderPane addCommentBorderPane;
     private String id;
@@ -44,5 +48,9 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
         } else {
             informationDialog("The Comment Cannot Be Empty");
         }
+    }
+
+    public void displayComments(String id) {
+
     }
 }

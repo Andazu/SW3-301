@@ -16,7 +16,7 @@
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Todays Date" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="100.0" prefWidth="200.0" text="Today's Date" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>

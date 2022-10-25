@@ -12,6 +12,7 @@ import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
@@ -207,5 +208,20 @@ public interface DatabaseMethods {
         else {
             collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue().toString()))));
         }
+     }
+
+     static ArrayList<String> getCommentsFromDB(BorderPane addCommentBorderPane) {
+         ArrayList<String> commentList = new ArrayList<>();
+
+         Document doc = getDocumentById(addCommentBorderPane.getId(), "tasks");
+
+
+         for (Object comment : doc.values()) {
+             ArrayList<Object> values = new ArrayList<>(doc.values());
+
+             commentList.add((String) comment);
+         }
+
+         return commentList;
      }
 }

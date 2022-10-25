@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UpdateTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DatabaseMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DatabaseMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/add-comment-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/add-comment-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-employee-page.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
