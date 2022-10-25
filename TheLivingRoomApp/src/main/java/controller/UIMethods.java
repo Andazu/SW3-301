@@ -48,10 +48,10 @@ public interface UIMethods {
         }
     }
 
-    default void makeModalDialogForAddComment(String fxmlFile, int width, int height) {
+    default void makeModalDialog(String fxmlFile, int width, int height) {
         Stage stage = makeModalStage();
         FXMLLoader loader = makeModalLoader(fxmlFile);
-        loader.setController(new CommentController());
+        
         showDialog(loader, stage, width, height);
     }
 
