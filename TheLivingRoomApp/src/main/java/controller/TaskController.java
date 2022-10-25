@@ -59,9 +59,8 @@ public class TaskController implements DatabaseMethods, UIMethods {
     public void showDescription(ActionEvent event) {
         Node parent = returnParentNode(event);
 
-        Document doc = DatabaseMethods.getDocumentById(parent.getId(), "tasks");
-
-        descriptionInformation(doc);
+        DescriptionController controller = new DescriptionController(parent.getId());
+        makeModalDialog(controller, "description-page.fxml", 700, 500);
     }
 
     public void setTaskToInactive(ActionEvent event) {
@@ -80,10 +79,7 @@ public class TaskController implements DatabaseMethods, UIMethods {
     public void addCommentToTask(ActionEvent event) {
         Node parent = returnParentNode(event);
 
-        CommentController commentController = new CommentController();
-
-        commentController.setId(parent.getId());
-
-        makeModalDialog("add-comment-page.fxml", 731, 500, commentController);
+        CommentController commentController = new CommentController(parent.getId());
+        makeModalDialog(commentController,"add-comment-page.fxml", 731, 500);
     }
 }

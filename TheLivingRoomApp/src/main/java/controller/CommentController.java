@@ -38,6 +38,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     @FXML
     private GridPane addCommentGridPane;
     private String id;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         makeButtonsCancelAndDefault(cancelButton, addCommentButton);
@@ -59,7 +60,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     }
 
     public void displayComments() {
-        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(this.id));
+        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(id));
 
         int columns = 1;
         int rows = 1;
@@ -83,31 +84,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
         }
     }
 
-    public Button getCancelButton() {
-        return cancelButton;
-    }
-
-    public Button getAddCommentButton() {
-        return addCommentButton;
-    }
-
-    public TextArea getAddComment() {
-        return addComment;
-    }
-
-    public ListView getCommentHistory() {
-        return commentHistory;
-    }
-
-    public BorderPane getAddCommentBorderPane() {
-        return addCommentBorderPane;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+    public CommentController(String id) {
         this.id = id;
     }
 }
