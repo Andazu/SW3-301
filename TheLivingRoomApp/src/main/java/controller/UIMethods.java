@@ -94,11 +94,11 @@ public interface UIMethods {
         alert.show();
     }
 
-    default void descriptionInformation(Document doc) {
+    default void descriptionInformation(String title, String description) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(doc.get("title").toString() + " Description");
+        alert.setTitle(title);
         alert.setHeaderText(null);
-        alert.setContentText(doc.get("description").toString());
+        alert.setContentText(description);
 
         alert.showAndWait();
     }
