@@ -26,7 +26,16 @@ public class TaskController implements DatabaseMethods, UIMethods {
         progressBar.setProgress(task.getProgress());
         taskLabel.setText(task.getTitle());
         dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
+        setDropdownMenuPercentValue(task.getProgress() * 100);
         setAssigneesToGridPane(task.getAssignees());
+    }
+
+    public void setDropdownMenuPercentValue(double dropdownMenuPercentValue) {
+        if (dropdownMenuPercentValue != 0.0) {
+            int progress = (int) dropdownMenuPercentValue;
+            String progressToString = Integer.toString(progress) + '%';
+            dropdownMenuPercent.setValue(progressToString);
+        }
     }
 
     public void setAssigneesToGridPane(ArrayList<String> assignees) {
@@ -69,7 +78,8 @@ public class TaskController implements DatabaseMethods, UIMethods {
 
     public void updateProgressBar(ActionEvent event) throws ParseException {
         Node parent = returnParentNode(event);
-        updateProgressBarInDB(parent.getId(), dropdownMenuPercent, "tasks");
+        double progress = updateProgressBarInDBAndReturnValue(parent.getId(), dropdownMenuPercent.getValue(), "tasks");
+        progressBar.setProgress(progress);
     }
 
     public void addCommentToTask(ActionEvent event) {

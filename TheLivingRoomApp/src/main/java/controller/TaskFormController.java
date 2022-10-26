@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.Task;
@@ -119,20 +120,37 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
         try {
             if (!users.isEmpty()) {
-                for(int i = 0; i < users.size(); i++) {
+                for (User user : users) {
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource("selected-employee-box-page.fxml"));
                     HBox hBox = loader.load();
+
                     SelectedEmployeeBoxController selectedEmployeeBoxController = loader.getController();
-                    selectedEmployeeBoxController.setLabelInBoxUI(users.get(i));
+                    selectedEmployeeBoxController.setLabelInBoxUI(user);
 
                     selectedEmployeeGridPane.add(hBox, columns, rows);
 
                     rows++;
                 }
+            } else {
+                selectedEmployeeGridPane.add(setNoAssigneesLabel(), 1, 1);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public HBox setNoAssigneesLabel() {
+        Label noAssigneesCreatedLabel = new Label("No Assignees Created");
+        noAssigneesCreatedLabel.setMinWidth(225);
+        noAssigneesCreatedLabel.setMinHeight(50);
+        noAssigneesCreatedLabel.setWrapText(true);
+        noAssigneesCreatedLabel.setMaxWidth(200);
+        noAssigneesCreatedLabel.setAlignment(Pos.CENTER);
+
+        HBox hBox = new HBox(noAssigneesCreatedLabel);
+        hBox.setMinWidth(200);
+
+        return hBox;
     }
 }

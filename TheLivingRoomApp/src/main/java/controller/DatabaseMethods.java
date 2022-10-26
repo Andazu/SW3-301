@@ -2,9 +2,6 @@ package controller;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.*;
-import javafx.event.ActionEvent;
-import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
 import model.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -123,17 +120,19 @@ public interface DatabaseMethods {
         collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", false));
     }
 
-    default void updateProgressBarInDB(String id, ComboBox dropdownMenuPercent, String collName) throws ParseException {
+    default double updateProgressBarInDBAndReturnValue(String id, String dropdownMenuPercent, String collName) throws ParseException {
         ObjectId objectId = new ObjectId(id);
 
         MongoCollection<Document> collection = getDBColl(collName);
 
-        if(dropdownMenuPercent.getValue() == "0%"){
+        if(dropdownMenuPercent == "0%"){
             collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", 0.0));
+            return 0.0;
         }
         else {
-            String value = dropdownMenuPercent.getValue().toString();
-            collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(value))));
+            Number value = new DecimalFormat("0.0#%").parse(dropdownMenuPercent);
+            collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent))));
+            return value.doubleValue();
         }
      }
 
@@ -145,8 +144,14 @@ public interface DatabaseMethods {
         return (ArrayList<String>) values.get(8);
     }
 
-     default void emptyCollection(String collName){
+     default Boolean emptyCollection(String collName){
          MongoCollection<Document> coll = getDBColl(collName);
          coll.deleteMany(new Document());
+
+         if (coll.countDocuments() == 0) {
+             return true;
+         } else {
+             return false;
+         }
      }
 }
