@@ -1,4 +1,4 @@
 package controller;
 
-public class DB_Test {
+public class DBTest {
 }
