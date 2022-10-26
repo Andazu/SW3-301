@@ -1,23 +1,16 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import launcher.Main;
-import model.User;
 import org.bson.Document;
-
 import java.io.IOException;
-import java.util.ArrayList;
 
 public interface UIMethods {
     default void switchScene(BorderPane pane, String path) {

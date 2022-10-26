@@ -1,17 +1,13 @@
 package controller;
 
 import com.mongodb.client.*;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Sorts;
-import com.mongodb.client.model.Updates;
+import com.mongodb.client.model.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.BorderPane;
 import model.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -111,12 +107,6 @@ public interface DatabaseMethods {
         catch (Exception e) {
             System.out.println("Something went wrong with MongoDB during exportDocument call.");
         }
-    }
-
-    default ObjectId getTaskIdFromButton(ActionEvent event) {
-        Node n = (Node) event.getSource();
-        Node p = n.getParent();
-        return new ObjectId(p.getId());
     }
 
     default void addCommentToDB(String stringId, String comment) {

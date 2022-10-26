@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/SW3-301.iml" filepath="$PROJECT_DIR$/.idea/SW3-301.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TheLivingRoomApp/TestAfBootstrapJavaFX.iml" filepath="$PROJECT_DIR$/TheLivingRoomApp/TestAfBootstrapJavaFX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" filepath="$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" />
     </modules>
   </component>
 </project>

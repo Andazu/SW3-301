@@ -1,22 +1,15 @@
 package controller;
 
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.Task;
 import model.User;
-import org.bson.Document;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TaskFormController implements Initializable, UIMethods, DatabaseMethods {
@@ -32,10 +25,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     private ComboBox urgencyDropdownMenu;
     @FXML
     private ComboBox typeDropdownMenu;
-    @FXML
-    private RadioButton generalRadioButton;
-    @FXML
-    private RadioButton specificRadioButton;
     @FXML
     private Button cancelButton;
     @FXML

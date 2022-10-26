@@ -5,17 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DatabaseMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DatabaseMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DescriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DescriptionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/SelectedEmployeeBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/SelectedEmployeeBoxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UpdateTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/launcher/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/launcher/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/model/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/selected-employee-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/selected-employee-box-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-form-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-form-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/selected-employee-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/selected-employee-box-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/task-form-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/task-form-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/model/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +80,6 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="launcher.Main" />
-      <module name="TestAfBootstrapJavaFX" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="launcher.*" />
@@ -150,6 +154,7 @@
       <workItem from="1666251399775" duration="210000" />
       <workItem from="1666682450832" duration="976000" />
       <workItem from="1666697864316" duration="404000" />
+      <workItem from="1666768554409" duration="2645000" />
     </task>
     <servers />
   </component>

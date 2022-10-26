@@ -1,7 +1,5 @@
 package model;
 
-import javafx.beans.property.SimpleStringProperty;
-
 public class User {
     private String id;
     private String firstName;
@@ -11,11 +9,6 @@ public class User {
     private String phoneNumber;
     private String role;
     private boolean admin;
-    private boolean delete;
-    private SimpleStringProperty idProperty;
-    private SimpleStringProperty firstNameProperty;
-    private SimpleStringProperty lastNameProperty;
-    private SimpleStringProperty roleNameProperty;
 
     public String getFirstName() {
         return firstName;

@@ -5,13 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import model.Task;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package controller;
 
-import com.mongodb.client.ClientSession;
 import com.mongodb.client.MongoCollection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,8 +8,6 @@ import javafx.scene.control.Label;
 import model.User;
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
-import javax.management.Query;
 
 import static com.mongodb.client.model.Filters.eq;
 import static controller.DatabaseMethods.getDBColl;

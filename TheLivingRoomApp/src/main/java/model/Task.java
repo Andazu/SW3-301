@@ -1,11 +1,8 @@
 package model;
 
 import org.bson.types.ObjectId;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import static com.mongodb.client.model.Filters.eq;
 
 public class Task {
     private ObjectId id;
