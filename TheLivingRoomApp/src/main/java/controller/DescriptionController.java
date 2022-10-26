@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -10,10 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.bson.Document;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.ResourceBundle;
 
-public class DescriptionController implements UIMethods {
+public class DescriptionController implements Initializable, UIMethods {
     @FXML
     private Button okButton;
     @FXML
@@ -36,8 +39,8 @@ public class DescriptionController implements UIMethods {
     private GridPane commentGridPane;
     private String id;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         okButton.setDefaultButton(true);
         descriptionLabel.setWrapText(true);
         setValuesInFields();

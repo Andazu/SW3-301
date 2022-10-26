@@ -146,4 +146,10 @@
          </children>
       </HBox>
    </bottom>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="50.0" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>
