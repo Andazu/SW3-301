@@ -27,7 +27,7 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void populateOverviewPageWithTaskBoxes() {
-        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true));
+        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true, "tasks"));
 
         int columns = 1;
         int rows = 1;

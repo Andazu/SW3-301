@@ -34,7 +34,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
 
     public void addCommentAndReturnToOverviewPage(ActionEvent event) {
         if (addComment.getText() != "") {
-            addCommentToDB(this.id, addComment.getText());
+            addCommentToDB(this.id, addComment.getText(), "tasks");
             closeStage(event);
         } else {
             informationDialog("The Comment Cannot Be Empty");
@@ -42,7 +42,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     }
 
     public void displayComments() {
-        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(id));
+        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(id, "tasks"));
 
         int columns = 1;
         int rows = 1;

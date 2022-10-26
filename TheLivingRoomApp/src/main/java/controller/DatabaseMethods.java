@@ -34,17 +34,17 @@ public interface DatabaseMethods {
         return doc;
     }
 
-     static MongoCollection<Document> getDBColl(String collPath) {
+     static MongoCollection<Document> getDBColl(String collName) {
         checkConnection();
         MongoClient mongoClient = MongoClients.create(url);
-        MongoCollection<Document> coll = mongoClient.getDatabase("project").getCollection(collPath);
+        MongoCollection<Document> coll = mongoClient.getDatabase("project").getCollection(collName);
         return coll;
     }
 
-     static ArrayList<Task> getTasksFromDB(boolean isActive) {
+     static ArrayList<Task> getTasksFromDB(boolean isActive, String collName) {
         ArrayList<Task> taskList = new ArrayList<>();
 
-        MongoCollection<Document> coll = getDBColl("tasks");
+        MongoCollection<Document> coll = getDBColl(collName);
 
         for (Document doc : coll.find(eq("active", isActive))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
@@ -54,10 +54,10 @@ public interface DatabaseMethods {
         return taskList;
     }
 
-     static ArrayList<User> getEmployeesFromDB(boolean isAdmin, String path) {
+     static ArrayList<User> getEmployeesFromDB(boolean isAdmin, String collName) {
         ArrayList<User> employees = new ArrayList<>();
 
-        MongoCollection<Document> coll = getDBColl(path);
+        MongoCollection<Document> coll = getDBColl(collName);
 
         for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
@@ -66,7 +66,7 @@ public interface DatabaseMethods {
         }
         return employees;
     }
-    default void exportTaskToDatabase(Task task){
+    default void exportTaskToDatabase(Task task, String collName){
         try {
             checkConnection();
 
@@ -83,14 +83,14 @@ public interface DatabaseMethods {
             document.append("date", task.getDate());
 
             MongoClient mongoClient = MongoClients.create(url);
-            mongoClient.getDatabase("project").getCollection("tasks").insertOne(document);
+            mongoClient.getDatabase("project").getCollection(collName).insertOne(document);
         }
         catch (Exception e) {
             System.out.println("Something went wrong with MongoDB during exportDocument call.");
         }
     }
 
-    default void exportUserToDatabase(User user){
+    default void exportUserToDatabase(User user, String collName){
         try {
             checkConnection();
 
@@ -102,50 +102,51 @@ public interface DatabaseMethods {
             document.append("admin", user.isAdmin());
 
             MongoClient mongoClient = MongoClients.create(url);
-            mongoClient.getDatabase("project").getCollection("users").insertOne(document);
+            mongoClient.getDatabase("project").getCollection(collName).insertOne(document);
         }
         catch (Exception e) {
             System.out.println("Something went wrong with MongoDB during exportDocument call.");
         }
     }
 
-    default void addCommentToDB(String stringId, String comment) {
+    default void addCommentToDB(String stringId, String comment, String collName) {
         ObjectId id = new ObjectId(stringId);
-        MongoCollection<Document> collection = getDBColl("tasks");
+        MongoCollection<Document> collection = getDBColl(collName);
         collection.updateOne(Filters.eq("_id", id), Updates.addToSet("comments", comment));
 
     }
 
-    default void updateTask(String id) {
+    default void updateTask(String id, String collName) {
         ObjectId objectId = new ObjectId(id);
 
-        MongoCollection<Document> collection = getDBColl("tasks");
+        MongoCollection<Document> collection = getDBColl(collName);
         collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", false));
     }
 
-    default void updateProgressBarInDB(String id, ComboBox dropdownMenuPercent) throws ParseException {
+    default void updateProgressBarInDB(String id, ComboBox dropdownMenuPercent, String collName) throws ParseException {
         ObjectId objectId = new ObjectId(id);
 
-        MongoCollection<Document> collection = getDBColl("tasks");
+        MongoCollection<Document> collection = getDBColl(collName);
 
         if(dropdownMenuPercent.getValue() == "0%"){
             collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", 0.0));
         }
         else {
-            collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent.getValue().toString()))));
+            String value = dropdownMenuPercent.getValue().toString();
+            collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(value))));
         }
      }
 
-    static ArrayList<String> getCommentsFromDB(String idString) {
-        Document doc = getDocumentById(idString, "tasks");
+    static ArrayList<String> getCommentsFromDB(String idString, String collName) {
+        Document doc = getDocumentById(idString, collName);
 
         ArrayList<Object> values = new ArrayList<>(doc.values());
 
         return (ArrayList<String>) values.get(8);
     }
 
-     default void emptyCollection(String path){
-         MongoCollection<Document> coll = getDBColl(path);
+     default void emptyCollection(String collName){
+         MongoCollection<Document> coll = getDBColl(collName);
          coll.deleteMany(new Document());
      }
 }

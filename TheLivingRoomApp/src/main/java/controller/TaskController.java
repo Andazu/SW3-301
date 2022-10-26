@@ -61,7 +61,7 @@ public class TaskController implements DatabaseMethods, UIMethods {
 
     public void setTaskToInactive(ActionEvent event) {
         Node parent = returnParentNode(event);
-        updateTask(parent.getId());
+        updateTask(parent.getId(), "tasks");
 
         // remove p from parent's child list
         ((GridPane) parent.getParent()).getChildren().remove(parent);
@@ -69,7 +69,7 @@ public class TaskController implements DatabaseMethods, UIMethods {
 
     public void updateProgressBar(ActionEvent event) throws ParseException {
         Node parent = returnParentNode(event);
-        updateProgressBarInDB(parent.getId(), dropdownMenuPercent);
+        updateProgressBarInDB(parent.getId(), dropdownMenuPercent, "tasks");
     }
 
     public void addCommentToTask(ActionEvent event) {

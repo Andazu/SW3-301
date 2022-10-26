@@ -81,7 +81,7 @@ public class DescriptionController implements Initializable, UIMethods {
     }
 
     public void displayComments() {
-        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(id));
+        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(id, "tasks"));
 
         int columns = 1;
         int rows = 1;
