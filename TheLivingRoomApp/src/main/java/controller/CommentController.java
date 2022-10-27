@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CommentController implements DatabaseMethods, UIMethods, Initializable {
     @FXML
@@ -20,6 +22,9 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     @FXML
     private GridPane addCommentGridPane;
     private String id;
+
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+    LocalDateTime now = LocalDateTime.now();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,7 +39,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
 
     public void addCommentAndReturnToOverviewPage(ActionEvent event) {
         if (addComment.getText() != "") {
-            addCommentToDB(this.id, addComment.getText(), "tasks");
+            addCommentToDB(this.id, dtf.format(now) + ":\n" + addComment.getText(), "tasks");
             closeStage(event);
         } else {
             informationDialog("The Comment Cannot Be Empty");

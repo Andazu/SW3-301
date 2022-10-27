@@ -5,11 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.bson.Document;
+
 import java.io.IOException;
 
 public interface UIMethods {
@@ -32,7 +31,7 @@ public interface UIMethods {
             Stage stage = new Stage();
 
             stage.setTitle("The Living Room");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("/launcher/Images/notification1.png")));
+            scene.getStylesheets().add("stylesheet.css");
             stage.setScene(scene);
 
             stage.show();

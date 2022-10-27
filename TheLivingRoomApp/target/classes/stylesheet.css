@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+.root {
+    -fx-background-color: white;
+    -fx-border-color: #03045e;
+    -fx-font-family: 'Rubik', sans-serif;
+    -fx-font-size: 13;
+}
+
+.progress-bar{
+    -fx-background-radius: 10;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 10;
+    -fx-background-color: #90e0ef;
+}
+.progress-bar .track {
+    -fx-background-radius: 10;
+}
+
+.button{
+    -fx-background-color: #90e0ef;
+}
+
+.button:hover {
+    -fx-background-color: #00b4d8;
+}
+
+.combo-box{
+    -fx-background-color: #90e0ef;
+}
+
+.combo-box:hover{
+    -fx-background-color: #00b4d8;
+}
+
+.scroll-pane {
+    -fx-hbar-policy: NEVER;
+    -fx-vbar-policy: NEVER;
+}
