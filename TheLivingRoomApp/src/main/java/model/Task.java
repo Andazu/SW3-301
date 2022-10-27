@@ -135,4 +135,12 @@ public class Task {
         this.assignees = assignees;
         this.date = date;
     }
+    public Task(String title, String description, double progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees) {
+        this.title = title;
+        this.description = description;
+        this.progress = progress;
+        this.active = active;
+        this.comments = comments;
+        this.assignees = assignees;
+    }
 }

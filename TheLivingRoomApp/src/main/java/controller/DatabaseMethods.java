@@ -97,6 +97,7 @@ public interface DatabaseMethods {
             document.append("emailAddress", user.getEmailAddress());
             document.append("phoneNumber", user.getPhoneNumber());
             document.append("admin", user.isAdmin());
+            document.append("role", user.getRole());
 
             MongoClient mongoClient = MongoClients.create(url);
             mongoClient.getDatabase("project").getCollection(collName).insertOne(document);
@@ -110,7 +111,6 @@ public interface DatabaseMethods {
         ObjectId id = new ObjectId(stringId);
         MongoCollection<Document> collection = getDBColl(collName);
         collection.updateOne(Filters.eq("_id", id), Updates.addToSet("comments", comment));
-
     }
 
     default void updateTask(String id, String collName) {
