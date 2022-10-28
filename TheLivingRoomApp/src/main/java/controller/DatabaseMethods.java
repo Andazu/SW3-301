@@ -35,28 +35,28 @@ public interface DatabaseMethods {
 
      static MongoCollection<Document> getDBColl(String collName) {
         if (checkConnection()) {
-            try (MongoClient mongoClient = MongoClients.create(url)) {
+            try {
+                MongoClient mongoClient = MongoClients.create(url);
                 return mongoClient.getDatabase("project").getCollection(collName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return null;
     }
 
      static ArrayList<Task> getTasksFromDB(boolean isActive, String collName) {
-        ArrayList<Task> taskList = new ArrayList<>();
+         ArrayList<Task> taskList = new ArrayList<>();
 
-        MongoCollection<Document> coll = getDBColl(collName);
+         MongoCollection<Document> coll = getDBColl(collName);
 
          assert coll != null;
          for (Document doc : coll.find(eq("active", isActive))) {
-            ArrayList<Object> values = new ArrayList<>(doc.values());
+             ArrayList<Object> values = new ArrayList<>(doc.values());
 
-            taskList.add(createTaskToDisplay(values));
-        }
-        return taskList;
+             taskList.add(createTaskToDisplay(values));
+         }
+         return taskList;
     }
 
      static ArrayList<User> getEmployeesFromDB(boolean isAdmin, String collName) {

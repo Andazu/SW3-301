@@ -15,7 +15,7 @@ import java.util.Objects;
 public interface UIMethods {
     default void switchScene(BorderPane pane, String path) {
         try {
-            BorderPane borderPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
+            BorderPane borderPane = FXMLLoader.load(getClass().getResource(path));
             pane.getChildren().setAll(borderPane);
         } catch (IOException e) {
             e.printStackTrace();
