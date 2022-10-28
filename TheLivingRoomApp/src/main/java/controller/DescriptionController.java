@@ -37,7 +37,7 @@ public class DescriptionController implements Initializable, UIMethods {
     private Label assigneeLabel;
     @FXML
     private GridPane commentGridPane;
-    private String id;
+    private final String id;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,14 +53,14 @@ public class DescriptionController implements Initializable, UIMethods {
 
     public void setAssigneeLabel(Document doc) {
         ArrayList<String> assignee = new ArrayList<>((Collection<String>) doc.get("assignees"));
-        if (assignee.get(0) == "General") {
+        if (assignee.get(0).equals("General")) {
             assigneeLabel.setText("Everyone");
         } else {
-            String allAssignees = "";
+            StringBuilder allAssignees = new StringBuilder();
             for (String name: assignee) {
-                allAssignees += name + ". ";
+                allAssignees.append(name).append(". ");
             }
-            assigneeLabel.setText(allAssignees);
+            assigneeLabel.setText(allAssignees.toString());
         }
     }
 
@@ -87,7 +87,7 @@ public class DescriptionController implements Initializable, UIMethods {
         int rows = 1;
 
         try {
-            for(int i = 0; i < comments.size(); i++) {
+            for (String comment : comments) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("comment-box-page.fxml"));
 
@@ -95,7 +95,7 @@ public class DescriptionController implements Initializable, UIMethods {
                 hBox.setPrefWidth(170);
 
                 CommentBoxController commentBoxController = loader.getController();
-                commentBoxController.setCommentToUI(comments.get(i), 165);
+                commentBoxController.setCommentToUI(comment, 165);
 
                 commentGridPane.add(hBox, columns, rows);
 

@@ -16,27 +16,31 @@ public interface DatabaseMethods {
      String url = "mongodb+srv://admin:admin@cluster0.ztdigfr.mongodb.net/?retryWrites=true&w=majority";
 
      static boolean checkConnection(){
-        try (MongoClient mongoClient = MongoClients.create(url)) {
-            System.out.println("Connection successful.");
-            return true;
-        }
-        catch (Exception e) {
-            System.out.println("Something went wrong with MongoDB.");
-            return false;
-        }
+         try (MongoClient mongoClient = MongoClients.create(url)) {
+             System.out.println("Connection successful.");
+             return true;
+         }
+         catch (Exception e) {
+             System.out.println("Something went wrong with MongoDB.");
+             return false;
+         }
     }
 
     static Document getDocumentById(String id, String collName) {
         MongoCollection<Document> coll = getDBColl(collName);
         ObjectId objectId = new ObjectId(id);
-        Document doc = coll.find(eq("_id", objectId)).first();
-        return doc;
+        assert coll != null;
+        return coll.find(eq("_id", objectId)).first();
     }
 
      static MongoCollection<Document> getDBColl(String collName) {
         if (checkConnection()) {
-            MongoClient mongoClient = MongoClients.create(url);
-            return mongoClient.getDatabase("project").getCollection(collName);
+            try (MongoClient mongoClient = MongoClients.create(url)) {
+                return mongoClient.getDatabase("project").getCollection(collName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
         return null;
     }
@@ -46,7 +50,8 @@ public interface DatabaseMethods {
 
         MongoCollection<Document> coll = getDBColl(collName);
 
-        for (Document doc : coll.find(eq("active", isActive))) {
+         assert coll != null;
+         for (Document doc : coll.find(eq("active", isActive))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
 
             taskList.add(createTaskToDisplay(values));
@@ -59,7 +64,8 @@ public interface DatabaseMethods {
 
         MongoCollection<Document> coll = getDBColl(collName);
 
-        for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
+         assert coll != null;
+         for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
 
             employees.add(new User(values.get(0).toString(), values.get(1).toString() + ' ' + values.get(2).toString(), values.get(6).toString()));
@@ -82,6 +88,7 @@ public interface DatabaseMethods {
                 document.append("date", task.getDate());
 
                 MongoCollection<Document> coll = getDBColl(collName);
+                assert coll != null;
                 coll.insertOne(document);
                 return String.valueOf(document.getObjectId("_id"));
             }
@@ -104,6 +111,7 @@ public interface DatabaseMethods {
                 document.append("role", user.getRole());
 
                 MongoCollection<Document> coll = getDBColl(collName);
+                assert coll != null;
                 coll.insertOne(document);
                 return String.valueOf(document.getObjectId("_id"));
             }
@@ -117,6 +125,7 @@ public interface DatabaseMethods {
     default void addCommentToDB(String id, String comment, String collName) {
         ObjectId objectId = new ObjectId(id);
         MongoCollection<Document> collection = getDBColl(collName);
+        assert collection != null;
         collection.updateOne(Filters.eq("_id", objectId), Updates.addToSet("comments", comment));
     }
 
@@ -124,6 +133,7 @@ public interface DatabaseMethods {
         ObjectId objectId = new ObjectId(id);
 
         MongoCollection<Document> collection = getDBColl(collName);
+        assert collection != null;
         collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", SetActive));
     }
 
@@ -132,12 +142,14 @@ public interface DatabaseMethods {
 
         MongoCollection<Document> collection = getDBColl(collName);
 
-        if(dropdownMenuPercent == "0%"){
+        if(dropdownMenuPercent.equals("0%")){
+            assert collection != null;
             collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", 0.0));
             return 0.0;
         }
         else {
             Number value = new DecimalFormat("0.0#%").parse(dropdownMenuPercent);
+            assert collection != null;
             collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", (new DecimalFormat("0.0#%").parse(dropdownMenuPercent))));
             return value.doubleValue();
         }
@@ -153,12 +165,9 @@ public interface DatabaseMethods {
 
      static Boolean emptyCollection(String collName){
          MongoCollection<Document> coll = getDBColl(collName);
+         assert coll != null;
          coll.deleteMany(new Document());
 
-         if (coll.countDocuments() == 0) {
-             return true;
-         } else {
-             return false;
-         }
+         return coll.countDocuments() == 0;
      }
 }

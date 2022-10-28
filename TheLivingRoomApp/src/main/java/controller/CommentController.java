@@ -18,12 +18,10 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     private Button addCommentButton;
     @FXML
     private TextArea addComment;
-
     @FXML
     private GridPane addCommentGridPane;
-    private String id;
-
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+    private final String id;
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
     LocalDateTime now = LocalDateTime.now();
 
     @Override
@@ -38,8 +36,8 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     }
 
     public void addCommentAndReturnToOverviewPage(ActionEvent event) {
-        if (addComment.getText() != "") {
-            addCommentToDB(this.id, dtf.format(now) + ":\n" + addComment.getText(), "tasks");
+        if (addComment.getText().equals("")) {
+            addCommentToDB(this.id, dateTimeFormatter.format(now) + ":\n" + addComment.getText(), "tasks");
             closeStage(event);
         } else {
             informationDialog("The Comment Cannot Be Empty");
@@ -53,7 +51,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
         int rows = 1;
 
         try {
-            for(int i = 0; i < comments.size(); i++) {
+            for (String comment : comments) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("comment-box-page.fxml"));
 
@@ -61,7 +59,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
                 hBox.setPrefWidth(300);
 
                 CommentBoxController commentBoxController = loader.getController();
-                commentBoxController.setCommentToUI(comments.get(i), 295);
+                commentBoxController.setCommentToUI(comment, 295);
 
                 addCommentGridPane.add(hBox, columns, rows);
 
