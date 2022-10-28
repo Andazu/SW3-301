@@ -74,12 +74,13 @@ public class User {
         this.fullName = fullName;
     }
 
-    public User(String firstName, String lastName, String emailAddress, String phoneNumber, boolean admin) {
+    public User(String firstName, String lastName, String emailAddress, String phoneNumber, boolean admin, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.admin = admin;
+        this.role = role;
     }
 
     public User(String id, String fullName, String role) {

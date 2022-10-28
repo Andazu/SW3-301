@@ -70,7 +70,7 @@ public class TaskController implements DatabaseMethods, UIMethods {
 
     public void setTaskToInactive(ActionEvent event) {
         Node parent = returnParentNode(event);
-        updateTask(parent.getId(), "tasks");
+        updateTask(parent.getId(), "tasks", false);
 
         // remove p from parent's child list
         ((GridPane) parent.getParent()).getChildren().remove(parent);

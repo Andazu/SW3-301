@@ -78,7 +78,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 createdTask.setAssignees(assignees);
             }
         }
-        emptyCollection("tempUsers");
+        DatabaseMethods.emptyCollection("tempUsers");
 
         exportTaskToDatabase(createdTask, "tasks");
         switchScene(taskFormBorderPane, "overview-employee-page.fxml");

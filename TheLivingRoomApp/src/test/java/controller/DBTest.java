@@ -1,201 +1,466 @@
 package controller;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Updates;
-import model.Task;
-import model.User;
+import model.*;
 import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.AfterClass;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
-import static com.mongodb.client.model.Filters.eq;
 import static controller.DatabaseMethods.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DBTest implements DatabaseMethods {
-    String collNameTask = "testTask";
-    String collNameUser = "testUser";
-    String taskId = "635908fbe690a6203b0f982d";
-    ArrayList<String> comments = new ArrayList<>();
-    ArrayList<String> assignees = new ArrayList<>();
-    Task testTask = new Task("Exportdatabase Tester", "Task til testing af export", 25.0, true, comments, assignees);;
-    User testUser = new User("Iben", "Torbensen", "Iben.Torbensen@gmail.com", "88888888", true);
-
-    // Laver 2 forskellige Tasks og Users som bliver brugt af alle tests, derfor sørger hver test også
-    // for at slette de ændringer der er lavet.
-   @BeforeAll
-    public static void beforeAll() {
-        String url = "mongodb+srv://admin:admin@cluster0.ztdigfr.mongodb.net/?retryWrites=true&w=majority";
-
-        String collNameTask = "testTask";
-        String collNameUser = "testUser";
-
-        ArrayList<String> comments = new ArrayList<>();
-        ArrayList<String> assignees = new ArrayList<>();
-        Task testTask = new Task("TesterTrue", "Task til testing", 25.0, true, comments, assignees);;
-        User testUser = new User("Preben", "Elkjær", "Preben.Elkjær@gmail.com", "88888888", true);
-
-       try {
-           checkConnection();
-
-           // Laver Task
-           Document task = new Document();
-           task.append("_id", new ObjectId("635908fbe690a6203b0f982d"));
-           task.append("title", testTask.getTitle());
-           task.append("description", testTask.getDescription());
-           task.append("frequency", testTask.getFrequency());
-           task.append("urgency", testTask.getUrgency());
-           task.append("type", testTask.getType());
-           task.append("progress", testTask.getProgress());
-           task.append("active", testTask.isActive());
-           task.append("comments", testTask.getComments());
-           task.append("assignees", testTask.getAssignees());
-           task.append("date", testTask.getDate());
-
-           MongoClient mongoClient = MongoClients.create(url);
-           mongoClient.getDatabase("project").getCollection(collNameTask).insertOne(task);
-
-           task.put("active", false);
-           task.put("title", "TesterFalse");
-           task.put("_id", new ObjectId("635a4e0782a860e977158223"));
-           mongoClient.getDatabase("project").getCollection(collNameTask).insertOne(task);
-
-           //Laver User
-           Document user = new Document();
-           user.append("_id", new ObjectId("635a599682a860e977158224"));
-           user.append("firstName", testUser.getFirstName());
-           user.append("lastName", testUser.getLastName());
-           user.append("emailAddress", testUser.getEmailAddress());
-           user.append("phoneNumber", testUser.getPhoneNumber());
-           user.append("admin", true);
-           user.append("role", "cleaner");
-
-           mongoClient.getDatabase("project").getCollection(collNameUser).insertOne(user);
-
-           user.put("_id", new ObjectId("635a59b082a860e977158225"));
-           user.put("firstName", "Ernst");
-           user.put("admin", false);
-
-           mongoClient.getDatabase("project").getCollection(collNameUser).insertOne(user);
-        }
-        catch (Exception e) {
-            System.out.println("Something went wrong with MongoDB during exportDocument call.");
+public class DBTest implements DatabaseMethods{
+    String collName = "test";
+    @BeforeEach
+    public void setUp() {
+        boolean result = DatabaseMethods.emptyCollection("test");
+        if (result) {
+            System.out.println("Collection deleted");
+        } else {
+            System.out.println("Collection not deleted");
         }
     }
 
-    @AfterAll
-    public static void afterAll() {
-        String collNameTask = "testTask";
-        String collNameUser = "testUser";
-
-        ObjectId taskId = new ObjectId("635908fbe690a6203b0f982d");
-        ObjectId taskId2 = new ObjectId("635a4e0782a860e977158223");
-        ObjectId taskId3 = new ObjectId("635a599682a860e977158224");
-        ObjectId taskId4 = new ObjectId("635a59b082a860e977158225");
-
-        MongoCollection<Document> collTask = getDBColl(collNameTask);
-        MongoCollection<Document> collUser = getDBColl(collNameUser);
-        collTask.deleteOne(eq("_id", taskId));
-        collTask.deleteOne(eq("_id", taskId2));
-        collUser.deleteOne(eq("_id", taskId3));
-        collUser.deleteOne(eq("_id", taskId4));
-    }
-    @Test
-    public void testGetDocumentById() {
-        assertEquals("TesterTrue", getDocumentById(taskId, collNameTask).get("title"));
-    }
-
-    @Test
-    public void testGetTasksFromDBActive() {
-        for (Task task : getTasksFromDB(true, collNameTask)) {
-            assertEquals("TesterTrue", task.getTitle());
-        }
-    }
-    @Test
-    public void testGetTasksFromDBInActive() {
-        for (Task task : getTasksFromDB(false, collNameTask)) {
-            assertEquals("TesterFalse", task.getTitle());
-        }
-    }
-    @Test
-    public void testGetDBColl() {
-        MongoCollection<Document> coll = getDBColl(collNameTask);
-
-        assertEquals("testTask", coll.getNamespace().getCollectionName());
-    }
-
-    @Test
-    public void testAddCommentToDB() {
-        ObjectId id = new ObjectId(taskId);
-        MongoCollection<Document> collection = getDBColl(collNameTask);
-
-        // Tilføjer en ny kommentar.
-        addCommentToDB(taskId, "tester", collNameTask);
-
-        comments.add("tester");
-
-        assertEquals(comments, getCommentsFromDB(taskId, collNameTask));
-
-        // Fjerner kommentaren efter den er blevet lagt ind i databasen.
-        collection.updateOne(Filters.eq("_id", id), Updates.pullAll("comments", comments));
-    }
-
-    @Test
-    public void testGetCommentsFromDB() {
-        ObjectId id = new ObjectId(taskId);
-        MongoCollection<Document> collection = getDBColl(collNameTask);
-
-        collection.updateOne(Filters.eq("_id", id), Updates.addToSet("comments", "tester1"));
-        collection.updateOne(Filters.eq("_id", id), Updates.addToSet("comments", "tester2"));
-
-        comments.add("tester1");
-        comments.add("tester2");
-
-        assertEquals(comments, getCommentsFromDB(taskId, collNameTask));
-
-        // Fjerner kommentaren efter den er blevet lagt ind i databasen.
-        collection.updateOne(Filters.eq("_id", id), Updates.pullAll("comments", comments));
-    }
-
-    @Test
-    public void testGetEmployeesFromDBAdmin() {
-        ArrayList<User> users = getEmployeesFromDB(true, collNameUser);
-
-        for (User user : users) {
-            assertEquals("Preben Elkjær", user.getFullName());
-        }
-    }
-    @Test
-    public void testGetEmployeesFromDBNotAdmin() {
-        ArrayList<User> users = getEmployeesFromDB(false, collNameUser);
-
-        for (User user : users) {
-            assertEquals("Ernst Elkjær", user.getFullName());
+    @AfterClass
+    public static void deleteCollectionAfterLastTest() {
+        boolean result = DatabaseMethods.emptyCollection("test");
+        if (result) {
+            System.out.println("Collection deleted");
+        } else {
+            System.out.println("Collection not deleted");
         }
     }
 
     @Test
-    public void testExportTaskToDatabase() {
-        exportTaskToDatabase(testTask, collNameTask);
-        ArrayList<Task> tasks = getTasksFromDB(true, collNameTask);
+    public void checkConnectionTest() {
+        // [SCENARIO] Test that the connection to the DB is successful
 
-        String titleForTask = "";
+        // [GIVEN] That we have the expected value
+        boolean expected = true;
 
-        for (Task task : tasks) {
-            if (task.getTitle().equals("Exportdatabase Tester")) {
-                titleForTask = task.getTitle();
+        // [WHEN] Connection to the DB
+        boolean actual = checkConnection();
+
+        // [THEN] The expected should be equal to the progress
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getDocumentByIdTest() {
+        // [SCENARIO] Testing we can get a given document by id
+
+        // [GIVEN] That we have the expected values
+        ArrayList<Object> expectedValues = expectedValues();
+
+        // [GIVEN] That we have a Task in DB and get the id from the inserted document
+        String id = populateDBWithTask(true);
+
+        // [WHEN] Getting the document by id
+        Document document = getDocumentById(id, collName);
+
+        // [THEN] Asserting the expected values and the documents values
+        assertEquals(id, document.get("_id").toString());
+        assertDocument(expectedValues, document);
+    }
+
+    @Test
+    public void getDBCollTest() {
+        // [SCENARIO] When getting the collection name from DB, it should be the same name as the CollName
+
+        // [GIVEN] That we have the expected value
+        String expected = collName;
+
+        // [WHEN] Getting the DB collection name
+        MongoCollection<Document> coll = getDBColl(collName);
+
+        // [THEN] Asserting that the collection is not null and the expected should be equal to the collection's name
+        assert coll != null;
+        assertEquals(expected, coll.getNamespace().getCollectionName());
+    }
+
+    @Test
+    public void getTasksFromDBActiveTest() {
+        // [SCENARIO] Testing that the function returns all tasks with has active set to true
+
+        // [GIVEN] That we have a list for ids
+        ArrayList<String> list = new ArrayList<>();
+
+        // [GIVEN] That we have the expected nr of documents and active status
+        int expectedNr = 2;
+
+        // [GIVEN] That we populate the DB with Task
+        String expectedId = populateDBWithTask(true);
+        String expectedId2 = populateDBWithTask(true);
+        populateDBWithTask(false);
+        populateDBWithTask(false);
+
+        // [GIVEN] That we store the id's
+        list.add(expectedId);
+        list.add(expectedId2);
+
+        // [WHEN] Getting the active documents
+        ArrayList<Task> tasks = new ArrayList<>(getTasksFromDB(true, collName));
+
+        // [THEN] Asserting the id's and the expected nr of documents
+        assertEquals(expectedNr, tasks.size());
+        for (int i = 0; i < tasks.size(); i++) {
+            assertEquals(list.get(i), tasks.get(i).getId().toString());
+        }
+    }
+
+    @Test
+    public void getTasksFromDBFalseTest() {
+        // [SCENARIO] Testing that the function returns all tasks with has active set to false
+
+        // [GIVEN] That we have a list for ids
+        ArrayList<String> list = new ArrayList<>();
+
+        // [GIVEN] That we have the expected nr of documents
+        int expectedNr = 3;
+
+        // [GIVEN] That we populate the DB with Task
+        String expectedId = populateDBWithTask(false);
+        String expectedId2 = populateDBWithTask(false);
+        String expectedId3 =populateDBWithTask(false);
+        populateDBWithTask(true);
+
+        // [GIVEN] That we store the id's
+        list.add(expectedId);
+        list.add(expectedId2);
+        list.add(expectedId3);
+
+        // [WHEN] Getting the non-active documents
+        ArrayList<Task> tasks = new ArrayList<>(getTasksFromDB(false, collName));
+
+        // [THEN] Asserting the id's and the expected nr of documents
+        assertEquals(expectedNr, tasks.size());
+        for (int i = 0; i < tasks.size(); i++) {
+            assertEquals(list.get(i), tasks.get(i).getId().toString());
+        }
+    }
+
+    @Test
+    public void getEmployeesFromDBAdminTest() {
+        // [SCENARIO] Testing that the function returns all User with has admin set to true
+
+        // [GIVEN] That we have a list for ids
+        ArrayList<String> list = new ArrayList<>();
+
+        // [GIVEN] That we have the expected nr of documents
+        int expectedNr = 3;
+
+        // [GIVEN] That we populate the DB with User
+        String expectedId = populateDBWithUser(true);
+        String expectedId2 = populateDBWithUser(true);
+        String expectedId3 = populateDBWithUser(true);
+        populateDBWithUser(false);
+
+        // [GIVEN] That we store the id's
+        list.add(expectedId);
+        list.add(expectedId2);
+        list.add(expectedId3);
+
+        // [WHEN] Getting the admin documents
+        ArrayList<User> users = new ArrayList<>(getEmployeesFromDB(true, collName));
+
+        // [THEN] Asserting the id's and the expected nr of documents
+        assertEquals(expectedNr, users.size());
+        for (int i = 0; i < users.size(); i++) {
+            assertEquals(list.get(i), users.get(i).getId());
+        }
+    }
+
+    @Test
+    public void getEmployeesFromDBNotAdminTest() {
+        // [SCENARIO] Testing that the function returns all User with has admin set to false
+
+        // [GIVEN] That we have a list for ids
+        ArrayList<String> list = new ArrayList<>();
+
+        // [GIVEN] That we have the expected nr of documents
+        int expectedNr = 2;
+
+        // [GIVEN] That we populate the DB with User
+        String expectedId = populateDBWithUser(false);
+        String expectedId2 = populateDBWithUser(false);
+        populateDBWithUser(true);
+        populateDBWithUser(true);
+
+        // [GIVEN] That we store the id's
+        list.add(expectedId);
+        list.add(expectedId2);
+
+        // [WHEN] Getting the admin documents
+        ArrayList<User> users = new ArrayList<>(getEmployeesFromDB(false, collName));
+
+        // [THEN] Asserting the id's and the expected nr of documents
+        assertEquals(expectedNr, users.size());
+        for (int i = 0; i < users.size(); i++) {
+            assertEquals(list.get(i), users.get(i).getId());
+        }
+    }
+
+    @Test
+    public void exportTaskToDatabaseTest() {
+        // [SCENARIO] Testing that we can export documents to the DB
+
+        // [GIVEN] That we create a list for expected values
+        ArrayList<String> list = new ArrayList<>();
+
+        // [GIVEN] That we populate the DB with Task
+        String expectedId = populateDBWithTask(true);
+        String expectedId2 = populateDBWithTask(true);
+
+        // [GIVEN] That save the id's from the documents
+        list.add(expectedId);
+        list.add(expectedId2);
+
+        // [WHEN] Getting the documents in the DB
+        ArrayList<Task> tasks = getTasksFromDB(true, collName);
+
+        // [THEN] Asserting the ids from the DB with the stored ids
+        if (tasks.isEmpty()) {
+            throw new AssertionError();
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                assertEquals(list.get(i), tasks.get(i).getId().toString());
             }
         }
-        assertEquals("Exportdatabase Tester", titleForTask);
+    }
 
-        MongoCollection<Document> collTask = getDBColl(collNameTask);
-        collTask.deleteOne(eq("title", testTask.getTitle()));
+    @Test
+    public void exportUserToDatabaseTest() {
+        // [SCENARIO] Testing that we can export documents to the DB
+
+        // [GIVEN] That we create a list for expected values
+        ArrayList<String> list = new ArrayList<>();
+
+        // [GIVEN] That we populate the DB with User
+        String expectedId = populateDBWithUser(false);
+        String expectedId2 = populateDBWithUser(false);
+
+        // [GIVEN] That save the id's from the documents
+        list.add(expectedId);
+        list.add(expectedId2);
+
+        // [WHEN] Getting the documents in the DB
+        ArrayList<User> users = getEmployeesFromDB(false, collName);
+
+        // [THEN] Asserting the ids from the DB with the stored ids
+        if (users.isEmpty()) {
+            throw new AssertionError();
+        } else {
+            for (int i = 0; i < users.size(); i++) {
+                assertEquals(list.get(i), users.get(i).getId());
+            }
+        }
+    }
+
+    @Test
+    public void addCommentToDBTest() {
+        // [SCENARIO] Testing that we can add a comment to a given task, and it would be the last comment
+
+        // [GIVEN] That we have the expectedSize and expectedComment
+        int expectedSize = 11;
+        String expectedComment = "tester";
+
+        // [GIVEN] That the DB is populated with a Task and the expectedId is stored
+        String expectedId = populateDBWithTask(true);
+
+        // [WHEN] Adding the comment to the task and getting the document
+        addCommentToDB(expectedId, expectedComment, collName);
+        Document document = getDocumentById(expectedId, collName);
+
+        // [WHEN] Getting the comments from DB and the size of the list
+        ArrayList<String> commentList = (ArrayList<String>) document.get("comments");
+        int actualSize = commentList.size();
+
+        // [THEN] The expectedSize should be equal to the actualSize and the last comment should be expectedComment
+        assertEquals(expectedSize, actualSize);
+        assertEquals(expectedComment, commentList.get(expectedSize - 1));
+    }
+
+    @Test
+    public void updateTaskToActiveTest() {
+        // [SCENARIO] When updating a Task from DB to set active to true then the document should also have active set to true
+
+        // [GIVEN] That we have the expected value
+        boolean expected = true;
+
+        // [GIVEN] That we have a Task in DB and get the id from the inserted document
+        String id = populateDBWithTask(false);
+
+        // [WHEN] Updating the task to true
+        updateTask(id, collName, true);
+
+        // [WHEN] Getting the active value from the document in DB
+        Document document = getDocumentById(id, collName);
+        boolean actual = (boolean) document.get("active");
+
+        // [THEN] The expected should be equal to the actual
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void updateTaskToFalseTest() {
+        // [SCENARIO] When updating a Task from DB to set active to false then the document should also have active set to false
+
+        // [GIVEN] That we have the expected value
+        boolean expected = false;
+
+        // [GIVEN] That we have a Task in DB and get the id from the inserted document
+        String id = populateDBWithTask(true);
+
+        // [WHEN] Updating the task to true
+        updateTask(id, collName, false);
+
+        // [WHEN] Getting the active value from the document in DB
+        Document document = getDocumentById(id, collName);
+        boolean actual = (boolean) document.get("active");
+
+        // [THEN] The expected should be equal to the actual
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void updateProgressBarInDBWithZeroAndReturnValueTest() throws ParseException {
+        // [SCENARIO] When updating the progress dropdown menu with "0%" then it should be 0.0 in the DB
+
+        // [GIVEN] That we have the expected value
+        double expected = 0.0;
+
+        // [GIVEN] That we have a Task in DB and get the id from the inserted document
+        String id = populateDBWithTask(true);
+
+        // [WHEN] Updating the Task with "0%"
+        double actual = updateProgressBarInDBAndReturnValue(id, "0%", collName);
+
+        // [THEN] The expected should be equal to the actual
+        assertEquals(expected, actual);
+
+        // [WHEN] Getting the progress value from the document in DB
+        Document document = getDocumentById(id, collName);
+        double progress = (double) document.get("progress");
+
+        // [THEN] The expected should be equal to the progress
+        assertEquals(expected, progress);
+    }
+
+    @Test
+    public void updateProgressBarInDBWithNonZeroAndReturnValueTest() throws ParseException {
+        // [SCENARIO] When updating the progress dropdown menu with "75%" then it should be 0.75 in the DB
+
+        // [GIVEN] That we have the expected value
+        double expected = 0.75;
+
+        // [GIVEN] That we have a Task in DB and get the id from the inserted document
+        String id = populateDBWithTask(true);
+
+        // [WHEN] Updating the Task with "75%"
+        double actual = updateProgressBarInDBAndReturnValue(id, "75%", collName);
+
+        // [THEN] The expected should be equal to the actual
+        assertEquals(expected, actual);
+
+        // [WHEN] Getting the progress value from the document in DB
+        Document document = getDocumentById(id, collName);
+        double progress = (double) document.get("progress");
+
+        // [THEN] The expected should be equal to the progress
+        assertEquals(expected, progress);
+    }
+
+    @Test
+    public void getCommentsFromDBTest() {
+        // [SCENARIO] Testing that we can get comments from a given Task
+
+        // [GIVEN] That we have a list of comments
+        ArrayList<String> expectedComments = makeArrayList();
+
+        // [GIVEN] That we populate the DB with a Task
+        String id = populateDBWithTask(true);
+
+        // [WHEN] Getting the comments from DB
+        ArrayList<String> actualComments = getCommentsFromDB(id, collName);
+
+        // [THEN] The expectedComments should be equal to actualComments
+        assertEquals(expectedComments, actualComments);
+    }
+
+    @Test
+    public void emptyCollectionWhenCollIsEmptyTest() {
+        // [SCENARIO] When empty a DB collection that is already empty should return true and do not give an error
+
+        // [GIVEN] That we have the expected outcome
+        boolean expected = true;
+
+        // [WHEN] Emptying the empty collection
+        boolean actual = emptyCollection(collName);
+
+        // [THEN] The expected should be equal to the actual
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void emptyCollectionWhenCollIsNotEmptyTest() {
+        // [SCENARIO] When empty a DB collection that is not empty should return true
+
+        // [GIVEN] That we have the expected outcome
+        boolean expected = true;
+
+        // [GIVEN] That we populate the DB with a Task
+        populateDBWithTask(true);
+
+        // [GIVEN] That we populate the DB with a User
+        populateDBWithUser(false);
+
+        // [WHEN] Emptying the empty collection
+        boolean actual = emptyCollection(collName);
+
+        // [THEN] The expected should be equal to the actual
+        assertEquals(expected, actual);
+    }
+
+    private void assertDocument(ArrayList<Object> expectedValues, Document document) {
+        assertEquals(expectedValues.get(0), document.get("title"));
+        assertEquals(expectedValues.get(1), document.get("description"));
+        assertEquals(expectedValues.get(2), document.get("progress"));
+        assertEquals(expectedValues.get(3), document.get("active"));
+        assertEquals(expectedValues.get(4), document.get("comments"));
+        assertEquals(expectedValues.get(5), document.get("assignees"));
+    }
+
+    private ArrayList<Object> expectedValues() {
+        ArrayList<Object> list = new ArrayList<>();
+        list.add("test");
+        list.add("test task");
+        list.add(0.5);
+        list.add(true);
+        list.add(makeArrayList());
+        list.add(makeArrayList());
+        return list;
+    }
+
+    private String populateDBWithTask(boolean isActive) {
+        ArrayList<String> comments = makeArrayList();
+        ArrayList<String> assignees = makeArrayList();
+
+        return exportTaskToDatabase(new Task("test", "test task", 0.5, isActive, comments, assignees), collName);
+    }
+
+    private String populateDBWithUser(boolean isAdmin) {
+        return exportUserToDatabase(new User("firstName", "secondName", "email", "phoneNumber", isAdmin, "cleaner"), collName);
+    }
+
+    private ArrayList<String> makeArrayList() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add("dummy string " + i);
+        }
+        return list;
     }
 }
