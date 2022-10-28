@@ -10,11 +10,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public interface UIMethods {
     default void switchScene(BorderPane pane, String path) {
         try {
-            BorderPane borderPane = FXMLLoader.load(getClass().getResource(path));
+            BorderPane borderPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(path)));
             pane.getChildren().setAll(borderPane);
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,7 +105,6 @@ public interface UIMethods {
 
     default Node returnParentNode(ActionEvent event) {
         Node triggerActionNode = (Node) event.getSource();
-        Node parent = triggerActionNode.getParent();
-        return parent;
+        return triggerActionNode.getParent();
     }
 }

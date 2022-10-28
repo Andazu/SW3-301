@@ -15,7 +15,6 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
     private GridPane taskGrid;
     @FXML
     private Button addTaskButton;
-    private ArrayList<Task> tasks;
     @FXML
     private BorderPane overviewEmployeeBorderPane;
 
@@ -27,21 +26,21 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void populateOverviewPageWithTaskBoxes() {
-        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true, "tasks"));
+        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true, "tasks"));
 
         int columns = 1;
         int rows = 1;
 
         try {
-            for(int i = 0; i < tasks.size(); i++) {
+            for (Task task : tasks) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("task-box-page.fxml"));
 
                 HBox hBox = loader.load();
-                hBox.setId(tasks.get(i).getId().toString()); // Store task id as hBox id
+                hBox.setId(task.getId().toString()); // Store task id as hBox id
 
                 TaskController taskController = loader.getController();
-                taskController.setTaskBoxToUI(tasks.get(i));
+                taskController.setTaskBoxToUI(task);
 
                 taskGrid.add(hBox, columns, rows);
 

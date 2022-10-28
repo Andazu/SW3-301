@@ -21,11 +21,11 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     @FXML
     private DatePicker datePicker;
     @FXML
-    private ComboBox frequencyDropdownMenu;
+    private ComboBox<String> frequencyDropdownMenu;
     @FXML
-    private ComboBox urgencyDropdownMenu;
+    private ComboBox<String> urgencyDropdownMenu;
     @FXML
-    private ComboBox typeDropdownMenu;
+    private ComboBox<String> typeDropdownMenu;
     @FXML
     private Button cancelButton;
     @FXML
@@ -38,7 +38,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     private ScrollPane scrollPane;
     @FXML
     private GridPane selectedEmployeeGridPane;
-    private ArrayList<User> users;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,7 +65,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         ArrayList<User> selectedUsers = DatabaseMethods.getEmployeesFromDB(false, "tempUsers");
 
         if(selectedUsers.isEmpty()){
-            ArrayList<String> assignees = new ArrayList<String>();
+            ArrayList<String> assignees = new ArrayList<>();
             assignees.add("General");
             createdTask.setAssignees(assignees);
         } else {
@@ -92,9 +91,9 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         }
     }
 
-    public String getStringFromComboBox(ComboBox comboBox) {
+    public String getStringFromComboBox(ComboBox<String> comboBox) {
         if (comboBox.getValue() != null) {
-            return comboBox.getValue().toString();
+            return comboBox.getValue();
         } else {
             return "";
         }
@@ -103,17 +102,17 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     public Task createTaskFromValuesFromUI() {
         String title = titleTextField.getText();
         String description = descriptionTextField.getText();
-        String frequency = frequencyDropdownMenu.getValue().toString();
-        String urgency = urgencyDropdownMenu.getValue().toString();
-        String type = typeDropdownMenu.getValue().toString();
+        String frequency = frequencyDropdownMenu.getValue();
+        String urgency = urgencyDropdownMenu.getValue();
+        String type = typeDropdownMenu.getValue();
         LocalDate date = datePicker.getValue();
-        ArrayList<String> assignees = new ArrayList<String>();
+        ArrayList<String> assignees = new ArrayList<>();
 
         return new Task(title, description, frequency, urgency, type, 0, true, assignees, date);
     }
 
     public void populateTaskFormWithAssigneeBoxes() {
-        users = new ArrayList<>(DatabaseMethods.getEmployeesFromDB(false, "users"));
+        ArrayList<User> users = new ArrayList<>(DatabaseMethods.getEmployeesFromDB(false, "users"));
 
         int columns = 1;
         int rows = 1;

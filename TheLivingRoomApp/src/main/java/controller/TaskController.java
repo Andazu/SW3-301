@@ -43,14 +43,14 @@ public class TaskController implements DatabaseMethods, UIMethods {
         int rows = 1;
 
         try {
-            for (int i = 0; i < assignees.size(); i++) {
+            for (String assignee : assignees) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("assignee-box-page.fxml"));
 
                 HBox hBox = loader.load();
 
                 AssigneeController assigneeController = loader.getController();
-                assigneeController.setAssigneeName(assignees.get(i));
+                assigneeController.setAssigneeName(assignee);
 
                 gridPane.add(hBox, columns, rows);
 

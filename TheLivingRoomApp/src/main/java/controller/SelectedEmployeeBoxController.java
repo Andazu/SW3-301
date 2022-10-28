@@ -30,10 +30,13 @@ public class SelectedEmployeeBoxController {
         MongoCollection<Document> userColl = getDBColl("users");
         MongoCollection<Document> tempColl = getDBColl("tempUsers");
 
+        assert tempColl != null;
         Document docFoundInTemp = tempColl.find(eq("_id", new ObjectId(checkBox.getId()))).first();
 
         if (docFoundInTemp == null){
+            assert userColl != null;
             Document docToBeInserted = userColl.find(eq("_id", new ObjectId(checkBox.getId()))).first();
+            assert docToBeInserted != null;
             tempColl.insertOne(docToBeInserted);
         }
         else{
