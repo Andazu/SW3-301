@@ -1,16 +1,22 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.Task;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TaskController implements DatabaseMethods, UIMethods {
     @FXML
@@ -20,14 +26,23 @@ public class TaskController implements DatabaseMethods, UIMethods {
     @FXML
     private ComboBox<String> dropdownMenuPercent;
     @FXML
-    private GridPane gridPane;
+    private Button expandAssigneeButton;
+    @FXML
+    private HBox hBox;
+    @FXML
+    private VBox vBoxTheWholeBox;
+    @FXML
+    private ImageView imageView;
+    private ArrayList<String> assignees = new ArrayList<>();
 
     public void setTaskBoxToUI(Task task) {
+        expandAssigneeButton.setId("down");
+        assignees = task.getAssignees();
+
         progressBar.setProgress(task.getProgress());
         taskLabel.setText(task.getTitle());
         dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
         setDropdownMenuPercentValue(task.getProgress() * 100);
-        setAssigneesToGridPane(task.getAssignees());
     }
 
     public void setDropdownMenuPercentValue(double dropdownMenuPercentValue) {
@@ -38,38 +53,15 @@ public class TaskController implements DatabaseMethods, UIMethods {
         }
     }
 
-    public void setAssigneesToGridPane(ArrayList<String> assignees) {
-        int columns = 1;
-        int rows = 1;
-
-        try {
-            for (String assignee : assignees) {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("assignee-box-page.fxml"));
-
-                HBox hBox = loader.load();
-
-                AssigneeController assigneeController = loader.getController();
-                assigneeController.setAssigneeName(assignee);
-
-                gridPane.add(hBox, columns, rows);
-
-                rows++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void showDescription(ActionEvent event) {
-        Node parent = returnParentNode(event);
+        Node parent = returnParentsParentNode(event);
 
         DescriptionController controller = new DescriptionController(parent.getId());
         makeModalDialog(controller, "description-page.fxml", 700, 450);
     }
 
     public void setTaskToInactive(ActionEvent event) {
-        Node parent = returnParentNode(event);
+        Node parent = returnParentsParentNode(event);
         updateTask(parent.getId(), "tasks", false);
 
         // remove p from parent's child list
@@ -77,15 +69,64 @@ public class TaskController implements DatabaseMethods, UIMethods {
     }
 
     public void updateProgressBar(ActionEvent event) throws ParseException {
-        Node parent = returnParentNode(event);
+        Node parent = returnParentsParentNode(event);
         double progress = updateProgressBarInDBAndReturnValue(parent.getId(), dropdownMenuPercent.getValue(), "tasks");
         progressBar.setProgress(progress);
     }
 
     public void addCommentToTask(ActionEvent event) {
-        Node parent = returnParentNode(event);
+        Node parent = returnParentsParentNode(event);
 
         CommentController commentController = new CommentController(parent.getId());
         makeModalDialog(commentController,"add-comment-page.fxml", 731, 500);
+    }
+
+    public void expandToViewAssignees(ActionEvent event) {
+        if (Objects.equals(expandAssigneeButton.getId(), "down")) {
+            setNewImageInImageView("images/up-chevron.png", "up");
+
+            hBox.getChildren().add(placeAssigneesWhenExpanded());
+        } else {
+            setNewImageInImageView("images/down-chevron.png", "down");
+
+            resetTaskBox();
+        }
+    }
+
+    public void resetTaskBox() {
+        hBox.getChildren().remove(0);
+        hBox.setPrefHeight(0);
+        vBoxTheWholeBox.setPrefHeight(75);
+    }
+
+    public void setNewImageInImageView(String path, String id) {
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
+        imageView.setImage(image);
+
+        expandAssigneeButton.setId(id);
+    }
+
+    public VBox placeAssigneesWhenExpanded() {
+        VBox expandVBox = createVboxForLabels();
+
+        double prefHeight = expandVBox.getPrefHeight();
+        for (String assignee : assignees) {
+            Label name = new Label(assignee);
+
+            expandVBox.getChildren().add(name);
+            prefHeight += 20;
+        }
+        vBoxTheWholeBox.setPrefHeight(75 + prefHeight);
+
+        expandVBox.setPrefHeight(prefHeight);
+        return expandVBox;
+    }
+
+    public VBox createVboxForLabels() {
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER_LEFT);
+        vBox.setSpacing(10);
+        vBox.setPrefWidth(167);
+        return vBox;
     }
 }

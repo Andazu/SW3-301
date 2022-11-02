@@ -36,13 +36,13 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("task-box-page.fxml"));
 
-                HBox hBox = loader.load();
-                hBox.setId(task.getId().toString()); // Store task id as hBox id
+                VBox vBox = loader.load();
+                vBox.setId(task.getId().toString()); // Store task id as hBox id
 
                 TaskController taskController = loader.getController();
                 taskController.setTaskBoxToUI(task);
 
-                taskGrid.add(hBox, columns, rows);
+                taskGrid.add(vBox, columns, rows);
 
                 rows++;
             }

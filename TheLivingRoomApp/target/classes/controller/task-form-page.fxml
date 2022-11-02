@@ -15,14 +15,6 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="taskFormBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1028.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskFormController">
-   <bottom>
-      <HBox prefHeight="28.0" prefWidth="1028.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <HBox alignment="BOTTOM_RIGHT" prefHeight="84.0" prefWidth="514.0" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-   </bottom>
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -119,7 +111,7 @@
                         </Label>
                         <ScrollPane fx:id="scrollPane" prefHeight="346.0" prefWidth="230.0">
                            <content>
-                              <GridPane fx:id="selectedEmployeeGridPane" prefHeight="10.0" prefWidth="10.0">
+                              <GridPane fx:id="selectedEmployeeGridPane" prefHeight="10.0" prefWidth="10.0" stylesheets="@../stylesheet.css">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>

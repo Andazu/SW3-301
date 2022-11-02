@@ -6,6 +6,7 @@ import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -103,16 +104,12 @@ public interface UIMethods {
         alert.showAndWait();
     }
 
-    default Node returnParentNode(ActionEvent event) {
+    default Node returnParentsParentNode(ActionEvent event) {
         Node triggerActionNode = (Node) event.getSource();
-        return triggerActionNode.getParent();
+        return triggerActionNode.getParent().getParent();
     }
 
-    default void addCssToCancelButtons(Button button) {
-        button.getStyleClass().add("cancel-button");
-    }
-
-    default void addCssToSubmitButtons(Button button) {
-        button.getStyleClass().add("submit-button");
+    default void addCssToButtons(Button button, String cssClass) {
+        button.getStyleClass().add(cssClass);
     }
 }

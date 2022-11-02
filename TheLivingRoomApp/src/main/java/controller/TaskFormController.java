@@ -42,8 +42,8 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addCssToSubmitButtons(submitButton);
-        addCssToCancelButtons(cancelButton);
+        addCssToButtons(cancelButton, "cancel-button");
+        addCssToButtons(submitButton, "submit-button");
 
         makeButtonsCancelAndDefault(cancelButton, submitButton);
 

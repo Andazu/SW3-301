@@ -35,13 +35,6 @@
     -fx-background-color: #00b4d8;
 }
 
-.scroll-pane {
-    /*
-    -fx-hbar-policy: NEVER;
-    -fx-vbar-policy: NEVER;
-     */
-}
-
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track{
     -fx-background-color: transparent;
