@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import org.bson.Document;
@@ -19,8 +18,6 @@ import java.util.ResourceBundle;
 public class DescriptionController implements Initializable, UIMethods {
     @FXML
     private Button okButton;
-    @FXML
-    private BorderPane borderPaneInfo;
     @FXML
     private Label titleLabel;
     @FXML

@@ -10,9 +10,7 @@ import javafx.scene.layout.*;
 import model.*;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class TaskFormController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
@@ -33,10 +31,6 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     private Button submitButton;
     @FXML
     private BorderPane taskFormBorderPane;
-    @FXML
-    private Label selectedAssignees;
-    @FXML
-    private ScrollPane scrollPane;
     @FXML
     private GridPane selectedEmployeeGridPane;
 
