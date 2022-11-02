@@ -26,6 +26,9 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        addCssToCancelButtons(cancelButton);
+        addCssToSubmitButtons(addCommentButton);
+
         makeButtonsCancelAndDefault(cancelButton, addCommentButton);
 
         displayComments();

@@ -10,7 +10,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public interface UIMethods {
     default void switchScene(BorderPane pane, String path) {
@@ -107,5 +106,13 @@ public interface UIMethods {
     default Node returnParentNode(ActionEvent event) {
         Node triggerActionNode = (Node) event.getSource();
         return triggerActionNode.getParent();
+    }
+
+    default void addCssToCancelButtons(Button button) {
+        button.getStyleClass().add("cancel-button");
+    }
+
+    default void addCssToSubmitButtons(Button button) {
+        button.getStyleClass().add("submit-button");
     }
 }

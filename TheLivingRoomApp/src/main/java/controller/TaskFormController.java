@@ -42,6 +42,9 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        addCssToSubmitButtons(submitButton);
+        addCssToCancelButtons(cancelButton);
+
         makeButtonsCancelAndDefault(cancelButton, submitButton);
 
         frequencyDropdownMenu.getItems().addAll(
