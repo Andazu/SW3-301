@@ -1,16 +1,17 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import model.Task;
-import model.User;
-import java.io.IOException;
+import model.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class TaskFormController implements Initializable, UIMethods, DatabaseMethods {
@@ -44,7 +45,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         makeButtonsCancelAndDefault(cancelButton, submitButton);
 
         frequencyDropdownMenu.getItems().addAll(
-                "Once", "Everyday", "Every Other Day", "Every Week", "Every Month"
+                "Once", "Every day", "Every Other Day", "Every Week", "Every Month"
         );
         urgencyDropdownMenu.getItems().addAll(
                 "Low", "Medium", "High"
@@ -62,53 +63,54 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     public void submitAndReturnToOverviewPage(ActionEvent event) {
         Task createdTask = createTaskFromValuesFromUI();
 
-        ArrayList<User> selectedUsers = DatabaseMethods.getEmployeesFromDB(false, "tempUsers");
+        if (createdTask != null) {
+            ArrayList<String> selectedUsers = getSelectedAssignees();
 
-        if(selectedUsers.isEmpty()){
             ArrayList<String> assignees = new ArrayList<>();
-            assignees.add("General");
-            createdTask.setAssignees(assignees);
-        } else {
-            for (User user : selectedUsers){
-                String userName = user.getFullName();
-                ArrayList<String> assignees = createdTask.getAssignees();
-                assignees.add(userName);
-
+            if(selectedUsers.isEmpty()){
+                assignees.add("General");
                 createdTask.setAssignees(assignees);
+            } else {
+                for (String user : selectedUsers){
+                    assignees = createdTask.getAssignees();
+                    assignees.add(user);
+
+                    createdTask.setAssignees(assignees);
+                }
             }
-        }
-        DatabaseMethods.emptyCollection("tempUsers");
-
-        exportTaskToDatabase(createdTask, "tasks");
-        switchScene(taskFormBorderPane, "overview-employee-page.fxml");
-    }
-
-    public String getStringFromTextField(TextField textField) {
-        if (textField.getText() != null) {
-            return textField.getText();
-        } else {
-            return "";
+            exportTaskToDatabase(createdTask, "tasks");
+            switchScene(taskFormBorderPane, "overview-employee-page.fxml");
         }
     }
 
-    public String getStringFromComboBox(ComboBox<String> comboBox) {
-        if (comboBox.getValue() != null) {
-            return comboBox.getValue();
-        } else {
-            return "";
-        }
+    public String getStringFromTextField(String value) {
+        return Objects.requireNonNullElse(value, "");
+    }
+
+    public String getStringFromComboBox(String value) {
+        return Objects.requireNonNullElse(value, "");
     }
 
     public Task createTaskFromValuesFromUI() {
         String title = titleTextField.getText();
-        String description = descriptionTextField.getText();
+        String description = getStringFromTextField(descriptionTextField.getText());
         String frequency = frequencyDropdownMenu.getValue();
-        String urgency = urgencyDropdownMenu.getValue();
-        String type = typeDropdownMenu.getValue();
+        String urgency = getStringFromComboBox(urgencyDropdownMenu.getValue());
+        String type = getStringFromComboBox(typeDropdownMenu.getValue());
         LocalDate date = datePicker.getValue();
         ArrayList<String> assignees = new ArrayList<>();
 
-        return new Task(title, description, frequency, urgency, type, 0, true, assignees, date);
+        return throwErrorIfNull(title, description, frequency, urgency, type, date, assignees);
+    }
+
+    public Task throwErrorIfNull(String title, String description, String frequency, String urgency, String type,
+                                 LocalDate date, ArrayList<String> assignees) {
+        if (title == null || frequency == null || urgency == null || date == null) {
+            errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, Urgency, or Date");
+        } else {
+            return new Task(title, description, frequency, urgency, type, 0, true, assignees, date);
+        }
+        return null;
     }
 
     public void populateTaskFormWithAssigneeBoxes() {
@@ -117,25 +119,16 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         int columns = 1;
         int rows = 1;
 
-        try {
-            if (!users.isEmpty()) {
-                for (User user : users) {
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("selected-employee-box-page.fxml"));
-                    HBox hBox = loader.load();
+        if (!users.isEmpty()) {
+            for (User user : users) {
+                HBox hBox = assigneeBox(user);
 
-                    SelectedEmployeeBoxController selectedEmployeeBoxController = loader.getController();
-                    selectedEmployeeBoxController.setLabelInBoxUI(user);
+                selectedEmployeeGridPane.add(hBox, columns, rows);
 
-                    selectedEmployeeGridPane.add(hBox, columns, rows);
-
-                    rows++;
-                }
-            } else {
-                selectedEmployeeGridPane.add(setNoAssigneesLabel(), 1, 1);
+                rows++;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            selectedEmployeeGridPane.add(setNoAssigneesLabel(), 1, 1);
         }
     }
 
@@ -151,5 +144,77 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         hBox.setMinWidth(200);
 
         return hBox;
+    }
+
+    public HBox assigneeBox(User user) {
+        HBox hBoxName = hBoxName(user);
+
+        HBox hBoxRole = hBoxRole(user);
+
+        HBox hBoxCheckBox = hBoxCheckBox();
+
+        HBox hBox = new HBox(hBoxName, hBoxRole, hBoxCheckBox);
+
+        return hBoxAll(hBox);
+    }
+
+    public HBox hBoxName(User user) {
+        Label fullName = new Label(user.getFullName());
+        HBox hBoxName = new HBox(fullName);
+        hBoxName.setAlignment(Pos.CENTER);
+        hBoxName.setPrefWidth(120);
+        hBoxName.setPrefHeight(50);
+        return hBoxName;
+    }
+
+    public HBox hBoxRole(User user) {
+        Label role = new Label(user.getRole());
+        HBox hBoxRole = new HBox(role);
+        hBoxRole.setAlignment(Pos.CENTER);
+        hBoxRole.setPrefWidth(55);
+        hBoxRole.setPrefHeight(50);
+        return hBoxRole;
+    }
+
+    public HBox hBoxCheckBox() {
+        CheckBox checkBox = new CheckBox();
+        HBox hBoxCheckBox = new HBox(checkBox);
+        hBoxCheckBox.setAlignment(Pos.CENTER);
+        hBoxCheckBox.setPrefWidth(50);
+        hBoxCheckBox.setPrefHeight(50);
+        return hBoxCheckBox;
+    }
+
+    public HBox hBoxAll(HBox hBox) {
+        hBox.setPrefWidth(225);
+        hBox.setPrefHeight(50);
+        hBox.setMinWidth(Region.USE_PREF_SIZE);
+        hBox.setMinHeight(Region.USE_PREF_SIZE);
+        hBox.setMaxWidth(Region.USE_PREF_SIZE);
+        hBox.setMaxHeight(Region.USE_PREF_SIZE);
+        hBox.setAlignment(Pos.CENTER);
+        return hBox;
+    }
+
+    public ArrayList<String> getSelectedAssignees() {
+        ArrayList<String> assignees = new ArrayList<>();
+
+        ObservableList<Node> hBoxOuter = selectedEmployeeGridPane.getChildren();
+
+        for (Node node : hBoxOuter) {
+            HBox hBoxMiddle = (HBox) node;
+            ObservableList<Node> hBoxChildren = hBoxMiddle.getChildren();
+
+            HBox hBoxInner0 = (HBox) hBoxChildren.get(0);
+            Label labelFullName = (Label) hBoxInner0.getChildren().get(0);
+
+            HBox hBoxInner2 = (HBox) hBoxChildren.get(2);
+            CheckBox checkBox = (CheckBox) hBoxInner2.getChildren().get(0);
+            if (checkBox.isSelected()) {
+                assignees.add(labelFullName.getText());
+            }
+        }
+
+        return assignees;
     }
 }

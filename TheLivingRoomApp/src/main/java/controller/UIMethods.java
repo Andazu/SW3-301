@@ -88,8 +88,9 @@ public interface UIMethods {
         alert.show();
     }
 
-    default void errorDialog(String message) {
+    default void errorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(title);
         alert.setContentText(message);
         alert.show();
     }
