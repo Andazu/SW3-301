@@ -1,17 +1,18 @@
 package controller;
 
 import com.mongodb.client.MongoCollection;
-import model.*;
+import model.Task;
+import model.User;
 import org.bson.Document;
+import org.testng.annotations.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.AfterClass;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
 import static controller.DatabaseMethods.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DBTest implements DatabaseMethods{
     String collName = "test";

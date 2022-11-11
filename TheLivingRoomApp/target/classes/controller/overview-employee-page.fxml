@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="overviewEmployeeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewController">
+<BorderPane fx:id="overviewEmployeeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewEmployeeController">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
@@ -27,11 +27,6 @@
             </Label>
             <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="315.0" spacing="20.0">
                <children>
-                  <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#openTaskFormPage" prefHeight="30.0" prefWidth="75.0" text="Add task" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
-                     </HBox.margin>
-                  </Button>
                   <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshPage" prefHeight="30.0" prefWidth="75.0" text="Refresh">
                      <HBox.margin>
                         <Insets bottom="20.0" right="20.0" top="20.0" />

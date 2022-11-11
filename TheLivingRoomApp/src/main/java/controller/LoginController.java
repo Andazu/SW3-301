@@ -2,6 +2,8 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 
 public class LoginController implements UIMethods {
@@ -13,6 +15,16 @@ public class LoginController implements UIMethods {
     }
 
     public void openManagerOverviewPage(ActionEvent event) {
-        switchScene(loginBorderPane, "overview-manager-page.fxml");
+        TextInputDialog td = new TextInputDialog("Enter PIN code");
+        td.getEditor().clear();
+        td.setTitle("Mananger Login");
+        td.setHeaderText("");
+        td.showAndWait();
+        if (td.getEditor().getText().equals("123")) {
+            switchScene(loginBorderPane, "overview-manager-page.fxml");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong PIN code");
+            alert.show();
+        }
     }
 }

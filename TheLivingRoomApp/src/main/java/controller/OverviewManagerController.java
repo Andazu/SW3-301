@@ -10,19 +10,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class OverviewController implements Initializable, UIMethods, DatabaseMethods {
+public class OverviewManagerController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
     private GridPane taskGrid;
     @FXML
     private Button addTaskButton;
     @FXML
-    private BorderPane overviewEmployeeBorderPane;
+    private BorderPane overviewManagerBorderPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) { populateOverviewPageWithTaskBoxes(); }
 
     public void openTaskFormPage(ActionEvent event) {
-        switchScene(overviewEmployeeBorderPane,"task-form-page.fxml");
+        switchScene(overviewManagerBorderPane,"task-form-page.fxml");
     }
 
     public void populateOverviewPageWithTaskBoxes() {
@@ -56,7 +56,7 @@ public class OverviewController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void refreshPage(ActionEvent event) {
-        switchScene(overviewEmployeeBorderPane, "overview-employee-page.fxml");
+        switchScene(overviewManagerBorderPane, "overview-manager-page.fxml");
     }
 }
 
