@@ -40,11 +40,10 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
 
     public void addCommentAndReturnToOverviewPage(ActionEvent event) {
         if (addComment.getText().equals("")) {
-            addCommentToDB(this.id, dateTimeFormatter.format(now) + ":\n" + addComment.getText(), "tasks");
-            closeStage(event);
-        } else {
             informationDialog("The Comment Cannot Be Empty");
-        }
+        } else {
+            addCommentToDB(this.id, dateTimeFormatter.format(now) + ":\n" + addComment.getText(), "tasks");
+            closeStage(event);        }
     }
 
     public void displayComments() {
