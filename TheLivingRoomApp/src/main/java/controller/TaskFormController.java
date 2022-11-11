@@ -76,7 +76,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 }
             }
             exportTaskToDatabase(createdTask, "tasks");
-            switchScene(taskFormBorderPane, "overview-employee-page.fxml");
+            switchScene(taskFormBorderPane, "overview-manager-page.fxml");
         }
     }
 
