@@ -5,8 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -111,5 +112,30 @@ public interface UIMethods {
 
     default void addCssToButtons(Button button, String cssClass) {
         button.getStyleClass().add(cssClass);
+    }
+
+    default TextInputDialog managerPinCodeLogin(BorderPane borderpane) {
+        TextInputDialog td = new TextInputDialog();
+        td.setTitle("Manager Login");
+        td.setHeaderText("");
+        td.setGraphic(null);
+
+        // Gør så kun "Enter" knappen eller tryk på ok tjekker PIN-koden
+        td.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(
+                ActionEvent.ACTION, event -> {
+
+                    if (td.getEditor().getText().equals("123")) {
+                        switchScene(borderpane, "overview-manager-page.fxml");
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong PIN code");
+                        alert.setGraphic(null);
+                        alert.setHeaderText(null);
+                        alert.show();
+                    }
+                }
+        );
+
+        td.showAndWait();
+        return td;
     }
 }
