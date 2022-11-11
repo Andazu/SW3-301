@@ -5,30 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/launcher/images/boss.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/launcher/images/employee.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/stylesheet.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/add-comment-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/add-comment-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/description-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/description-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/selected-employee-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/selected-employee-box-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-form-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-form-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/launcher/login-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/launcher/login-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/description-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/description-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-employee-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/selected-employee-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/selected-employee-box-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/task-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/task-box-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/task-form-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/task-form-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/launcher/login-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/launcher/login-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/launcher/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/launcher/Main.java" afterDir="false" />
     </list>
-    <list id="1022e458-1ade-405c-990a-d1268fa74848" name="Changes by ander" comment="">
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/CommentController.java" afterDir="false" />
-    </list>
+    <list id="1022e458-1ade-405c-990a-d1268fa74848" name="Changes by ander" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,28 +49,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "/Users/bence/Desktop/Git/P2/SW3-301",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.31149426",
-    "settings.editor.selected.configurable": "preferences.JavaFX"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bence/Desktop/Git/P2/SW3-301&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.31149426&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="18" />
@@ -170,6 +152,10 @@
       <workItem from="1666697864316" duration="404000" />
       <workItem from="1666768554409" duration="2645000" />
       <workItem from="1666855146482" duration="12389000" />
+      <workItem from="1667474166728" duration="151000" />
+      <workItem from="1667508713704" duration="1723000" />
+      <workItem from="1667891769412" duration="51000" />
+      <workItem from="1668155760364" duration="1297000" />
     </task>
     <servers />
   </component>

@@ -48,7 +48,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 "Low", "Medium", "High"
         );
         typeDropdownMenu.getItems().addAll(
-                "Cleaner", "Bartender", "Barista");
+                "Cleaner", "Bartender");
 
         populateTaskFormWithAssigneeBoxes();
     }

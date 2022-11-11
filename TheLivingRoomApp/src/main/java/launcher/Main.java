@@ -8,6 +8,6 @@ public class Main extends Application implements UIMethods {
 
     @Override
     public void start(Stage stage) {
-        createNewStage("login-page.fxml", 1024, 700);
+        createNewStage("login-page.fxml", 1024, 768);
     }
 }
