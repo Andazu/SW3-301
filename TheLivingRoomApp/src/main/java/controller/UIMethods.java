@@ -122,17 +122,16 @@ public interface UIMethods {
 
         // Gør så kun "Enter" knappen eller tryk på ok tjekker PIN-koden
         td.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(
-                ActionEvent.ACTION, event -> {
-
-                    if (td.getEditor().getText().equals("123")) {
-                        switchScene(borderpane, "overview-manager-page.fxml");
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong PIN code");
-                        alert.setGraphic(null);
-                        alert.setHeaderText(null);
-                        alert.show();
-                    }
+            ActionEvent.ACTION, event -> {
+                if (td.getEditor().getText().equals("1234")) {
+                    switchScene(borderpane, "overview-manager-page.fxml");
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong PIN code");
+                    alert.setGraphic(null);
+                    alert.setHeaderText(null);
+                    alert.show();
                 }
+            }
         );
 
         td.showAndWait();

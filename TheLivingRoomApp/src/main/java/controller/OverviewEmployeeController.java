@@ -8,6 +8,7 @@ import model.Task;
 import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 
 public class OverviewEmployeeController implements Initializable, UIMethods, DatabaseMethods {
@@ -52,7 +53,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     }
     static Task createTaskToDisplay(ArrayList<Object> values) {
         ObjectId id = new ObjectId(values.get(0).toString());
-        return new Task(id, (String) values.get(1), (String) values.get(2), (Double) values.get(6), (ArrayList<String>) values.get(9));
+        return new Task(id, (String) values.get(1), (String) values.get(2), (String) values.get(3), (String) values.get(4), (String) values.get(5), (Double) values.get(6), (Boolean) values.get(7), (ArrayList<String>) values.get(8), (ArrayList<String>) values.get(9), (Date) values.get(10));
     }
 
     public void refreshPage(ActionEvent event) {

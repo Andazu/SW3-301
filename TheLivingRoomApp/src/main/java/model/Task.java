@@ -3,6 +3,7 @@ package model;
 import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Task {
     private ObjectId id;
@@ -16,6 +17,8 @@ public class Task {
     private ArrayList<String> comments = new ArrayList<>(50);
     private ArrayList<String> assignees;
     private LocalDate date;
+    private Date dbDate;
+
     public ObjectId getId() {
         return id;
     }
@@ -103,6 +106,14 @@ public class Task {
         this.date = date;
     }
 
+    public Date getDbDate() {
+        return dbDate;
+    }
+
+    public void setDbDate(Date dbDate) {
+        this.dbDate = dbDate;
+    }
+
     public Task(ObjectId id, String title, String description, double progress, ArrayList<String> assignees) {
         this.id = id;
         this.title = title;
@@ -110,8 +121,16 @@ public class Task {
         this.progress = progress;
         this.assignees = assignees;
     }
+    public Task(ObjectId id, String title, String urgency, String description, double progress, ArrayList<String> assignees) {
+        this.id = id;
+        this.title = title;
+        this.urgency = urgency;
+        this.description = description;
+        this.progress = progress;
+        this.assignees = assignees;
+    }
 
-    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, LocalDate date) {
+    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees) {
         this.title = title;
         this.description = description;
         this.frequency = frequency;
@@ -142,5 +161,19 @@ public class Task {
         this.active = active;
         this.comments = comments;
         this.assignees = assignees;
+    }
+
+    public Task(ObjectId id, String title, String description, String frequency, String urgency, String type, double progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, Date dbDate) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.frequency = frequency;
+        this.urgency = urgency;
+        this.type = type;
+        this.progress = progress;
+        this.active = active;
+        this.comments = comments;
+        this.assignees = assignees;
+        this.dbDate = dbDate;
     }
 }
