@@ -170,4 +170,10 @@ public interface DatabaseMethods {
 
          return coll.countDocuments() == 0;
      }
+
+    default void deleteFromDB(String id, String collName){
+        MongoCollection<Document> coll = getDBColl(collName);
+        ObjectId objectId = new ObjectId(id);
+        coll.deleteOne(Filters.eq("_id", objectId));
+    }
 }

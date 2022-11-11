@@ -17,4 +17,8 @@ public class LoginController implements UIMethods {
     public void openManagerOverviewPage(ActionEvent event) {
         managerPinCodeLogin(loginBorderPane);
     }
+
+    public void openHistoryOverviewPage(ActionEvent event) {
+        switchScene(loginBorderPane, "overview-history-page.fxml");
+    }
 }

@@ -14,17 +14,12 @@ import java.util.*;
 public class OverviewEmployeeController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
     private GridPane taskGrid;
-    @FXML
-    private Button addTaskButton;
+
     @FXML
     private BorderPane overviewEmployeeBorderPane;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) { populateOverviewPageWithTaskBoxes(); }
-
-    public void openTaskFormPage(ActionEvent event) {
-        switchScene(overviewEmployeeBorderPane,"task-form-page.fxml");
-    }
 
     public void populateOverviewPageWithTaskBoxes() {
         ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true, "tasks"));
