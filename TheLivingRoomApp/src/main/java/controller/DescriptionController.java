@@ -39,6 +39,7 @@ public class DescriptionController implements Initializable, UIMethods {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         okButton.setDefaultButton(true);
+        titleLabel.setWrapText(true);
         descriptionLabel.setWrapText(true);
         setValuesInFields();
         displayComments();

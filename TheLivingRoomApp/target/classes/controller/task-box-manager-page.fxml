@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxTheWholeBox" alignment="CENTER" prefHeight="75.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskController">
+<VBox fx:id="vBoxTheWholeBox" alignment="CENTER" prefHeight="75.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskManagerController">
    <children>
       <HBox fx:id="hbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="1000.0" spacing="15.0">
          <children>
@@ -26,19 +26,19 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addCommentToTask" prefHeight="25.0" prefWidth="25.0">
-               <font>
-                  <Font size="10.0" />
-               </font>
+            <Button fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addCommentToTask" prefHeight="25.0" prefWidth="25.0">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../launcher/images/comment.png" />
                      </image>
                   </ImageView>
-               </graphic>
+               </graphic></Button>
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editTask" prefHeight="25.0" prefWidth="25.0" text="✎">
+               <font>
+                  <Font size="10.0" />
+               </font>
             </Button>
-            <Button fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#showDescription" prefHeight="25.0" prefWidth="25.0" text="i" />
             <ComboBox fx:id="dropdownMenuPercent" onAction="#updateProgressBar" prefHeight="27.0" prefWidth="122.0" promptText="Progress %" />
             <HBox fx:id="expandHBox" alignment="CENTER" maxHeight="-Infinity" prefHeight="75.0" prefWidth="125.0" spacing="10.0">
                <children>

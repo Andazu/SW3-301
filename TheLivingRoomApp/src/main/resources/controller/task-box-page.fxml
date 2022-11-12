@@ -26,10 +26,17 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addCommentToTask" prefHeight="25.0" prefWidth="25.0" text="✎">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#addCommentToTask" prefHeight="25.0" prefWidth="25.0">
                <font>
                   <Font size="10.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../launcher/images/comment.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#showDescription" prefHeight="25.0" prefWidth="25.0" text="i" />
             <ComboBox fx:id="dropdownMenuPercent" onAction="#updateProgressBar" prefHeight="27.0" prefWidth="122.0" promptText="Progress %" />
