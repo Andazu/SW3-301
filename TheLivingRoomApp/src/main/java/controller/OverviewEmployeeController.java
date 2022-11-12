@@ -23,6 +23,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
 
     public void populateOverviewPageWithTaskBoxes() {
         ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true, "tasks"));
+        String styleClass = "VBOX";
 
         int columns = 1;
         int rows = 1;
@@ -34,6 +35,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
 
                 VBox vBox = loader.load();
                 vBox.setId(task.getId().toString()); // Store task id as hBox id
+                vBox.getStyleClass().add(styleClass);
 
                 TaskController taskController = loader.getController();
                 taskController.setTaskBoxToUI(task);

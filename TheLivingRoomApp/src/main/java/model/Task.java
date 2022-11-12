@@ -4,6 +4,7 @@ import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Task {
     private ObjectId id;
@@ -30,8 +31,18 @@ public class Task {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public boolean setTitle(String title) {
+        if (title == null) {
+            return false;
+        }
+
+        for (int i = 0; i < title.length(); i++) {
+            if (!(title.charAt(i) == ' ')) {
+                this.title = title;
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getDescription() {
@@ -39,23 +50,33 @@ public class Task {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = Objects.requireNonNullElse(description, "");
     }
 
     public String getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
+    public boolean setFrequency(String frequency) {
+        if (frequency == null) {
+            return false;
+        } else {
+            this.frequency = frequency;
+            return true;
+        }
     }
 
     public String getUrgency() {
         return urgency;
     }
 
-    public void setUrgency(String urgency) {
-        this.urgency = urgency;
+    public boolean setUrgency(String urgency) {
+        if (urgency == null) {
+            return false;
+        } else {
+            this.urgency = urgency;
+            return true;
+        }
     }
 
     public String getType() {
@@ -63,15 +84,20 @@ public class Task {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = Objects.requireNonNullElse(type, "All");
     }
 
     public double getProgress() {
         return progress;
     }
 
-    public void setProgress(double progress) {
-        this.progress = progress;
+    public boolean setProgress(double progress) {
+        if (progress < 0) {
+            return false;
+        } else {
+            this.progress = progress;
+            return true;
+        }
     }
 
     public boolean isActive() {
@@ -103,7 +129,7 @@ public class Task {
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.date = Objects.requireNonNullElseGet(date, LocalDate::now);
     }
 
     public Date getDbDate() {
@@ -175,5 +201,10 @@ public class Task {
         this.comments = comments;
         this.assignees = assignees;
         this.dbDate = dbDate;
+    }
+
+    public Task(double progress, boolean active) {
+        this.progress = progress;
+        this.active = active;
     }
 }

@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.*;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.*;
 
 public class TaskFormController implements Initializable, UIMethods, DatabaseMethods {
@@ -58,9 +57,17 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void submitAndReturnToOverviewPage(ActionEvent event) {
-        Task createdTask = createTaskFromValuesFromUI();
+        Task createdTask = new Task(0.0, true);
 
-        if (createdTask != null) {
+        createdTask.setDescription(descriptionTextField.getText());
+        createdTask.setDate(datePicker.getValue());
+        createdTask.setType(typeDropdownMenu.getValue());
+
+        boolean validTitle = createdTask.setTitle(titleTextField.getText());
+        boolean validFrequency = createdTask.setFrequency(frequencyDropdownMenu.getValue());
+        boolean validUrgency = createdTask.setUrgency(urgencyDropdownMenu.getValue());
+
+        if (validTitle & validFrequency & validUrgency) {
             ArrayList<String> selectedUsers = getSelectedAssignees();
 
             ArrayList<String> assignees = new ArrayList<>();
@@ -76,38 +83,10 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 }
             }
             exportTaskToDatabase(createdTask, "tasks");
-            switchScene(taskFormBorderPane, "overview-manager-page.fxml");
-        }
-    }
-
-    public String getStringFromTextField(String value) {
-        return Objects.requireNonNullElse(value, "");
-    }
-
-    public String getStringFromComboBox(String value) {
-        return Objects.requireNonNullElse(value, "");
-    }
-
-    public Task createTaskFromValuesFromUI() {
-        String title = titleTextField.getText();
-        String description = getStringFromTextField(descriptionTextField.getText());
-        String frequency = frequencyDropdownMenu.getValue();
-        String urgency = getStringFromComboBox(urgencyDropdownMenu.getValue());
-        String type = getStringFromComboBox(typeDropdownMenu.getValue());
-        LocalDate date = datePicker.getValue();
-        ArrayList<String> assignees = new ArrayList<>();
-
-        return throwErrorIfNull(title, description, frequency, urgency, type, date, assignees);
-    }
-
-    public Task throwErrorIfNull(String title, String description, String frequency, String urgency, String type,
-                                 LocalDate date, ArrayList<String> assignees) {
-        if (title == null || frequency == null || urgency == null || date == null) {
-            errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, Urgency, or Date");
+            switchScene(taskFormBorderPane, "overview-employee-page.fxml");
         } else {
-            return new Task(title, description, frequency, urgency, type, 0, true, assignees, date);
+            errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, Urgency, or Date");
         }
-        return null;
     }
 
     public void populateTaskFormWithAssigneeBoxes() {

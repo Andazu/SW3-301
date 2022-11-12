@@ -14,32 +14,44 @@ public class User {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public boolean setFirstName(String firstName) {
+        return firstName != null;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public boolean setLastName(String lastName) {
+        return lastName != null;
     }
 
     public String getEmailAddress() {
         return emailAddress;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public boolean setEmailAddress(String emailAddress) {
+        if (emailAddress == null) {
+            return false;
+        } else if (emailAddress.contains("@") & emailAddress.contains(".")) {
+            this.emailAddress = emailAddress;
+            return true;
+        }
+        return false;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public boolean setPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null) {
+            return false;
+        } else if (phoneNumber.length() == 8) {
+            this.phoneNumber = phoneNumber;
+            return true;
+        }
+        return false;
     }
 
     public boolean isAdmin() {
@@ -54,8 +66,13 @@ public class User {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public boolean setRole(String role) {
+        if (role == null) {
+            return false;
+        } else {
+            this.role = role;
+            return true;
+        }
     }
 
     public String getId() {
@@ -87,5 +104,8 @@ public class User {
         this.id = id;
         this.fullName = fullName;
         this.role = role;
+    }
+
+    public User() {
     }
 }

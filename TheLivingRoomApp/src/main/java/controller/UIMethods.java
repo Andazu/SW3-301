@@ -93,7 +93,7 @@ public interface UIMethods {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(title);
         alert.setContentText(message);
-        alert.show();
+        alert.showAndWait();
     }
 
     default void descriptionInformation(String title, String description) {
