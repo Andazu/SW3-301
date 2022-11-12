@@ -5,30 +5,19 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="overviewManagerBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewManagerController">
+<BorderPane fx:id="overviewManagerBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewManagerController">
     <top>
         <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
             <children>
-            <HBox prefHeight="75.0" prefWidth="409.0">
-               <children>
-                   <ComboBox fx:id="urgencyDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Urgency" />
-                   <ComboBox fx:id="assigneeDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Assignees" />
-                   <Button fx:id="filterButton" mnemonicParsing="false" onAction="#filterTasks" prefHeight="30.0" prefWidth="75.0" text="Filter">
-                       <HBox.margin>
-                           <Insets bottom="20.0" right="20.0" top="20.0" />
-                       </HBox.margin></Button>
-                   <Button fx:id="removeFilterButton" mnemonicParsing="false" onAction="#removeFilter" prefHeight="30.0" prefWidth="75.0" text="Remove filter">
-                       <HBox.margin>
-                           <Insets bottom="20.0" right="20.0" top="20.0" />
-                       </HBox.margin></Button>
-               </children>
-            </HBox>
                 <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Today's Date" textAlignment="CENTER">
                     <font>
                         <Font size="24.0" />
@@ -56,15 +45,69 @@
             </children>
         </HBox>
     </top>
-    <center>
-        <ScrollPane prefHeight="200.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
-            <content>
-                <GridPane fx:id="taskGrid">
-                    <rowConstraints>
+   <center>
+      <VBox prefHeight="600.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="filterButton" mnemonicParsing="false" onAction="#filterTasks">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../launcher/images/filter.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <HBox fx:id="filterOptionsHBox" alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="0.0" prefWidth="400.0" spacing="10.0" visible="false">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="120.0" spacing="2.0">
+                           <children>
+                              <Label text="Frequency:" />
+                              <ComboBox fx:id="frequencyDropdownMenu" onAction="#frequencyFilter" prefWidth="120.0" promptText="Frequency" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+                           <children>
+                              <Label text="Urgency:" />
+                               <ComboBox fx:id="urgencyDropdownMenu" onAction="#urgencyFilter" prefHeight="25.0" prefWidth="100.0" promptText="Urgency" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+                           <children>
+                              <Label text="Type:" />
+                              <ComboBox fx:id="typeDropdownMenu" onAction="#typeFilter" prefWidth="100.0" promptText="Type" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+                           <children>
+                              <Label text="Progress:" />
+                              <ComboBox fx:id="progressDropdownMenu" onAction="#progressFilter" prefWidth="100.0" promptText="Progress" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="120.0" spacing="2.0">
+                           <children>
+                              <Label text="Assignee:" />
+                               <ComboBox fx:id="assigneeDropdownMenu" onAction="#assigneesFilter" prefHeight="25.0" prefWidth="120.0" promptText="Assignee" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets right="20.0" />
+               </VBox.margin>
+            </VBox>
+            <ScrollPane prefHeight="600.0" prefWidth="1024.0">
+               <content>
+                  <GridPane fx:id="taskGrid">
+                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                </GridPane>
-            </content>
-        </ScrollPane>
-    </center>
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+   </center>
 </BorderPane>

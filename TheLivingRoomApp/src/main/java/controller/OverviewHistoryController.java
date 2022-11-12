@@ -6,10 +6,14 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import model.Task;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.ne;
 
 public class OverviewHistoryController implements Initializable, UIMethods, DatabaseMethods{
     @FXML
@@ -24,7 +28,8 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
     }
 
     public void populateOverviewPageWithTaskBoxes() {
-        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(false, "tasks"));
+        Bson filter = and(ne("_id", " "));
+        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, false, "tasks"));
 
         tasks.sort(Comparator.comparing(Task::getDbDate).reversed());
 

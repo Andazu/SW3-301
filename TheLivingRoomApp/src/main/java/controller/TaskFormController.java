@@ -53,7 +53,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void cancelAndReturnToOverviewPage(ActionEvent event) {
-        switchScene(taskFormBorderPane, "overview-employee-page.fxml");
+        switchScene(taskFormBorderPane, "overview-manager-page.fxml");
     }
 
     public void submitAndReturnToOverviewPage(ActionEvent event) {
@@ -83,7 +83,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 }
             }
             exportTaskToDatabase(createdTask, "tasks");
-            switchScene(taskFormBorderPane, "overview-employee-page.fxml");
+            switchScene(taskFormBorderPane, "overview-manager-page.fxml");
         } else {
             errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, Urgency, or Date");
         }

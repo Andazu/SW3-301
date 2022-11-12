@@ -4,6 +4,7 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.*;
 import model.*;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -45,13 +46,13 @@ public interface DatabaseMethods {
         return null;
     }
 
-     static ArrayList<Task> getTasksFromDB(boolean isActive, String collName) {
+     static ArrayList<Task> getTasksFromDB(Bson filter, boolean isActive, String collName) {
          ArrayList<Task> taskList = new ArrayList<>();
 
          MongoCollection<Document> coll = getDBColl(collName);
 
          assert coll != null;
-         for (Document doc : coll.find(eq("active", isActive))) {
+         for (Document doc : coll.find(Filters.and(filter, eq("active", isActive)))) {
              ArrayList<Object> values = new ArrayList<>(doc.values());
 
              taskList.add(createTaskToDisplay(values));
@@ -142,7 +143,7 @@ public interface DatabaseMethods {
 
         MongoCollection<Document> collection = getDBColl(collName);
 
-        if(dropdownMenuPercent.equals("0%")){
+        if (dropdownMenuPercent.equals("0%")) {
             assert collection != null;
             collection.updateOne(Filters.eq("_id", objectId), Updates.set("progress", 0.0));
             return 0.0;

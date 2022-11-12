@@ -5,24 +5,27 @@ import javafx.fxml.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import model.Task;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.ne;
+
 public class OverviewEmployeeController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
     private GridPane taskGrid;
-
     @FXML
     private BorderPane overviewEmployeeBorderPane;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) { populateOverviewPageWithTaskBoxes(); }
 
     public void populateOverviewPageWithTaskBoxes() {
-        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(true, "tasks"));
+        Bson filter = and(ne("_id", " "));
+        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
         String styleClass = "VBOX";
 
         int columns = 1;

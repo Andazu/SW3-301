@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import model.Task;
 import model.User;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.testng.annotations.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import static com.mongodb.client.model.Filters.*;
 import static controller.DatabaseMethods.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -104,7 +106,8 @@ public class DBTest implements DatabaseMethods{
         list.add(expectedId2);
 
         // [WHEN] Getting the active documents
-        ArrayList<Task> tasks = new ArrayList<>(getTasksFromDB(true, collName));
+        Bson filter = and(ne("_id", " "));
+        ArrayList<Task> tasks = new ArrayList<>(getTasksFromDB(filter,true, collName));
 
         // [THEN] Asserting the id's and the expected nr of documents
         assertEquals(expectedNr, tasks.size());
@@ -135,7 +138,8 @@ public class DBTest implements DatabaseMethods{
         list.add(expectedId3);
 
         // [WHEN] Getting the non-active documents
-        ArrayList<Task> tasks = new ArrayList<>(getTasksFromDB(false, collName));
+        Bson filter = and(ne("_id", " "));
+        ArrayList<Task> tasks = new ArrayList<>(getTasksFromDB(filter, false, collName));
 
         // [THEN] Asserting the id's and the expected nr of documents
         assertEquals(expectedNr, tasks.size());
@@ -221,7 +225,8 @@ public class DBTest implements DatabaseMethods{
         list.add(expectedId2);
 
         // [WHEN] Getting the documents in the DB
-        ArrayList<Task> tasks = getTasksFromDB(true, collName);
+        Bson filter = and(ne("_id", " "));
+        ArrayList<Task> tasks = getTasksFromDB(filter, true, collName);
 
         // [THEN] Asserting the ids from the DB with the stored ids
         if (tasks.isEmpty()) {

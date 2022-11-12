@@ -156,7 +156,7 @@ public class Task {
         this.assignees = assignees;
     }
 
-    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees) {
+    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, LocalDate date) {
         this.title = title;
         this.description = description;
         this.frequency = frequency;
