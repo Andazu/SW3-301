@@ -130,12 +130,30 @@ public interface DatabaseMethods {
         collection.updateOne(Filters.eq("_id", objectId), Updates.addToSet("comments", comment));
     }
 
-    default void updateTask(String id, String collName, boolean SetActive) {
+    default void completeTask(String id, String collName, boolean SetActive) {
         ObjectId objectId = new ObjectId(id);
 
         MongoCollection<Document> collection = getDBColl(collName);
         assert collection != null;
         collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", SetActive));
+    }
+
+    default void updateTask(String id, String collName, Task task) {
+        ObjectId objectId = new ObjectId(id);
+
+        MongoCollection<Document> collection = getDBColl(collName);
+        assert collection != null;
+        collection.updateOne(Filters.eq("_id", objectId),
+                Updates.combine(
+                        Updates.set("title", task.getTitle()),
+                        Updates.set("description", task.getDescription()),
+                        Updates.set("frequency", task.getFrequency()),
+                        Updates.set("urgency", task.getUrgency()),
+                        Updates.set("type", task.getType()),
+                        Updates.set("assignees", task.getAssignees()),
+                        Updates.set("date", task.getDate())
+                )
+        );
     }
 
     default double updateProgressBarInDBAndReturnValue(String id, String dropdownMenuPercent, String collName) throws ParseException {

@@ -58,12 +58,12 @@ public class TaskManagerController implements DatabaseMethods, UIMethods {
         Node parent = returnParentsParentNode(event);
 
         EditTaskController controller = new EditTaskController(parent.getId());
-        makeModalDialog(controller, "edit-task-page.fxml", 700, 450);
+        makeModalDialog(controller, "edit-task-page.fxml", 1024, 768);
     }
 
     public void setTaskToInactive(ActionEvent event) {
         Node parent = returnParentsParentNode(event);
-        updateTask(parent.getId(), "tasks", false);
+        completeTask(parent.getId(), "tasks", false);
 
         // remove p from parent's child list
         ((GridPane) parent.getParent()).getChildren().remove(parent);

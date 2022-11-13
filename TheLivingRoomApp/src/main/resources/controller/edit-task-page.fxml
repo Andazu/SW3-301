@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPaneInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="taskEditBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
@@ -32,7 +32,7 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox maxWidth="-Infinity" prefHeight="200.0" prefWidth="525.0" spacing="25.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="300.0" prefWidth="200.0" spacing="20.0">
                <children>
@@ -149,6 +149,23 @@
                   </VBox>
                </children>
             </HBox>
+            <VBox prefHeight="250.0" prefWidth="225.0" spacing="10.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="264.0" text="Comments:" />
+                  <ScrollPane prefHeight="200.0" prefWidth="210.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <GridPane fx:id="commentGridPane" prefWidth="1.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                        </GridPane>
+                     </content>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ScrollPane>
+               </children>
+            </VBox>
          </children>
       </VBox>
    </center>
@@ -156,7 +173,7 @@
       <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="cancelButton" alignment="CENTER" mnemonicParsing="false" onAction="#cancelButtonLogic" prefHeight="25.0" prefWidth="75.0" text="Cancel" textAlignment="CENTER" />
-            <Button fx:id="submitButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Submit" />
+            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submitAndUpdateTask" prefHeight="25.0" prefWidth="75.0" text="Submit" />
          </children>
       </HBox>
    </bottom>

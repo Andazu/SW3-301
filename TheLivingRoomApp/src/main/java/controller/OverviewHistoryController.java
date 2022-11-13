@@ -18,7 +18,6 @@ import static com.mongodb.client.model.Filters.ne;
 public class OverviewHistoryController implements Initializable, UIMethods, DatabaseMethods{
     @FXML
     private GridPane taskGrid;
-
     @FXML
     private BorderPane overviewHistoryBorderPane;
 

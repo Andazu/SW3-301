@@ -48,7 +48,7 @@ public class HistoryTaskController implements DatabaseMethods, UIMethods, Initia
 
     public void setTaskToActive(ActionEvent event) {
         Node parent = returnParentsParentNode(event);
-        updateTask(parent.getId(), "tasks", true);
+        completeTask(parent.getId(), "tasks", true);
 
         // remove p from parent's child list
         ((GridPane) parent.getParent()).getChildren().remove(parent);

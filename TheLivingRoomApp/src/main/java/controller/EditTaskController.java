@@ -8,9 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import model.Task;
 import model.User;
 import org.bson.Document;
@@ -19,12 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Collection;
-import java.util.ResourceBundle;
+import java.util.*;
 
-public class EditTaskController implements Initializable, UIMethods {
+public class EditTaskController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
     private Button cancelButton;
     @FXML
@@ -43,6 +38,10 @@ public class EditTaskController implements Initializable, UIMethods {
     private ComboBox<String> typeDropdownMenu;
     @FXML
     private GridPane selectedEmployeeGridPane;
+    @FXML
+    private BorderPane taskEditBorderPane;
+    @FXML
+    private GridPane commentGridPane;
     private final String id;
 
     @Override
@@ -63,13 +62,40 @@ public class EditTaskController implements Initializable, UIMethods {
 
         descriptionTextArea.setWrapText(true);
         setValuesInFields();
+        displayComments();
+    }
+
+    public void displayComments() {
+        ArrayList<String> comments = new ArrayList<>(DatabaseMethods.getCommentsFromDB(id, "tasks"));
+
+        int columns = 1;
+        int rows = 1;
+
+        try {
+            for (String comment : comments) {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("comment-box-page.fxml"));
+
+                HBox hBox = loader.load();
+                hBox.setPrefWidth(210);
+
+                CommentBoxController commentBoxController = loader.getController();
+                commentBoxController.setCommentToUI(comment, 205);
+
+                commentGridPane.add(hBox, columns, rows);
+
+                rows++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void cancelButtonLogic(ActionEvent event) {
         closeStage(event);
     }
 
-    public void sunmitAndUpdateTask(ActionEvent event) {
+    public void submitAndUpdateTask(ActionEvent event) {
         Task createdTask = new Task(0.0, true);
 
         createdTask.setDescription(descriptionTextArea.getText());
@@ -80,7 +106,22 @@ public class EditTaskController implements Initializable, UIMethods {
         boolean validFrequency = createdTask.setFrequency(frequencyDropdownMenu.getValue());
         boolean validUrgency = createdTask.setUrgency(urgencyDropdownMenu.getValue());
 
-        //needs more logic
+        if (validTitle & validFrequency & validUrgency) {
+            ArrayList<String> selectedUsers = getSelectedAssignees();
+
+            ArrayList<String> assignees = new ArrayList<>();
+            if (selectedUsers.isEmpty() || selectedUsers.contains("General")) {
+                assignees.add("General");
+                createdTask.setAssignees(assignees);
+            } else {
+                assignees.addAll(selectedUsers);
+                createdTask.setAssignees(assignees);
+            }
+            updateTask(id, "tasks", createdTask);
+            switchScene(taskEditBorderPane, "overview-manager-page.fxml");
+        } else {
+            errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, Urgency, or Date");
+        }
     }
 
     private void setValuesInFields() {

@@ -76,7 +76,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 createdTask.setAssignees(assignees);
             } else {
                 for (String user : selectedUsers){
-                    assignees = createdTask.getAssignees();
+                    //assignees = createdTask.getAssignees();
                     assignees.add(user);
 
                     createdTask.setAssignees(assignees);

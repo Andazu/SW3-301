@@ -300,8 +300,8 @@ public class DBTest implements DatabaseMethods{
         // [GIVEN] That we have a Task in DB and get the id from the inserted document
         String id = populateDBWithTask(false);
 
-        // [WHEN] Updating the task to true
-        updateTask(id, collName, true);
+        // [WHEN] Updating the task to be complete
+        completeTask(id, collName, true);
 
         // [WHEN] Getting the active value from the document in DB
         Document document = getDocumentById(id, collName);
@@ -321,8 +321,8 @@ public class DBTest implements DatabaseMethods{
         // [GIVEN] That we have a Task in DB and get the id from the inserted document
         String id = populateDBWithTask(true);
 
-        // [WHEN] Updating the task to true
-        updateTask(id, collName, false);
+        // [WHEN] Updating the task to be complete
+        completeTask(id, collName, false);
 
         // [WHEN] Getting the active value from the document in DB
         Document document = getDocumentById(id, collName);
