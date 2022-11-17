@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.control.Label;
 import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -206,5 +207,13 @@ public class Task {
     public Task(double progress, boolean active) {
         this.progress = progress;
         this.active = active;
+    }
+
+    public String makeDateLabel() {
+        String date = this.getDbDate().toString();
+        String month = date.substring(date.indexOf(" ") + 1, (date.indexOf(" ") + 4));
+        String year = date.substring(date.lastIndexOf(" ") + 1, date.lastIndexOf(" ") + 5);
+        String dateToPrint = (month + " " + year);
+        return dateToPrint;
     }
 }

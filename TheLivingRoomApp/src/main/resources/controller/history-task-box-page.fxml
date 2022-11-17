@@ -9,13 +9,9 @@
    <children>
       <HBox fx:id="hbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="1000.0" spacing="15.0">
          <children>
+            <Label fx:id="deadlineLabel" text="Label" />
             <Button fx:id="recoverButton" mnemonicParsing="false" onAction="#setTaskToActive" text="Recover" />
             <Button fx:id="informationButton" alignment="TOP_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#showDescription" prefHeight="30.0" prefWidth="470.0" text="Title" />
-            <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="deadlineLabel" text="Label" />
-               </children>
-            </HBox>
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteTaskFromDB" text="Delete" />
          </children>
       </HBox>

@@ -12,6 +12,8 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -35,8 +37,9 @@ public class HistoryTaskController implements DatabaseMethods, UIMethods, Initia
     }
 
     public void setTaskBoxToUI(Task task) {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         informationButton.setText(task.getTitle());
-        deadlineLabel.setText(task.getDbDate().toString());
+        deadlineLabel.setText(df.format(task.getDbDate()));
     }
 
     public void showDescription(ActionEvent event) {

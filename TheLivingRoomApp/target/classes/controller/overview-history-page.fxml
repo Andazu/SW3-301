@@ -14,7 +14,7 @@
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="History" textAlignment="CENTER">
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Archived tasks" textAlignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
