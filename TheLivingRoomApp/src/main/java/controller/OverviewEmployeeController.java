@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import model.Task;
 import model.User;
@@ -25,6 +26,8 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private GridPane taskGrid;
     @FXML
     private BorderPane overviewEmployeeBorderPane;
+    @FXML
+    private Button refreshFilter;
     @FXML
     private HBox filterOptionsHBox;
     @FXML
@@ -68,6 +71,8 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
             assigneeDropdownMenu.getItems().add(user.getFullName());
         }
 
+        refreshFilter.setVisible(false);
+
         populateOverviewPageWithTaskBoxes();
     }
 
@@ -86,9 +91,11 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         if (filterOptionsHBox.isVisible()) {
             filterOptionsHBox.setVisible(false);
             filterOptionsHBox.setPrefHeight(0);
+            refreshFilter.setVisible(false);
         } else {
             filterOptionsHBox.setVisible(true);
             filterOptionsHBox.setPrefHeight(75);
+            refreshFilter.setVisible(true);
         }
     }
 
@@ -133,6 +140,27 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
             employee = assigneeDropdownMenu.getValue();
             populateOverviewPageWithTaskBoxes();
         }
+    }
+
+    public void refreshFilters(ActionEvent event) {
+        ListCell<String> frequencyText = new ListCell<>();
+        frequencyText.setText("Frequency");
+        ListCell<String> urgencyText = new ListCell<>();
+        urgencyText.setText("Urgency");
+        ListCell<String> typeText = new ListCell<>();
+        typeText.setText("Type");
+        ListCell<String> progressText = new ListCell<>();
+        progressText.setText("Progress");
+        ListCell<String> assigneeText = new ListCell<>();
+        assigneeText.setText("Assignee");
+
+        frequencyDropdownMenu.setButtonCell(frequencyText);
+        urgencyDropdownMenu.setButtonCell(urgencyText);
+        typeDropdownMenu.setButtonCell(typeText);
+        progressDropdownMenu.setButtonCell(progressText);
+        assigneeDropdownMenu.setButtonCell(assigneeText);
+
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null);
     }
 }
 

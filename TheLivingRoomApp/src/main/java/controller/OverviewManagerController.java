@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import model.Task;
 import model.User;
@@ -26,7 +27,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     @FXML
     private BorderPane overviewManagerBorderPane;
     @FXML
-    private Button filterButton;
+    private Button refreshFilter;
     @FXML
     private HBox filterOptionsHBox;
     @FXML
@@ -71,6 +72,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
             assigneeDropdownMenu.getItems().add(user.getFullName());
         }
 
+        refreshFilter.setVisible(false);
+
         populateOverviewPageWithTaskBoxes();
     }
 
@@ -90,9 +93,11 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         if (filterOptionsHBox.isVisible()) {
             filterOptionsHBox.setVisible(false);
             filterOptionsHBox.setPrefHeight(0);
+            refreshFilter.setVisible(false);
         } else {
             filterOptionsHBox.setVisible(true);
             filterOptionsHBox.setPrefHeight(75);
+            refreshFilter.setVisible(true);
         }
     }
 
@@ -121,7 +126,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         if (!Objects.equals(progressValue, progressDropdownMenu.getValue()) & !progressDropdownMenu.getValue().equals("")) {
             if (progressDropdownMenu.getValue().equals("0%")) {
                 progress = 0.0;
-            } else {
+            } else if (!progressDropdownMenu.getValue().equals("Progress")) {
                 progress = (double)(new DecimalFormat("0.0#%").parse(progressDropdownMenu.getValue()));
             }
             progressValue = progressDropdownMenu.getValue();
@@ -137,6 +142,27 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
             employee = assigneeDropdownMenu.getValue();
             populateOverviewPageWithTaskBoxes();
         }
+    }
+
+    public void refreshFilters(ActionEvent event) {
+        ListCell<String> frequencyText = new ListCell<>();
+        frequencyText.setText("Frequency");
+        ListCell<String> urgencyText = new ListCell<>();
+        urgencyText.setText("Urgency");
+        ListCell<String> typeText = new ListCell<>();
+        typeText.setText("Type");
+        ListCell<String> progressText = new ListCell<>();
+        progressText.setText("Progress");
+        ListCell<String> assigneeText = new ListCell<>();
+        assigneeText.setText("Assignee");
+
+        frequencyDropdownMenu.setButtonCell(frequencyText);
+        urgencyDropdownMenu.setButtonCell(urgencyText);
+        typeDropdownMenu.setButtonCell(typeText);
+        progressDropdownMenu.setButtonCell(progressText);
+        assigneeDropdownMenu.setButtonCell(assigneeText);
+
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null);
     }
 }
 
