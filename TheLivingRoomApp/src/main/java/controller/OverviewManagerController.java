@@ -57,7 +57,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         );
 
         typeDropdownMenu.getItems().addAll(
-                "", "All", "Cleaner", "Bartender"
+                "", "Cleaner", "Bartender"
         );
 
         progressDropdownMenu.getItems().addAll(
@@ -78,64 +78,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         switchScene(overviewManagerBorderPane, "task-form-page.fxml");
     }
 
-    private Bson getFilters(String field, Object value) {
-        Bson filter;
-        if (!(Objects.equals(value, "")) & value != null) {
-            filter = Filters.eq(field, value);
-        } else {
-            filter = Filters.ne(field, null);
-        }
-        return filter;
-    }
-
     public void populateOverviewPageWithTaskBoxes() {
-        taskGrid.getChildren().clear();
-
-        Bson frequencyFilter = getFilters("frequency", frequency);
-        Bson urgencyFilter = getFilters("urgency", urgency);
-        Bson typeFilter = getFilters("type", type);
-
-        Bson progressFilter;
-        if (progressValue == null || progressValue.equals("")) {
-            progressFilter = getFilters("progress", null);
-        } else {
-            progressFilter = getFilters("progress", progress);
-        }
-
-        boolean filterEmployee = !(Objects.equals(employee, "")) & employee != null;
-
-        Bson filter = Filters.and(frequencyFilter, urgencyFilter, typeFilter, progressFilter);
-        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
-
-        int columns = 1;
-        int rows = 1;
-
-        try {
-            for (Task task : tasks) {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
-
-                VBox vBox = loader.load();
-                vBox.setId(task.getId().toString()); // Store task id as hBox id
-
-                TaskManagerController taskController = loader.getController();
-                taskController.setTaskBoxToUI(task);
-
-                if (filterEmployee) {
-                    for (String assignee : task.getAssignees()) {
-                        if (employee.equals(assignee)) {
-                            taskGrid.add(vBox, columns, rows);
-                        }
-                    }
-                } else {
-                    taskGrid.add(vBox, columns, rows);
-                }
-
-                rows++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee);
     }
 
     public void refreshPage(ActionEvent event) {
