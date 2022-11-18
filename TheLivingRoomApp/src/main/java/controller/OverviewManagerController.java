@@ -3,10 +3,7 @@ package controller;
 import com.mongodb.client.model.Filters;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListCell;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.converter.LocalDateStringConverter;
 import model.Task;
@@ -35,6 +32,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     @FXML
     private Button refreshFilter;
     @FXML
+    private Label dateForShownDay;
+    @FXML
     private DatePicker datePickerFilter;
     @FXML
     private HBox filterOptionsHBox;
@@ -57,6 +56,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private ArrayList<Task> tasks;
     private ArrayList<User> users;
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat dfForLabel = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
     private LocalDate localDate = LocalDate.now();
 
@@ -66,6 +66,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
         users = DatabaseMethods.getEmployeesFromDB(false, "users");
         date = new Date();
+
+        dateForShownDay.setText(dfForLabel.format(this.date));
 
         datePickerFilter.setValue(localDate);
 
@@ -179,11 +181,16 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         datePickerFilter.setValue(localDate);
 
         String dateToParse = df.format(new Date());
+        dateForShownDay.setText(dateToParse);
 
         populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse);
     }
 
     public void dateFilter(ActionEvent event) {
+        Date dateToFormat = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        String dateToShow = dfForLabel.format(dateToFormat);
+        dateForShownDay.setText(dateToShow);
+
         populateOverviewPageWithTaskBoxes();
     }
 }

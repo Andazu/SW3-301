@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import model.Task;
@@ -31,6 +32,8 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     @FXML
     private Button refreshFilter;
     @FXML
+    private Label dateForShownDay;
+    @FXML
     private HBox filterOptionsHBox;
     @FXML
     private ComboBox<String> frequencyDropdownMenu;
@@ -51,6 +54,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private ArrayList<Task> tasks;
     private ArrayList<User> users;
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private DateFormat dfForLabel = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
     private int oneDayMS = 86400000;
     @Override
@@ -58,6 +62,8 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
         users = DatabaseMethods.getEmployeesFromDB(false, "users");
         date = new Date();
+
+        dateForShownDay.setText(dfForLabel.format(this.date));
 
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
@@ -179,12 +185,16 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         this.date.setTime(this.date.getTime() - oneDayMS);
         String previousDayDate = df.format(this.date);
 
+        dateForShownDay.setText(dfForLabel.format(this.date));
+
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, previousDayDate);
     }
 
     public void nextDay(ActionEvent event) {
         this.date.setTime(this.date.getTime() + oneDayMS);
         String nextDayDate = df.format(this.date);
+
+        dateForShownDay.setText(dfForLabel.format(this.date));
 
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate);
     }
