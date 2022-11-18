@@ -57,7 +57,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private ArrayList<Task> tasks;
     private ArrayList<User> users;
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    private Date date = new Date();
+    private Date date;
     private LocalDate localDate = LocalDate.now();
 
 
@@ -65,6 +65,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     public void initialize(URL location, ResourceBundle resources) {
         tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
         users = DatabaseMethods.getEmployeesFromDB(false, "users");
+        date = new Date();
 
         datePickerFilter.setValue(localDate);
 
@@ -104,7 +105,9 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
 
 
     public void populateOverviewPageWithTaskBoxes() {
-        String dateToParse = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).toString();
+        Date dateToFormat = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        String dateToParse = df.format(dateToFormat);
+
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse);
     }
 
@@ -175,7 +178,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         assigneeDropdownMenu.setValue("");
         datePickerFilter.setValue(localDate);
 
-        String dateToParse = df.format(this.date);
+        String dateToParse = df.format(new Date());
 
         populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse);
     }
