@@ -162,7 +162,7 @@ public interface UIMethods {
     default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date) {
         taskGrid.getChildren().clear();
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
         Bson frequencyFilter = getFilters("frequency", frequency);
         Bson urgencyFilter = getFilters("urgency", urgency);

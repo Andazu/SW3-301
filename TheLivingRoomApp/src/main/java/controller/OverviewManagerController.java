@@ -5,13 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.util.converter.LocalDateStringConverter;
 import model.Task;
 import model.User;
-import org.bson.BsonDocument;
-import org.bson.conversions.Bson;
-import org.bson.types.ObjectId;
-import java.io.IOException;
+
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -55,8 +51,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private String employee;
     private ArrayList<Task> tasks;
     private ArrayList<User> users;
-    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    private DateFormat dfForLabel = new SimpleDateFormat("dd-MM-yyyy");
+    private DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
     private LocalDate localDate = LocalDate.now();
 
@@ -67,7 +62,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         users = DatabaseMethods.getEmployeesFromDB(false, "users");
         date = new Date();
 
-        dateForShownDay.setText(dfForLabel.format(this.date));
+        dateForShownDay.setText(df.format(this.date));
 
         datePickerFilter.setValue(localDate);
 
@@ -188,7 +183,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
 
     public void dateFilter(ActionEvent event) {
         Date dateToFormat = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-        String dateToShow = dfForLabel.format(dateToFormat);
+        String dateToShow = df.format(dateToFormat);
         dateForShownDay.setText(dateToShow);
 
         populateOverviewPageWithTaskBoxes();

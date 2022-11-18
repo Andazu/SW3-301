@@ -10,19 +10,16 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import model.Task;
 import model.User;
-import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
-import java.io.IOException;
+
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.ne;
 
 public class OverviewEmployeeController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
@@ -53,8 +50,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private String employee;
     private ArrayList<Task> tasks;
     private ArrayList<User> users;
-    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-    private DateFormat dfForLabel = new SimpleDateFormat("dd-MM-yyyy");
+    private DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
     private int oneDayMS = 86400000;
     @Override
@@ -63,7 +59,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         users = DatabaseMethods.getEmployeesFromDB(false, "users");
         date = new Date();
 
-        dateForShownDay.setText(dfForLabel.format(this.date));
+        dateForShownDay.setText(df.format(this.date));
 
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
@@ -185,7 +181,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         this.date.setTime(this.date.getTime() - oneDayMS);
         String previousDayDate = df.format(this.date);
 
-        dateForShownDay.setText(dfForLabel.format(this.date));
+        dateForShownDay.setText(df.format(this.date));
 
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, previousDayDate);
     }
@@ -194,7 +190,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         this.date.setTime(this.date.getTime() + oneDayMS);
         String nextDayDate = df.format(this.date);
 
-        dateForShownDay.setText(dfForLabel.format(this.date));
+        dateForShownDay.setText(df.format(this.date));
 
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate);
     }

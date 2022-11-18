@@ -26,8 +26,8 @@
                   <Insets />
                </HBox.margin>
             </Label>
-            <Button fx:id="previousDay" mnemonicParsing="false" onAction="#previousDay" text="←" />
-            <Button fx:id="nextDay" mnemonicParsing="false" onAction="#nextDay" text="→" />
+            <Button fx:id="previousDay" minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#previousDay" text="←" />
+            <Button fx:id="nextDay" minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#nextDay" text="→" />
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="490.0">
                <children>
                   <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshPage" prefHeight="30.0" prefWidth="75.0" text="Refresh">
