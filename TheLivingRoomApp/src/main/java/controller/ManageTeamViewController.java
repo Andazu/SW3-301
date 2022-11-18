@@ -68,5 +68,9 @@ public class ManageTeamViewController implements Initializable, UIMethods, Datab
     public void refreshPage(ActionEvent event) {
         switchScene(ManageTeamViewBorderPane, "manage-team-page.fxml");
     }
+
+    public void returnToManagerOverview(ActionEvent event){
+        switchScene(ManageTeamViewBorderPane, "overview-manager-page.fxml");
+    }
 }
 

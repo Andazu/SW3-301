@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -30,22 +31,47 @@
                         <Insets bottom="20.0" top="20.0" />
                     </padding>
                 </Label>
-                <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="315.0" spacing="20.0">
+                <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="715.0" spacing="20.0">
                     <children>
                   <Button mnemonicParsing="false" onAction="#openTeamManagerPage" prefHeight="30.0" prefWidth="110.0" text="Manage Team">
                      <HBox.margin>
-                        <Insets bottom="20.0" top="20.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
                         <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#openTaskFormPage" prefHeight="30.0" prefWidth="75.0" text="Add task" textAlignment="CENTER">
                             <HBox.margin>
-                                <Insets bottom="20.0" top="20.0" />
+                                <Insets />
                             </HBox.margin>
                         </Button>
                         <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshPage" prefHeight="30.0" prefWidth="75.0" text="Refresh">
                             <HBox.margin>
-                                <Insets bottom="20.0" right="20.0" top="20.0" />
+                                <Insets />
                             </HBox.margin></Button>
+                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  <Button fx:id="refreshFilter" mnemonicParsing="false" onAction="#refreshFilters" prefHeight="33.0" prefWidth="40.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                      <graphic>
+                          <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../launcher/images/refreshFilters.png" />
+                              </image>
+                          </ImageView>
+                      </graphic>
+                  </Button>
+                  <Button fx:id="filterButton" mnemonicParsing="false" onAction="#filterTasks">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../launcher/images/filter.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Button>
                     </children>
                 </HBox>
             </children>
@@ -54,39 +80,11 @@
    <center>
       <VBox prefHeight="600.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="100.0">
+            <VBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="1004.0">
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="141.0">
+                  <HBox fx:id="filterOptionsHBox" alignment="CENTER" minHeight="-Infinity" prefHeight="0.0" prefWidth="1004.0" spacing="10.0" visible="false">
                      <children>
-                        <Button fx:id="refreshFilter" mnemonicParsing="false" onAction="#refreshFilters" prefHeight="33.0" prefWidth="40.0">
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                            <graphic>
-                                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../launcher/images/refreshFilters.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button fx:id="filterButton" mnemonicParsing="false" onAction="#filterTasks">
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../launcher/images/filter.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox fx:id="filterOptionsHBox" alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="0.0" prefWidth="400.0" spacing="10.0" visible="false">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
+                        <VBox prefHeight="50.0" prefWidth="121.0" spacing="2.0">
                            <children>
                               <Label text="Date" />
                               <DatePicker fx:id="datePickerFilter" onAction="#dateFilter" />
@@ -129,7 +127,7 @@
                   <Insets right="20.0" />
                </VBox.margin>
             </VBox>
-            <ScrollPane prefHeight="600.0" prefWidth="1024.0">
+            <ScrollPane prefHeight="636.0" prefWidth="1024.0">
                <content>
                   <GridPane fx:id="taskGrid">
                      <rowConstraints>
