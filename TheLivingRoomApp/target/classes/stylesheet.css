@@ -44,13 +44,11 @@
     -fx-border-radius: 2.0em;
 }
 
-
 .scroll-bar:horizontal .increment-button ,
 .scroll-bar:horizontal .decrement-button {
     -fx-background-color: transparent;
     -fx-background-radius: 0.0em;
     -fx-padding: 0.0 0.0 10.0 0.0;
-
 }
 
 .scroll-bar:vertical .increment-button ,
@@ -58,7 +56,6 @@
     -fx-background-color: transparent;
     -fx-background-radius: 0.0em;
     -fx-padding: 0.0 10.0 0.0 0.0;
-
 }
 
 .scroll-bar .increment-arrow,

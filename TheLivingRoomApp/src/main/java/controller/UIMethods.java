@@ -17,7 +17,11 @@ import model.Task;
 import org.bson.conversions.Bson;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public interface UIMethods {
@@ -155,8 +159,12 @@ public interface UIMethods {
         return filter;
     }
 
-    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee) {
+    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, Date date, DateFormat df) {
         taskGrid.getChildren().clear();
+
+
+
+        String datefilter = df.format(date);
 
         Bson frequencyFilter = getFilters("frequency", frequency);
         Bson urgencyFilter = getFilters("urgency", urgency);
@@ -188,13 +196,13 @@ public interface UIMethods {
                 TaskManagerController taskController = loader.getController();
                 taskController.setTaskBoxToUI(task);
 
-                if (filterEmployee) {
+                if (filterEmployee && datefilter.equals(df.format(task.getDbDate()))) {
                     for (String assignee : task.getAssignees()) {
                         if (employee.equals(assignee)) {
                             taskGrid.add(vBox, columns, rows);
                         }
                     }
-                } else {
+                } else if (datefilter.equals(df.format(task.getDbDate()))){
                     taskGrid.add(vBox, columns, rows);
                 }
 

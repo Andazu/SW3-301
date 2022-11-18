@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import model.Task;
@@ -14,8 +15,12 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 import static com.mongodb.client.model.Filters.and;
@@ -28,6 +33,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private BorderPane overviewManagerBorderPane;
     @FXML
     private Button refreshFilter;
+    @FXML
+    private DatePicker datePickerFilter;
     @FXML
     private HBox filterOptionsHBox;
     @FXML
@@ -47,6 +54,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private String progressValue;
     private String employee;
     private ArrayList<Task> tasks;
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private Date date = new Date();
 
 
     @Override
@@ -54,7 +63,10 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         ArrayList<Task> taskArrayList = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
         tasks = taskArrayList;
         for (Task task: tasks) {
-            System.out.println(task.getDbDate());
+            Date dato = new Date();
+            if (df.format(dato).equals(df.format(task.getDbDate()))) {
+                System.out.println("Luksus");
+            }
         }
 
 
@@ -91,7 +103,12 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     }
 
     public void populateOverviewPageWithTaskBoxes() {
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee);
+        if (datePickerFilter.getValue() != null) {
+            populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), df);
+        } else {
+            populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, date, df);
+
+        }
     }
 
     public void refreshPage(ActionEvent event) {
@@ -171,7 +188,11 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         progressDropdownMenu.setButtonCell(progressText);
         assigneeDropdownMenu.setButtonCell(assigneeText);
 
-        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null);
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, new Date(), df);
+    }
+
+    public void dateFilter(ActionEvent event) {
+        populateOverviewPageWithTaskBoxes();
     }
 }
 

@@ -13,8 +13,10 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -46,6 +48,9 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private double progress;
     private String progressValue;
     private String employee;
+    private ArrayList<Task> tasks;
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private Date date = new Date();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         frequencyDropdownMenu.getItems().addAll(
@@ -77,7 +82,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     }
 
     public void populateOverviewPageWithTaskBoxes() {
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, date, df);
     }
     static Task createTaskToDisplay(ArrayList<Object> values) {
         ObjectId id = new ObjectId(values.get(0).toString());
@@ -160,7 +165,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         progressDropdownMenu.setButtonCell(progressText);
         assigneeDropdownMenu.setButtonCell(assigneeText);
 
-        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null);
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, date, df);
     }
 }
 
