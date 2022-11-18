@@ -46,9 +46,18 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private double progress;
     private String progressValue;
     private String employee;
+    private ArrayList<Task> tasks;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ArrayList<Task> taskArrayList = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
+        tasks = taskArrayList;
+        for (Task task: tasks) {
+            System.out.println(task.getDbDate());
+        }
+
+
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
         );
