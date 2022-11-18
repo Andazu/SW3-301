@@ -18,9 +18,9 @@
 
 <BorderPane fx:id="overviewManagerBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewManagerController">
     <top>
-        <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1024.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Today's Date" textAlignment="CENTER">
+                <Label alignment="CENTER" prefHeight="69.0" prefWidth="200.0" text="Today's Date" textAlignment="CENTER">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -69,12 +69,15 @@
                         </ImageView>
                      </graphic>
                      <HBox.margin>
-                        <Insets right="20.0" />
+                        <Insets />
                      </HBox.margin>
                   </Button>
                     </children>
                 </HBox>
             </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
         </HBox>
     </top>
    <center>
