@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="overviewEmployeeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewEmployeeController">
+<BorderPane fx:id="overviewEmployeeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewEmployeeController">
    <top>
       <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
          <children>
@@ -47,6 +47,7 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="141.0">
                      <children>
+                        <Button fx:id="previousDay" mnemonicParsing="false" text="Previous" />
                         <Button fx:id="refreshFilter" mnemonicParsing="false" onAction="#refreshFilters" prefHeight="33.0" prefWidth="40.0">
                            <HBox.margin>
                               <Insets right="20.0" />
@@ -68,6 +69,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
+                        <Button fx:id="nextDay" mnemonicParsing="false" text="Next" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />

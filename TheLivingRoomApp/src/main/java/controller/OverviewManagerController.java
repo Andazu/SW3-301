@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
+import javafx.util.converter.LocalDateStringConverter;
 import model.Task;
 import model.User;
 import org.bson.BsonDocument;
@@ -54,21 +55,18 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private String progressValue;
     private String employee;
     private ArrayList<Task> tasks;
+    private ArrayList<User> users;
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     private Date date = new Date();
+    private LocalDate localDate = LocalDate.now();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ArrayList<Task> taskArrayList = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
-        tasks = taskArrayList;
-        for (Task task: tasks) {
-            Date dato = new Date();
-            if (df.format(dato).equals(df.format(task.getDbDate()))) {
-                System.out.println("Luksus");
-            }
-        }
+        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
+        users = DatabaseMethods.getEmployeesFromDB(false, "users");
 
+        datePickerFilter.setValue(localDate);
 
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
@@ -86,8 +84,6 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
                 "", "0%", "25%", "50%", "75%"
         );
 
-        ArrayList<User> users = DatabaseMethods.getEmployeesFromDB(false, "users");
-
         assigneeDropdownMenu.getItems().addAll("", "General");
         for (User user : users) {
             assigneeDropdownMenu.getItems().add(user.getFullName());
@@ -103,12 +99,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     }
 
     public void populateOverviewPageWithTaskBoxes() {
-        if (datePickerFilter.getValue() != null) {
             populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), df);
-        } else {
-            populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, date, df);
-
-        }
     }
 
     public void refreshPage(ActionEvent event) {
@@ -171,22 +162,12 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     }
 
     public void refreshFilters(ActionEvent event) {
-        ListCell<String> frequencyText = new ListCell<>();
-        frequencyText.setText("Frequency");
-        ListCell<String> urgencyText = new ListCell<>();
-        urgencyText.setText("Urgency");
-        ListCell<String> typeText = new ListCell<>();
-        typeText.setText("Type");
-        ListCell<String> progressText = new ListCell<>();
-        progressText.setText("Progress");
-        ListCell<String> assigneeText = new ListCell<>();
-        assigneeText.setText("Assignee");
-
-        frequencyDropdownMenu.setButtonCell(frequencyText);
-        urgencyDropdownMenu.setButtonCell(urgencyText);
-        typeDropdownMenu.setButtonCell(typeText);
-        progressDropdownMenu.setButtonCell(progressText);
-        assigneeDropdownMenu.setButtonCell(assigneeText);
+        frequencyDropdownMenu.setValue("");
+        urgencyDropdownMenu.setValue("");
+        typeDropdownMenu.setValue("");
+        progressDropdownMenu.setValue("");
+        assigneeDropdownMenu.setValue("");
+        datePickerFilter.setValue(localDate);
 
         populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, new Date(), df);
     }

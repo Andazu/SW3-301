@@ -49,10 +49,14 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private String progressValue;
     private String employee;
     private ArrayList<Task> tasks;
+    private ArrayList<User> users;
     private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     private Date date = new Date();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
+        users = DatabaseMethods.getEmployeesFromDB(false, "users");
+
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
         );
@@ -68,8 +72,6 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         progressDropdownMenu.getItems().addAll(
                 "", "0%", "25%", "50%", "75%"
         );
-
-        ArrayList<User> users = DatabaseMethods.getEmployeesFromDB(false, "users");
 
         assigneeDropdownMenu.getItems().addAll("", "General");
         for (User user : users) {
