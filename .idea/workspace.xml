@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images/employeeicon2.png" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images/employeeicon2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images/managericon1.png" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images/managericon1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-manager-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-manager-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-manager-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-manager-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" afterDir="false" />
     </list>
     <list id="1022e458-1ade-405c-990a-d1268fa74848" name="Changes by ander" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +162,7 @@
       <workItem from="1668155760364" duration="3362000" />
       <workItem from="1668159730756" duration="1405000" />
       <workItem from="1668673339560" duration="11700000" />
-      <workItem from="1668760216779" duration="9825000" />
+      <workItem from="1668760216779" duration="10575000" />
     </task>
     <servers />
   </component>
