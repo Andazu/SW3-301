@@ -159,7 +159,7 @@ public interface UIMethods {
         return filter;
     }
 
-    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date) {
+    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date, boolean isManagerView) {
         taskGrid.getChildren().clear();
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -186,13 +186,22 @@ public interface UIMethods {
         try {
             for (Task task : tasks) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
+                if (isManagerView) {
+                    loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
+                } else {
+                    loader.setLocation(getClass().getResource("task-box-page.fxml"));
+                }
 
                 VBox vBox = loader.load();
                 vBox.setId(task.getId().toString()); // Store task id as hBox id
 
-                TaskManagerController taskController = loader.getController();
-                taskController.setTaskBoxToUI(task);
+                if (isManagerView) {
+                    TaskManagerController taskController = loader.getController();
+                    taskController.setTaskBoxToUI(task);
+                } else {
+                    TaskController taskController = loader.getController();
+                    taskController.setTaskBoxToUI(task);
+                }
 
                 if (filterEmployee && date.equals(df.format(task.getDbDate()))) {
                     for (String assignee : task.getAssignees()) {

@@ -50,16 +50,16 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private String employee;
     private ArrayList<Task> tasks;
     private ArrayList<User> users;
-    private DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
-    private int oneDayMS = 86400000;
+    private final int oneDayMS = 86400000;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
         users = DatabaseMethods.getEmployeesFromDB(false, "users");
         date = new Date();
 
-        dateForShownDay.setText(df.format(this.date));
+        dateForShownDay.setText("Today");
 
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
@@ -89,8 +89,9 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
 
     public void populateOverviewPageWithTaskBoxes() {
         String dateToParse = df.format(this.date);
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse, false);
     }
+
     static Task createTaskToDisplay(ArrayList<Object> values) {
         ObjectId id = new ObjectId(values.get(0).toString());
         return new Task(id, (String) values.get(1), (String) values.get(2), (String) values.get(3), (String) values.get(4), (String) values.get(5), (Double) values.get(6), (Boolean) values.get(7), (ArrayList<String>) values.get(8), (ArrayList<String>) values.get(9), (Date) values.get(10));
@@ -174,25 +175,36 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
 
         String dateToParse = df.format(this.date);
 
-        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse);
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse, false);
     }
 
     public void previousDay(ActionEvent event) {
         this.date.setTime(this.date.getTime() - oneDayMS);
         String previousDayDate = df.format(this.date);
+        Date todayDate = new Date();
+        String todayDateString = df.format(todayDate);
 
-        dateForShownDay.setText(df.format(this.date));
+        if (previousDayDate.equals(todayDateString)) {
+            dateForShownDay.setText("Today");
+        } else {
+            dateForShownDay.setText(df.format(this.date));
+        }
 
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, previousDayDate);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, previousDayDate, false);
     }
 
     public void nextDay(ActionEvent event) {
         this.date.setTime(this.date.getTime() + oneDayMS);
         String nextDayDate = df.format(this.date);
+        Date todayDate = new Date();
 
-        dateForShownDay.setText(df.format(this.date));
+        if (nextDayDate == df.format(todayDate)) {
+            dateForShownDay.setText("Today");
+        } else {
+            dateForShownDay.setText(df.format(this.date));
+        }
 
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate, false);
     }
 }
 

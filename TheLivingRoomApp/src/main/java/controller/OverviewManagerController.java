@@ -61,8 +61,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
         users = DatabaseMethods.getEmployeesFromDB(false, "users");
         date = new Date();
-
-        dateForShownDay.setText(df.format(this.date));
+        
+        dateForShownDay.setText("Today");
 
         datePickerFilter.setValue(localDate);
 
@@ -105,7 +105,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         Date dateToFormat = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         String dateToParse = df.format(dateToFormat);
 
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse, true);
     }
 
     public void refreshPage(ActionEvent event) {
@@ -178,7 +178,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         String dateToParse = df.format(new Date());
         dateForShownDay.setText(dateToParse);
 
-        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse);
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse, true);
     }
 
     public void dateFilter(ActionEvent event) {
