@@ -1,7 +1,9 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 public class User {
-    private String id;
+    private ObjectId id;
     private String firstName;
     private String lastName;
     private String fullName;
@@ -9,6 +11,14 @@ public class User {
     private String phoneNumber;
     private String role;
     private boolean admin;
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -75,20 +85,22 @@ public class User {
         }
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getFullName() {
         return fullName;
     }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public User(ObjectId id, String firstName, String lastName, String emailAddress, String phoneNumber, boolean admin, String role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.admin = admin;
+        this.role = role;
     }
 
     public User(String firstName, String lastName, String emailAddress, String phoneNumber, boolean admin, String role) {
@@ -100,7 +112,7 @@ public class User {
         this.role = role;
     }
 
-    public User(String id, String fullName, String role) {
+    public User(ObjectId id, String fullName, String role) {
         this.id = id;
         this.fullName = fullName;
         this.role = role;

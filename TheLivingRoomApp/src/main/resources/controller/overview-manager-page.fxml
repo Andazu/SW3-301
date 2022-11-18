@@ -32,6 +32,11 @@
                 </Label>
                 <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="315.0" spacing="20.0">
                     <children>
+                  <Button mnemonicParsing="false" onAction="#openTeamManagerPage" prefHeight="30.0" prefWidth="110.0" text="Manage Team">
+                     <HBox.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </HBox.margin>
+                  </Button>
                         <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#openTaskFormPage" prefHeight="30.0" prefWidth="75.0" text="Add task" textAlignment="CENTER">
                             <HBox.margin>
                                 <Insets bottom="20.0" top="20.0" />

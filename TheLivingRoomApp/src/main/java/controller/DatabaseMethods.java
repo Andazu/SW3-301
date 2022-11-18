@@ -69,7 +69,8 @@ public interface DatabaseMethods {
          for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
 
-            employees.add(new User(values.get(0).toString(), values.get(1).toString() + ' ' + values.get(2).toString(), values.get(6).toString()));
+            ObjectId id = new ObjectId(values.get(0).toString());
+            employees.add(new User(id, values.get(1).toString(), values.get(2).toString(), values.get(3).toString(), values.get(4).toString(), (Boolean) values.get(5), values.get(6).toString()));
         }
         return employees;
     }
