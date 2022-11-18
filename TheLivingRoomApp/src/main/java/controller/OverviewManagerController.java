@@ -104,7 +104,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
 
 
     public void populateOverviewPageWithTaskBoxes() {
-            populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()), df);
+        String dateToParse = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()).toString();
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse);
     }
 
     public void refreshPage(ActionEvent event) {
@@ -174,7 +175,9 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         assigneeDropdownMenu.setValue("");
         datePickerFilter.setValue(localDate);
 
-        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, new Date(), df);
+        String dateToParse = df.format(this.date);
+
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse);
     }
 
     public void dateFilter(ActionEvent event) {

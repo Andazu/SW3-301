@@ -159,12 +159,10 @@ public interface UIMethods {
         return filter;
     }
 
-    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, Date date, DateFormat df) {
+    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date) {
         taskGrid.getChildren().clear();
 
-
-
-        String datefilter = df.format(date);
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         Bson frequencyFilter = getFilters("frequency", frequency);
         Bson urgencyFilter = getFilters("urgency", urgency);
@@ -196,13 +194,13 @@ public interface UIMethods {
                 TaskManagerController taskController = loader.getController();
                 taskController.setTaskBoxToUI(task);
 
-                if (filterEmployee && datefilter.equals(df.format(task.getDbDate()))) {
+                if (filterEmployee && date.equals(df.format(task.getDbDate()))) {
                     for (String assignee : task.getAssignees()) {
                         if (employee.equals(assignee)) {
                             taskGrid.add(vBox, columns, rows);
                         }
                     }
-                } else if (datefilter.equals(df.format(task.getDbDate()))){
+                } else if (date.equals(df.format(task.getDbDate()))){
                     taskGrid.add(vBox, columns, rows);
                 }
 

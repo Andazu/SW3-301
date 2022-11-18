@@ -47,7 +47,7 @@
                <children>
                   <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="141.0">
                      <children>
-                        <Button fx:id="previousDay" mnemonicParsing="false" text="Previous" />
+                        <Button fx:id="previousDay" mnemonicParsing="false" text="←" onAction="#previousDay"/>
                         <Button fx:id="refreshFilter" mnemonicParsing="false" onAction="#refreshFilters" prefHeight="33.0" prefWidth="40.0">
                            <HBox.margin>
                               <Insets right="20.0" />
@@ -69,7 +69,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="nextDay" mnemonicParsing="false" text="Next" />
+                        <Button fx:id="nextDay" mnemonicParsing="false" text="→" onAction="#nextDay"/>
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" />
