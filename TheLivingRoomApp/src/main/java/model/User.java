@@ -86,7 +86,12 @@ public class User {
     }
 
     public String getFullName() {
-        return fullName;
+        if (firstName == null && lastName == null){
+            return ("");
+        }
+        else {
+            return (firstName + " " + lastName);
+        }
     }
 
     public void setFullName(String fullName) {
