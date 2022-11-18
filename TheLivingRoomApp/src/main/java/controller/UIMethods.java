@@ -77,7 +77,7 @@ public interface UIMethods {
             BorderPane dialogBox = loader.load();
             Scene dialogScene = new Scene(dialogBox, width, height);
             dialog.setScene(dialogScene);
-            dialog.show();
+            dialog.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

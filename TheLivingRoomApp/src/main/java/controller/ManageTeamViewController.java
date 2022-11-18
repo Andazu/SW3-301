@@ -29,8 +29,6 @@ public class ManageTeamViewController implements Initializable, UIMethods, Datab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //ArrayList<User> users = DatabaseMethods.getEmployeesFromDB(false, "users");
-
         populateManageTeamViewWithUserBoxes();
     }
 
@@ -48,16 +46,12 @@ public class ManageTeamViewController implements Initializable, UIMethods, Datab
                 loader.setLocation(getClass().getResource("employee-box-page.fxml"));
 
                 VBox vBox = loader.load();
-                vBox.setId(user.getId().toString()); // Store user id as hBox id
+                vBox.setId(user.getId().toString()); // Store user id as vBox id
 
                 UserBoxController userBoxController = loader.getController();
                 userBoxController.setUserBoxToUI(user);
 
                 userGrid.add(vBox, columns, rows);
-                rows++;
-
-                Separator separator = new Separator(Orientation.HORIZONTAL);
-                userGrid.add(separator, columns, rows);
                 rows++;
             }
         } catch (IOException e) {
@@ -71,6 +65,13 @@ public class ManageTeamViewController implements Initializable, UIMethods, Datab
 
     public void returnToManagerOverview(ActionEvent event){
         switchScene(ManageTeamViewBorderPane, "overview-manager-page.fxml");
+    }
+
+    public void addEmployee(ActionEvent event) {
+        UserFormController controller = new UserFormController();
+        makeModalDialog(controller,"employee-form-page.fxml", 500,600);
+
+        refreshPage(event);
     }
 }
 

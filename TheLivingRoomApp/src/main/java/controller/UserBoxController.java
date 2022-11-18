@@ -19,25 +19,18 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class UserBoxController implements DatabaseMethods, UIMethods, Initializable {
-
     @FXML
     private Button deleteButton;
-
     @FXML
     private Label firstNameLabel;
-
     @FXML
     private Label lastNameLabel;
-
     @FXML
     private Label roleLabel;
-
     @FXML
     private Label phoneNumberLabel;
-
     @FXML
     private Label emailLabel;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

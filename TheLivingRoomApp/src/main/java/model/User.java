@@ -2,6 +2,11 @@ package model;
 
 import org.bson.types.ObjectId;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 public class User {
     private ObjectId id;
     private String firstName;
@@ -25,7 +30,12 @@ public class User {
     }
 
     public boolean setFirstName(String firstName) {
-        return firstName != null;
+        if (firstName == null) {
+            return false;
+        } else {
+            this.firstName = firstName;
+            return true;
+        }
     }
 
     public String getLastName() {
@@ -33,7 +43,12 @@ public class User {
     }
 
     public boolean setLastName(String lastName) {
-        return lastName != null;
+        if (lastName == null) {
+            return false;
+        } else {
+            this.lastName = lastName;
+            return true;
+        }
     }
 
     public String getEmailAddress() {
@@ -57,9 +72,14 @@ public class User {
     public boolean setPhoneNumber(String phoneNumber) {
         if (phoneNumber == null) {
             return false;
-        } else if (phoneNumber.length() == 8) {
-            this.phoneNumber = phoneNumber;
-            return true;
+        }
+
+        if (phoneNumber.length() >= 8) {
+
+            if (!Pattern.matches("[a-zA-Z]+", phoneNumber)) {
+                this.phoneNumber = phoneNumber;
+                return true;
+            }
         }
         return false;
     }
