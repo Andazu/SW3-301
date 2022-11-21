@@ -16,7 +16,7 @@
    <children>
       <HBox fx:id="hbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="1000.0" spacing="15.0">
          <children>
-            <Circle fx:id="overdueTask" fill="#00FF00" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="overdueTask" fill="#F07F79" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0"/>
             <StackPane prefHeight="75.0" prefWidth="494.0">
                <children>
                   <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="500.0" progress="0.0" />

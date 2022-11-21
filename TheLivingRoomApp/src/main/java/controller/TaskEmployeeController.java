@@ -41,9 +41,10 @@ public class TaskEmployeeController implements DatabaseMethods, UIMethods {
         assignees = task.getAssignees();
         Date today = new Date();
         today.setTime(new Date().getTime() - oneDayMS);
+        overdueTask.setVisible(false);
 
         if (task.getDbDate().before(today)) {
-            overdueTask.setFill(Color.RED);
+            overdueTask.setVisible(true);
         }
 
         progressBar.setProgress(task.getProgress());
