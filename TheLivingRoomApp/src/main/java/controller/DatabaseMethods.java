@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Sorts.ascending;
 import static controller.OverviewEmployeeController.createTaskToDisplay;
 
 public interface DatabaseMethods {
@@ -52,7 +53,7 @@ public interface DatabaseMethods {
          MongoCollection<Document> coll = getDBColl(collName);
 
          assert coll != null;
-         for (Document doc : coll.find(Filters.and(filter, eq("active", isActive)))) {
+         for (Document doc : coll.find(Filters.and(filter, eq("active", isActive))).sort(ascending("date"))) {
              ArrayList<Object> values = new ArrayList<>(doc.values());
 
              taskList.add(createTaskToDisplay(values));
@@ -66,7 +67,7 @@ public interface DatabaseMethods {
         MongoCollection<Document> coll = getDBColl(collName);
 
          assert coll != null;
-         for (Document doc : coll.find(eq("admin", isAdmin)).sort(Sorts.ascending("role", "firstName"))) {
+         for (Document doc : coll.find(eq("admin", isAdmin)).sort(ascending("role", "firstName"))) {
             ArrayList<Object> values = new ArrayList<>(doc.values());
 
             ObjectId id = new ObjectId(values.get(0).toString());
