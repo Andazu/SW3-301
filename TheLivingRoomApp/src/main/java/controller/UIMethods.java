@@ -18,8 +18,10 @@ import org.bson.conversions.Bson;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public interface UIMethods {
@@ -161,6 +163,13 @@ public interface UIMethods {
         taskGrid.getChildren().clear();
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date parsedDate = new Date();
+
+        try {
+            parsedDate = df.parse(date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
         Bson frequencyFilter = getFilters("frequency", frequency);
         Bson urgencyFilter = getFilters("urgency", urgency);
@@ -201,13 +210,15 @@ public interface UIMethods {
                     taskController.setTaskBoxToUI(task);
                 }
 
-                if (filterEmployee && date.equals(df.format(task.getDbDate()))) {
+                if (filterEmployee &&
+                        (date.equals(df.format(task.getDbDate())) ||
+                         parsedDate.after(task.getDbDate())       )) {
                     for (String assignee : task.getAssignees()) {
                         if (employee.equals(assignee)) {
                             taskGrid.add(vBox, columns, rows);
                         }
                     }
-                } else if (date.equals(df.format(task.getDbDate()))){
+                } else if (date.equals(df.format(task.getDbDate())) || parsedDate.after(task.getDbDate())){
                     taskGrid.add(vBox, columns, rows);
                 }
 

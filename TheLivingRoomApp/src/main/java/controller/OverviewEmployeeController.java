@@ -198,7 +198,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         String nextDayDate = df.format(this.date);
         Date todayDate = new Date();
 
-        if (nextDayDate == df.format(todayDate)) {
+        if (nextDayDate.equals(df.format(todayDate))) {
             dateForShownDay.setText("Today");
         } else {
             dateForShownDay.setText(df.format(this.date));
