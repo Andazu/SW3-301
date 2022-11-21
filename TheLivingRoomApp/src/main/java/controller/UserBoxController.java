@@ -50,4 +50,11 @@ public class UserBoxController implements DatabaseMethods, UIMethods, Initializa
         deleteFromDB(parent.getId(), "users");
         ((GridPane) parent.getParent()).getChildren().remove(parent);
     }
+
+    public void editUser(ActionEvent event) {
+        Node parent = returnParentsParentNode(event);
+
+        EditUserController controller = new EditUserController(parent.getId());
+        makeModalDialog(controller, "edit-user-page.fxml", 500, 600);
+    }
 }

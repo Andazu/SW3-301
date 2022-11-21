@@ -37,7 +37,7 @@
                   <Label fx:id="emailLabel" text="Email" />
                </children>
             </HBox>
-            <Button fx:id="information" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="i" />
+            <Button fx:id="information" onAction="#editUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="i" />
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteTaskFromDB" text="Delete" />
          </children>
       </HBox>

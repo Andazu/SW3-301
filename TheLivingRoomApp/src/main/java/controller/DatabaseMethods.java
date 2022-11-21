@@ -157,6 +157,22 @@ public interface DatabaseMethods {
         );
     }
 
+    default void updateUser(String id, String collName, User user) {
+        ObjectId objectId = new ObjectId(id);
+
+        MongoCollection<Document> collection = getDBColl(collName);
+        assert collection != null;
+        collection.updateOne(Filters.eq("_id", objectId),
+                Updates.combine(
+                        Updates.set("firstName", user.getFirstName()),
+                        Updates.set("lastName", user.getLastName()),
+                        Updates.set("role", user.getRole()),
+                        Updates.set("emailAddress", user.getEmailAddress()),
+                        Updates.set("phoneNumber", user.getPhoneNumber())
+                )
+        );
+    }
+
     default double updateProgressBarInDBAndReturnValue(String id, String dropdownMenuPercent, String collName) throws ParseException {
         ObjectId objectId = new ObjectId(id);
 
