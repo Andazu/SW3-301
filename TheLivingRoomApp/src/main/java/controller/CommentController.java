@@ -21,6 +21,8 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
     @FXML
     private GridPane addCommentGridPane;
     private final String id;
+
+    private final String sender;
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
     LocalDateTime now = LocalDateTime.now();
 
@@ -42,7 +44,7 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
         if (addComment.getText().equals("")) {
             informationDialog("The Comment Cannot Be Empty");
         } else {
-            addCommentToDB(this.id, dateTimeFormatter.format(now) + ":\n" + addComment.getText(), "tasks");
+            addCommentToDB(this.id, this.sender + " - " + dateTimeFormatter.format(now) + ":\n" + addComment.getText(), "tasks");
             closeStage(event);        }
     }
 
@@ -72,7 +74,8 @@ public class CommentController implements DatabaseMethods, UIMethods, Initializa
         }
     }
 
-    public CommentController(String id) {
+    public CommentController(String id, String sender) {
         this.id = id;
+        this.sender = sender;
     }
 }

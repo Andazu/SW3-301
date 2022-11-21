@@ -12,7 +12,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class TaskController implements DatabaseMethods, UIMethods {
+public class TaskEmployeeController implements DatabaseMethods, UIMethods {
     @FXML
     private ProgressBar progressBar;
     @FXML
@@ -71,7 +71,7 @@ public class TaskController implements DatabaseMethods, UIMethods {
     public void addCommentToTask(ActionEvent event) {
         Node parent = returnParentsParentNode(event);
 
-        CommentController commentController = new CommentController(parent.getId());
+        CommentController commentController = new CommentController(parent.getId(), "Employee");
         makeModalDialog(commentController,"add-comment-page.fxml", 731, 500);
     }
 

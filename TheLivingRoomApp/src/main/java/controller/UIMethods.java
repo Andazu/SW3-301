@@ -19,9 +19,7 @@ import org.bson.conversions.Bson;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Objects;
 
 public interface UIMethods {
@@ -199,7 +197,7 @@ public interface UIMethods {
                     TaskManagerController taskController = loader.getController();
                     taskController.setTaskBoxToUI(task);
                 } else {
-                    TaskController taskController = loader.getController();
+                    TaskEmployeeController taskController = loader.getController();
                     taskController.setTaskBoxToUI(task);
                 }
 
