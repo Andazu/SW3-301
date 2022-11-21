@@ -134,7 +134,6 @@ public interface DatabaseMethods {
 
     default void completeTask(String id, String collName, boolean SetActive) {
         ObjectId objectId = new ObjectId(id);
-
         MongoCollection<Document> collection = getDBColl(collName);
         assert collection != null;
         collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", SetActive));

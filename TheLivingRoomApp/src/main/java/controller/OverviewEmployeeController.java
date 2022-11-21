@@ -52,7 +52,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private ArrayList<User> users;
     private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
-    private final int oneDayMS = 86400000;
+    private final int oneDayMS = 86_400_000;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
