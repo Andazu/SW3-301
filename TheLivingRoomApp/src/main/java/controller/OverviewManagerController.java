@@ -3,6 +3,7 @@ package controller;
 import com.mongodb.client.model.Filters;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.Task;
@@ -43,6 +44,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private ComboBox<String> progressDropdownMenu;
     @FXML
     private ComboBox<String> assigneeDropdownMenu;
+    @FXML
+    private ComboBox<String> viewDropdownMenu;
     private String frequency;
     private String urgency;
     private String type;
@@ -86,6 +89,10 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         for (User user : users) {
             assigneeDropdownMenu.getItems().add(user.getFullName());
         }
+
+        viewDropdownMenu.getItems().addAll(
+                "History", "Employee"
+        );
 
         refreshFilter.setVisible(false);
 
@@ -187,6 +194,14 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         dateForShownDay.setText(dateToShow);
 
         populateOverviewPageWithTaskBoxes();
+    }
+
+    public void changeView(ActionEvent event) {
+        if (viewDropdownMenu.getValue() == "History") {
+            switchScene(overviewManagerBorderPane, "overview-history-page.fxml");
+        } else if (viewDropdownMenu.getValue() == "Employee"){
+            switchScene(overviewManagerBorderPane, "overview-employee-page.fxml");
+        }
     }
 }
 

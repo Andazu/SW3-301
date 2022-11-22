@@ -6,6 +6,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
@@ -27,10 +28,16 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
     private GridPane taskGrid;
     @FXML
     private BorderPane overviewHistoryBorderPane;
+    @FXML
+    private ComboBox<String> viewDropdownMenu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateOverviewPageWithTaskBoxes();
+
+        viewDropdownMenu.getItems().addAll(
+                "Employee", "Manager"
+        );
     }
 
     public void populateOverviewPageWithTaskBoxes() {
@@ -83,5 +90,13 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
 
     public void refreshPage(ActionEvent event) {
         switchScene(overviewHistoryBorderPane, "overview-history-page.fxml");
+    }
+
+    public void changeView(ActionEvent event) {
+        if (viewDropdownMenu.getValue() == "Employee") {
+            switchScene(overviewHistoryBorderPane, "overview-employee-page.fxml");
+        } else if (viewDropdownMenu.getValue() == "Manager"){
+            managerPinCodeLogin(overviewHistoryBorderPane);
+        }
     }
 }

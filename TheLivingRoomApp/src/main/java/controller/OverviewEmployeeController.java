@@ -42,6 +42,8 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private ComboBox<String> progressDropdownMenu;
     @FXML
     private ComboBox<String> assigneeDropdownMenu;
+    @FXML
+    private ComboBox<String> viewDropdownMenu;
     private String frequency;
     private String urgency;
     private String type;
@@ -81,6 +83,10 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         for (User user : users) {
             assigneeDropdownMenu.getItems().add(user.getFullName());
         }
+
+        viewDropdownMenu.getItems().addAll(
+                "History", "Manager"
+        );
 
         refreshFilter.setVisible(false);
 
@@ -205,6 +211,14 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         }
 
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate, false);
+    }
+
+    public void changeView(ActionEvent event) {
+        if (viewDropdownMenu.getValue() == "History") {
+            switchScene(overviewEmployeeBorderPane, "overview-history-page.fxml");
+        } else if (viewDropdownMenu.getValue() == "Manager"){
+            managerPinCodeLogin(overviewEmployeeBorderPane);
+        }
     }
 }
 
