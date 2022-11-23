@@ -1,0 +1,6 @@
+.error-dialog {
+    -fx-background-color: yellow;
+    -fx-background-radius: 10px;
+    -fx-text-fill: black;
+    -fx-font-size: 15px;
+}

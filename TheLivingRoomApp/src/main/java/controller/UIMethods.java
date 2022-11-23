@@ -4,10 +4,7 @@ import com.mongodb.client.model.Filters;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -102,6 +99,13 @@ public interface UIMethods {
 
     default void errorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("dialogs.css").toExternalForm());
+        dialogPane.setId("error-dialog");
+        dialogPane.getStyleClass().add("error-dialog");
+
         alert.setHeaderText(title);
         alert.setContentText(message);
         alert.showAndWait();
@@ -112,7 +116,6 @@ public interface UIMethods {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(description);
-
         alert.showAndWait();
     }
 
