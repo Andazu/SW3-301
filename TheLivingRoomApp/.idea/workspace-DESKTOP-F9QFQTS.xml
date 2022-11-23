@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="775e1bda-97fe-4ef0-af99-58a4327369aa" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2GOBIQv0tCDxk3cKVsGDSNK8DAP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Magnu/OneDrive/Dokumenter/GitHub/SW3-301/TheLivingRoomApp/src/main/resources/controller&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Magnu\OneDrive\Dokumenter\GitHub\SW3-301\TheLivingRoomApp\src\main\resources\controller" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Magnu\OneDrive\Dokumenter\GitHub\SW3-301\TheLivingRoomApp\src\main\resources\launcher\images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="DBTest.testAddCommentToDB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAfBootstrapJavaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.DBTest" />
+      <option name="METHOD_NAME" value="testAddCommentToDB" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBTest.testExportTaskToDatabase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAfBootstrapJavaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.DBTest" />
+      <option name="METHOD_NAME" value="testExportTaskToDatabase" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBTest.testGetCommentsFromDB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAfBootstrapJavaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.DBTest" />
+      <option name="METHOD_NAME" value="testGetCommentsFromDB" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBTest.testGetDocumentById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAfBootstrapJavaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.DBTest" />
+      <option name="METHOD_NAME" value="testGetDocumentById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DBTest.testGetEmployeesFromDBAdmin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TestAfBootstrapJavaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller" />
+      <option name="MAIN_CLASS_NAME" value="controller.DBTest" />
+      <option name="METHOD_NAME" value="testGetEmployeesFromDBAdmin" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.DBTest.testAddCommentToDB" />
+        <item itemvalue="JUnit.DBTest.testGetDocumentById" />
+        <item itemvalue="JUnit.DBTest.testGetCommentsFromDB" />
+        <item itemvalue="JUnit.DBTest.testExportTaskToDatabase" />
+        <item itemvalue="JUnit.DBTest.testGetEmployeesFromDBAdmin" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="775e1bda-97fe-4ef0-af99-58a4327369aa" name="Changes" comment="" />
+      <created>1666249694334</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1666249694334</updated>
+      <workItem from="1666249708418" duration="7087000" />
+      <workItem from="1666336718825" duration="17529000" />
+      <workItem from="1666682251384" duration="15617000" />
+      <workItem from="1666702273406" duration="567000" />
+      <workItem from="1666702873909" duration="73000" />
+      <workItem from="1666855066282" duration="16581000" />
+      <workItem from="1667203555493" duration="212000" />
+      <workItem from="1667296102289" duration="27000" />
+      <workItem from="1668154616399" duration="18089000" />
+      <workItem from="1668514841309" duration="218000" />
+      <workItem from="1668519333955" duration="267000" />
+      <workItem from="1668673250242" duration="802000" />
+      <workItem from="1668674175128" duration="11556000" />
+      <workItem from="1668686763015" duration="3921000" />
+      <workItem from="1668759565180" duration="15234000" />
+      <workItem from="1669017846019" duration="4059000" />
+      <workItem from="1669022293604" duration="4944000" />
+      <workItem from="1669029532882" duration="4365000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/OverviewController_java$UserTest.ic" NAME="UserTest Coverage Results" MODIFIED="1668686795981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>model.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/OverviewController_java$DBTest_testGetDocumentById.ic" NAME="DBTest.testGetDocumentById Coverage Results" MODIFIED="1666856902253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/OverviewController_java$DBTest.ic" NAME="DBTest Coverage Results" MODIFIED="1668686575559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>controller.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/OverviewController_java$TaskTest.ic" NAME="TaskTest Coverage Results" MODIFIED="1668686699788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>model.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/OverviewController_java$TaskFormControllerTest.ic" NAME="TaskFormControllerTest Coverage Results" MODIFIED="1668686647818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>controller.*</FILTER>
+    </SUITE>
+  </component>
+</project>

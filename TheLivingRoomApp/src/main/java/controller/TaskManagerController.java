@@ -13,10 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import model.Task;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 public class TaskManagerController implements DatabaseMethods, UIMethods {
@@ -33,12 +35,22 @@ public class TaskManagerController implements DatabaseMethods, UIMethods {
     @FXML
     private VBox vBoxTheWholeBox;
     @FXML
+    private Circle overdueTask;
+    @FXML
     private ImageView imageView;
     private ArrayList<String> assignees = new ArrayList<>();
-
+    private final int oneDayMS = 86400000;
     public void setTaskBoxToUI(Task task) {
         expandAssigneeButton.setId("down");
         assignees = task.getAssignees();
+
+        Date today = new Date();
+        today.setTime(new Date().getTime() - oneDayMS);
+        overdueTask.setVisible(false);
+
+        if (task.getDbDate().before(today)) {
+            overdueTask.setVisible(true);
+        }
 
         progressBar.setProgress(task.getProgress());
         taskLabel.setText(task.getTitle());

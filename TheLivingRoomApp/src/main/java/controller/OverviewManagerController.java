@@ -193,6 +193,12 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         String dateToShow = df.format(dateToFormat);
         dateForShownDay.setText(dateToShow);
 
+        if (dateToShow.equals(df.format(new Date()))) {
+            dateForShownDay.setText("Today");
+        } else {
+            dateForShownDay.setText(dateToShow);
+        }
+
         populateOverviewPageWithTaskBoxes();
     }
 
