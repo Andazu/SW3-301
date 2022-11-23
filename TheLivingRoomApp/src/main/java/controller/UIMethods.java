@@ -8,8 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Task;
 import org.bson.conversions.Bson;
 
@@ -39,6 +41,9 @@ public interface UIMethods {
             Scene scene = new Scene(fxmlLoader.load(), width, height);
 
             Stage stage = new Stage();
+
+            stage.initStyle(StageStyle.TRANSPARENT);
+            scene.setFill(Color.TRANSPARENT);
 
             stage.setTitle("The Living Room");
             scene.getStylesheets().add("stylesheet.css");
@@ -99,16 +104,18 @@ public interface UIMethods {
 
     default void errorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(
-                getClass().getResource("dialogs.css").toExternalForm());
-        dialogPane.setId("error-dialog");
-        dialogPane.getStyleClass().add("error-dialog");
-
+        setCssToDialogs(alert, "error-dialog");
+        alert.setGraphic(null);
         alert.setHeaderText(title);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    default void setCssToDialogs(Alert alert, String cssId) {
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(
+                getClass().getResource("dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add(cssId);
     }
 
     default void descriptionInformation(String title, String description) {
@@ -128,16 +135,16 @@ public interface UIMethods {
         button.getStyleClass().add(cssClass);
     }
 
-    default TextInputDialog managerPinCodeLogin(BorderPane borderpane) {
-        TextInputDialog td = new TextInputDialog();
-        td.setTitle("Manager Login");
-        td.setHeaderText("");
-        td.setGraphic(null);
+    default void managerPinCodeLogin(BorderPane borderpane) {
+        TextInputDialog textInputDialog = new TextInputDialog();
+        textInputDialog.setTitle("Manager Login");
+        textInputDialog.setHeaderText("");
+        textInputDialog.setGraphic(null);
 
         // Gør så kun "Enter" knappen eller tryk på ok tjekker PIN-koden
-        td.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(
+        textInputDialog.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(
             ActionEvent.ACTION, event -> {
-                if (td.getEditor().getText().equals("1234")) {
+                if (textInputDialog.getEditor().getText().equals("1234")) {
                     switchScene(borderpane, "overview-manager-page.fxml");
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong PIN code");
@@ -148,8 +155,7 @@ public interface UIMethods {
             }
         );
 
-        td.showAndWait();
-        return td;
+        textInputDialog.showAndWait();
     }
 
     default Bson getFilters(String field, Object value) {
@@ -166,7 +172,7 @@ public interface UIMethods {
         taskGrid.getChildren().clear();
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date parsedDate = new Date();
+        Date parsedDate;
 
         try {
             parsedDate = df.parse(date);

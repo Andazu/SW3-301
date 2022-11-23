@@ -39,8 +39,7 @@ public class TaskFormControllerTest extends ApplicationTest {
         DatePicker datePicker = lookup("#datePicker").query();
         interact(() -> datePicker.setValue(LocalDate.now()));
         ComboBox<String> dropdown = lookup("#frequencyDropdownMenu").queryComboBox();
-        //interact(() -> dropdown.getSelectionModel().select(0));
+        interact(() -> dropdown.getSelectionModel().select(0));
         clickOn("#submitButton");
-
     }
 }

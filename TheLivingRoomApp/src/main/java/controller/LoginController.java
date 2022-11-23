@@ -2,23 +2,42 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextInputDialog;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
-public class LoginController implements UIMethods {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginController implements UIMethods, Initializable {
     @FXML
     private BorderPane loginBorderPane;
+    @FXML
+    private Button closeProgramButton;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        addCssToButtons(closeProgramButton, "exit-button");
+    }
 
     public void openEmployeeOverviewPage(ActionEvent event) {
         switchScene(loginBorderPane, "overview-employee-page.fxml");
     }
 
     public void openManagerOverviewPage(ActionEvent event) {
-        managerPinCodeLogin(loginBorderPane);
+        PinCodeController controller = new PinCodeController();
+        makeModalDialog(controller, "manager-pin-code-page.fxml", 300, 400);
+
+        if (controller.isValidPinCode()) {
+            switchScene(loginBorderPane, "overview-manager-page.fxml");
+        }
     }
 
     public void openHistoryOverviewPage(ActionEvent event) {
         switchScene(loginBorderPane, "overview-history-page.fxml");
+    }
+
+    public void closeProgram(ActionEvent event) {
+        System.exit(0);
     }
 }
