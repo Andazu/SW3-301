@@ -9,6 +9,9 @@ import org.bson.types.ObjectId;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Sorts.ascending;
@@ -132,11 +135,65 @@ public interface DatabaseMethods {
         collection.updateOne(Filters.eq("_id", objectId), Updates.addToSet("comments", comment));
     }
 
-    default void completeTask(String id, String collName, boolean SetActive) {
+    default void completeTask(String id, String collName, boolean setActive) {
         ObjectId objectId = new ObjectId(id);
         MongoCollection<Document> collection = getDBColl(collName);
         assert collection != null;
-        collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", SetActive));
+
+        Task task = getTaskFromDB(objectId, collection);
+
+        if (setActive) {
+            collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", true));
+        } else {
+            changeDateAndUpdateInDB(task.getFrequency(), objectId, collection, task.getDbDate(), false);
+        }
+    }
+
+    default Task getTaskFromDB(ObjectId objectId, MongoCollection<Document> collection) {
+        Document doc = collection.find(Filters.eq("_id", objectId)).first();
+        ArrayList<Object> values = new ArrayList<>(doc.values());
+
+        return createTaskToDisplay(values);
+    }
+
+    default void changeDateAndUpdateInDB(String frequency, ObjectId objectId, MongoCollection<Document> collection, Date date, Boolean setActive) {
+        final long oneDayMS = 86_400_000;
+        int month;
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        int today = cal.get(Calendar.DATE);
+        cal.add(cal.MONTH, 1);
+        int nextMonthDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        if (nextMonthDays < daysInMonth && today > nextMonthDays) {
+            month = daysInMonth - (today - nextMonthDays);
+        } else if (daysInMonth < nextMonthDays){
+            month = nextMonthDays;
+        } else {
+            month = daysInMonth;
+        }
+
+        switch (frequency.toLowerCase()) {
+            case "every day" -> {
+                date.setTime(date.getTime() + oneDayMS);
+                collection.updateOne(Filters.eq("_id", objectId), Updates.set("date", date));
+            }
+            case "every other day" -> {
+                date.setTime(date.getTime() + oneDayMS * 2);
+                collection.updateOne(Filters.eq("_id", objectId), Updates.set("date", date));
+            }
+            case "every week" -> {
+                date.setTime(date.getTime() + oneDayMS * 7);
+                collection.updateOne(Filters.eq("_id", objectId), Updates.set("date", date));
+            }
+            case "every month" -> {
+                date.setTime(date.getTime() + oneDayMS * month);
+                collection.updateOne(Filters.eq("_id", objectId), Updates.set("date", date));
+            }
+            default -> collection.updateOne(Filters.eq("_id", objectId), Updates.set("active", setActive));
+        }
     }
 
     default void updateTask(String id, String collName, Task task) {

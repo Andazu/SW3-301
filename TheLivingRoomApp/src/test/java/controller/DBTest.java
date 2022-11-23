@@ -10,11 +10,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.*;
 import static controller.DatabaseMethods.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class DBTest implements DatabaseMethods{
     String collName = "test";
@@ -315,9 +317,6 @@ public class DBTest implements DatabaseMethods{
     public void updateTaskToFalseTest() {
         // [SCENARIO] When updating a Task from DB to set active to false then the document should also have active set to false
 
-        // [GIVEN] That we have the expected value
-        boolean expected = false;
-
         // [GIVEN] That we have a Task in DB and get the id from the inserted document
         String id = populateDBWithTask(true);
 
@@ -327,9 +326,10 @@ public class DBTest implements DatabaseMethods{
         // [WHEN] Getting the active value from the document in DB
         Document document = getDocumentById(id, collName);
         boolean actual = (boolean) document.get("active");
+        System.out.println("Tester");
 
         // [THEN] The expected should be equal to the actual
-        assertEquals(expected, actual);
+        assertFalse(actual);
     }
 
     @Test
@@ -454,8 +454,9 @@ public class DBTest implements DatabaseMethods{
     private String populateDBWithTask(boolean isActive) {
         ArrayList<String> comments = makeArrayList();
         ArrayList<String> assignees = makeArrayList();
+        LocalDate localDate = LocalDate.now();
 
-        return exportTaskToDatabase(new Task("test", "test task", 0.5, isActive, comments, assignees), collName);
+        return exportTaskToDatabase(new Task("test", "test task", "Once", 0.5, isActive, comments, assignees, localDate), collName);
     }
 
     private String populateDBWithUser(boolean isAdmin) {

@@ -157,7 +157,7 @@ public class Task {
         this.assignees = assignees;
     }
 
-    public Task(String title, String description, String frequency, String urgency, String type, int progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, LocalDate date) {
+    public Task(String title, String description, String frequency, String urgency, String type, double progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, LocalDate date) {
         this.title = title;
         this.description = description;
         this.frequency = frequency;
@@ -188,6 +188,16 @@ public class Task {
         this.active = active;
         this.comments = comments;
         this.assignees = assignees;
+    }
+    public Task(String title, String description, String frequency, double progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, LocalDate date) {
+        this.title = title;
+        this.description = description;
+        this.frequency = frequency;
+        this.progress = progress;
+        this.active = active;
+        this.comments = comments;
+        this.assignees = assignees;
+        this.date = date;
     }
 
     public Task(ObjectId id, String title, String description, String frequency, String urgency, String type, double progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, Date dbDate) {
