@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/AllTasksController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-all-tasks-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_win_18_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_mac_18_0_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_win_18_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_mac_18_0_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_18_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_mac_18_0_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_win_18_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_mac_18_0_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewHistoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-history-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-history-page.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-manager-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-manager-page.fxml" afterDir="false" />
     </list>
     <list id="1022e458-1ade-405c-990a-d1268fa74848" name="Changes by ander" comment="" />
@@ -65,7 +68,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "last_opened_file_path": "/Users/bence/Desktop/Git/P2/SW3-301",
+    "last_opened_file_path": "/Users/bence/Desktop/Git/P2/SW3-301/TheLivingRoomApp/src/main/resources/controller",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Project",
@@ -76,8 +79,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images" />
       <recent name="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller" />
+      <recent name="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images" />
     </key>
   </component>
   <component name="RunManager">
@@ -170,7 +173,9 @@
       <workItem from="1668760216779" duration="10575000" />
       <workItem from="1669019217289" duration="5227000" />
       <workItem from="1669101663732" duration="45000" />
-      <workItem from="1669119452134" duration="2262000" />
+      <workItem from="1669119452134" duration="3218000" />
+      <workItem from="1669199582809" duration="673000" />
+      <workItem from="1669200762310" duration="2488000" />
     </task>
     <servers />
   </component>

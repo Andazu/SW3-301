@@ -107,6 +107,10 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         switchScene(overviewManagerBorderPane, "manage-team-page.fxml");
     }
 
+    public void openAllTasksPage(ActionEvent event) {
+        switchScene(overviewManagerBorderPane, "overview-all-tasks-page.fxml");
+    }
+
 
     public void populateOverviewPageWithTaskBoxes() {
         Date dateToFormat = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
