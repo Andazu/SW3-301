@@ -2,8 +2,8 @@
 
 .root {
     -fx-background-color: white;
-    -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
     -fx-border-color: #03045e;
     -fx-font-family: 'Rubik', sans-serif;
     -fx-font-size: 13;

@@ -5,6 +5,7 @@ import model.Task;
 import model.User;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.testng.annotations.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -155,15 +156,15 @@ public class DBTest implements DatabaseMethods{
         // [SCENARIO] Testing that the function returns all User with has admin set to true
 
         // [GIVEN] That we have a list for ids
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<ObjectId> list = new ArrayList<>();
 
         // [GIVEN] That we have the expected nr of documents
         int expectedNr = 3;
 
         // [GIVEN] That we populate the DB with User
-        String expectedId = populateDBWithUser(true);
-        String expectedId2 = populateDBWithUser(true);
-        String expectedId3 = populateDBWithUser(true);
+        ObjectId expectedId = new ObjectId(populateDBWithUser(true));
+        ObjectId expectedId2 = new ObjectId(populateDBWithUser(true));
+        ObjectId expectedId3 = new ObjectId(populateDBWithUser(true));
         populateDBWithUser(false);
 
         // [GIVEN] That we store the id's
@@ -186,14 +187,14 @@ public class DBTest implements DatabaseMethods{
         // [SCENARIO] Testing that the function returns all User with has admin set to false
 
         // [GIVEN] That we have a list for ids
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<ObjectId> list = new ArrayList<>();
 
         // [GIVEN] That we have the expected nr of documents
         int expectedNr = 2;
 
         // [GIVEN] That we populate the DB with User
-        String expectedId = populateDBWithUser(false);
-        String expectedId2 = populateDBWithUser(false);
+        ObjectId expectedId = new ObjectId(populateDBWithUser(false));
+        ObjectId expectedId2 = new ObjectId(populateDBWithUser(false));
         populateDBWithUser(true);
         populateDBWithUser(true);
 
@@ -245,11 +246,11 @@ public class DBTest implements DatabaseMethods{
         // [SCENARIO] Testing that we can export documents to the DB
 
         // [GIVEN] That we create a list for expected values
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<ObjectId> list = new ArrayList<>();
 
         // [GIVEN] That we populate the DB with User
-        String expectedId = populateDBWithUser(false);
-        String expectedId2 = populateDBWithUser(false);
+        ObjectId expectedId = new ObjectId(populateDBWithUser(false));
+        ObjectId expectedId2 = new ObjectId(populateDBWithUser(false));
 
         // [GIVEN] That save the id's from the documents
         list.add(expectedId);
