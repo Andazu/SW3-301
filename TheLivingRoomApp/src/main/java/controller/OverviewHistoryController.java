@@ -93,10 +93,15 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
     }
 
     public void changeView(ActionEvent event) {
-        if (viewDropdownMenu.getValue() == "Employee") {
+        if (viewDropdownMenu.getValue().equals("Employee")) {
             switchScene(overviewHistoryBorderPane, "overview-employee-page.fxml");
-        } else if (viewDropdownMenu.getValue() == "Manager"){
-            managerPinCodeLogin(overviewHistoryBorderPane);
+        } else if (viewDropdownMenu.getValue().equals("Manager")){
+            PinCodeController controller = new PinCodeController();
+            makeModalDialog(controller, "manager-pin-code-page.fxml", 300, 400);
+
+            if (controller.isValidPinCode()) {
+                switchScene(overviewHistoryBorderPane, "overview-manager-page.fxml");
+            }
         }
     }
 }

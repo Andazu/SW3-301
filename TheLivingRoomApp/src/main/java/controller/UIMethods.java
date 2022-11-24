@@ -135,29 +135,6 @@ public interface UIMethods {
         button.getStyleClass().add(cssClass);
     }
 
-    default void managerPinCodeLogin(BorderPane borderpane) {
-        TextInputDialog textInputDialog = new TextInputDialog();
-        textInputDialog.setTitle("Manager Login");
-        textInputDialog.setHeaderText("");
-        textInputDialog.setGraphic(null);
-
-        // Gør så kun "Enter" knappen eller tryk på ok tjekker PIN-koden
-        textInputDialog.getDialogPane().lookupButton(ButtonType.OK).addEventFilter(
-            ActionEvent.ACTION, event -> {
-                if (textInputDialog.getEditor().getText().equals("1234")) {
-                    switchScene(borderpane, "overview-manager-page.fxml");
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong PIN code");
-                    alert.setGraphic(null);
-                    alert.setHeaderText(null);
-                    alert.show();
-                }
-            }
-        );
-
-        textInputDialog.showAndWait();
-    }
-
     default Bson getFilters(String field, Object value) {
         Bson filter;
         if (!(Objects.equals(value, "")) & value != null) {
