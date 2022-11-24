@@ -203,7 +203,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
             dateForShownDay.setText(dateToShow);
         }
 
-        populateOverviewPageWithTaskBoxes();
+        populateManagerOverviewFromDatePicker(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToShow, true);
     }
 
     public void changeView(ActionEvent event) {

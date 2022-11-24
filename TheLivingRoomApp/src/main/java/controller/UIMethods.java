@@ -214,4 +214,57 @@ public interface UIMethods {
             e.printStackTrace();
         }
     }
+
+    default void populateManagerOverviewFromDatePicker(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date, boolean isManagerView) {
+        taskGrid.getChildren().clear();
+
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+        Bson frequencyFilter = getFilters("frequency", frequency);
+        Bson urgencyFilter = getFilters("urgency", urgency);
+        Bson typeFilter = getFilters("type", type);
+
+        Bson progressFilter;
+        if (progressValue == null || progressValue.equals("")) {
+            progressFilter = getFilters("progress", null);
+        } else {
+            progressFilter = getFilters("progress", progress);
+        }
+
+        boolean filterEmployee = !(Objects.equals(employee, "")) & employee != null;
+
+        Bson filter = Filters.and(frequencyFilter, urgencyFilter, typeFilter, progressFilter);
+        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
+
+        int columns = 1;
+        int rows = 1;
+
+        try {
+            for (Task task : tasks) {
+                FXMLLoader loader = new FXMLLoader();
+
+                loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
+
+                VBox vBox = loader.load();
+                vBox.setId(task.getId().toString()); // Store task id as hBox id
+
+                TaskManagerController taskController = loader.getController();
+                taskController.setTaskBoxToUI(task);
+
+                if (filterEmployee &&
+                        (date.equals(df.format(task.getDbDate())))) {
+                    for (String assignee : task.getAssignees()) {
+                        if (employee.equals(assignee)) {
+                            taskGrid.add(vBox, columns, rows);
+                        }
+                    }
+                } else if (date.equals(df.format(task.getDbDate()))){
+                    taskGrid.add(vBox, columns, rows);
+                }
+                rows++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

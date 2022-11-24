@@ -214,9 +214,9 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     }
 
     public void changeView(ActionEvent event) {
-        if (viewDropdownMenu.getValue() == "History") {
+        if (viewDropdownMenu.getValue().equals("History")) {
             switchScene(overviewEmployeeBorderPane, "overview-history-page.fxml");
-        } else if (viewDropdownMenu.getValue() == "Manager"){
+        } else if (viewDropdownMenu.getValue().equals("Manager")){
             PinCodeController controller = new PinCodeController();
             makeModalDialog(controller, "manager-pin-code-page.fxml", 300, 400);
 
