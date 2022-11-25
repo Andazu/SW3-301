@@ -33,14 +33,10 @@
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></Button>
-<<<<<<< HEAD
                   <ComboBox fx:id="viewDropdownMenu" onAction="#changeView" prefHeight="30.0" prefWidth="85.0" promptText="View">
                      <tooltip>
                         <Tooltip text="Change view" />
                      </tooltip></ComboBox>
-=======
-                  <ComboBox fx:id="viewDropdownMenu" onAction="#changeView" prefHeight="30.0" prefWidth="100.0" promptText="View" />
->>>>>>> 821b2e27c149238dcdfa9e068cce80944901b38f
                </children>
                <HBox.margin>
                   <Insets right="20.0" top="20.0" />

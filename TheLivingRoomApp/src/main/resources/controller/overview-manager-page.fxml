@@ -45,16 +45,11 @@
                         <Tooltip text="Create a new task" />
                      </tooltip>
                         </Button>
-<<<<<<< HEAD
                   <Button fx:id="refreshButton1" mnemonicParsing="false" onAction="#openAllTasksPage" prefHeight="30.0" prefWidth="75.0" text="All Tasks">
                      <tooltip>
                         <Tooltip text="See all tasks" />
                      </tooltip></Button>
                   <Button mnemonicParsing="false" onAction="#openTeamManagerPage" prefHeight="30.0" prefWidth="110.0" text="Manage Team">
-=======
-                  <Button fx:id="refreshButton1" minWidth="-Infinity" mnemonicParsing="false" onAction="#openAllTasksPage" prefHeight="30.0" prefWidth="75.0" text="All Tasks" />
-                  <Button minWidth="-Infinity" mnemonicParsing="false" onAction="#openTeamManagerPage" prefHeight="30.0" prefWidth="105.0" text="Manage Team">
->>>>>>> 821b2e27c149238dcdfa9e068cce80944901b38f
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -66,16 +61,11 @@
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin></Button>
-<<<<<<< HEAD
                   <ComboBox fx:id="viewDropdownMenu" onAction="#changeView" prefHeight="30.0" prefWidth="85.0" promptText="View">
                      <tooltip>
                         <Tooltip text="Change view" />
                      </tooltip></ComboBox>
                   <Region prefHeight="69.0" prefWidth="80.0" />
-=======
-                  <ComboBox fx:id="viewDropdownMenu" onAction="#changeView" prefHeight="30.0" prefWidth="110.0" promptText="View" />
-                  <Region prefHeight="69.0" prefWidth="60.0" />
->>>>>>> 821b2e27c149238dcdfa9e068cce80944901b38f
                   <Button fx:id="refreshFilter" mnemonicParsing="false" onAction="#refreshFilters" prefHeight="33.0" prefWidth="40.0">
                      <HBox.margin>
                         <Insets />

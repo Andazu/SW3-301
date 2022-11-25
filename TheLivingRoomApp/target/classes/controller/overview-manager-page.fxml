@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="overviewManagerBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewManagerController">
+<BorderPane fx:id="overviewManagerBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewManagerController">
     <top>
         <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1024.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
@@ -37,7 +37,7 @@
             </HBox>
                 <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="750.0" spacing="20.0">
                     <children>
-                        <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#openTaskFormPage" prefHeight="30.0" prefWidth="75.0" text="Add task" textAlignment="CENTER">
+                        <Button fx:id="addTaskButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#openTaskFormPage" prefHeight="30.0" prefWidth="75.0" text="Add task" textAlignment="CENTER">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -57,7 +57,7 @@
                         <Tooltip text="Edit or delete team members" />
                      </tooltip>
                   </Button>
-                        <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshPage" prefHeight="30.0" prefWidth="75.0" text="Refresh">
+                        <Button fx:id="refreshButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#refreshPage" prefHeight="30.0" prefWidth="70.0" text="Refresh">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin></Button>
@@ -96,12 +96,18 @@
                         <Tooltip text="Choose filters" />
                      </tooltip>
                   </Button>
+                  <HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="30.0">
+                     <children>
+                        <Button fx:id="closeProgramButton" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#closeProgram" prefHeight="30.0" prefWidth="30.0" text="X">
+                           <HBox.margin>
+                              <Insets right="1.0" top="1.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                     </children>
                 </HBox>
             </children>
-         <padding>
-            <Insets left="20.0" right="20.0" />
-         </padding>
         </HBox>
     </top>
    <center>
