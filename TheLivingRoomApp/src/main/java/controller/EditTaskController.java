@@ -1,15 +1,12 @@
 package controller;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import model.Task;
 import model.User;
 import org.bson.Document;
 
@@ -92,28 +89,10 @@ public class EditTaskController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void submitAndUpdateTask(ActionEvent event) {
-        Task createdTask = new Task(0.0, true);
+        boolean exportedTask = isTaskValidForSubmit(null, datePicker, typeDropdownMenu, titleTextField, frequencyDropdownMenu,
+                urgencyDropdownMenu, descriptionTextArea, selectedEmployeeGridPane, true);
 
-        createdTask.setDescription(descriptionTextArea.getText());
-        createdTask.setDate(datePicker.getValue());
-        createdTask.setType(typeDropdownMenu.getValue());
-
-        boolean validTitle = createdTask.setTitle(titleTextField.getText());
-        boolean validFrequency = createdTask.setFrequency(frequencyDropdownMenu.getValue());
-        boolean validUrgency = createdTask.setUrgency(urgencyDropdownMenu.getValue());
-
-        if (validTitle & validFrequency & validUrgency) {
-            ArrayList<String> selectedUsers = getSelectedAssignees();
-
-            ArrayList<String> assignees = new ArrayList<>();
-            if (selectedUsers.isEmpty() || selectedUsers.contains("General")) {
-                assignees.add("General");
-                createdTask.setAssignees(assignees);
-            } else {
-                assignees.addAll(selectedUsers);
-                createdTask.setAssignees(assignees);
-            }
-            updateTask(id, "tasks", createdTask);
+        if (exportedTask) {
             switchScene(taskEditBorderPane, "overview-manager-page.fxml");
         } else {
             errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, Urgency, or Date");
@@ -170,81 +149,6 @@ public class EditTaskController implements Initializable, UIMethods, DatabaseMet
         users.add(generalUser);
         users.addAll(DatabaseMethods.getEmployeesFromDB(false, "users"));
         return users;
-    }
-
-    private HBox assigneeBox(User user, boolean isChecked) {
-        HBox hBoxName = hBoxName(user);
-
-        HBox hBoxRole = hBoxRole(user);
-
-        HBox hBoxCheckBox = hBoxCheckBox(isChecked);
-
-        HBox hBox = new HBox(hBoxName, hBoxRole, hBoxCheckBox);
-
-        return hBoxAll(hBox);
-    }
-
-    private HBox hBoxName(User user) {
-        Label fullName = new Label(user.getFullName());
-        HBox hBoxName = new HBox(fullName);
-        hBoxName.setAlignment(Pos.CENTER);
-        hBoxName.setPrefWidth(120);
-        hBoxName.setPrefHeight(50);
-        return hBoxName;
-    }
-
-    private HBox hBoxRole(User user) {
-        Label role = new Label(user.getRole());
-        HBox hBoxRole = new HBox(role);
-        hBoxRole.setAlignment(Pos.CENTER);
-        hBoxRole.setPrefWidth(55);
-        hBoxRole.setPrefHeight(50);
-        return hBoxRole;
-    }
-
-    private HBox hBoxCheckBox(boolean isChecked) {
-        CheckBox checkBox = new CheckBox();
-        HBox hBoxCheckBox = new HBox(checkBox);
-        hBoxCheckBox.setAlignment(Pos.CENTER);
-        hBoxCheckBox.setPrefWidth(50);
-        hBoxCheckBox.setPrefHeight(50);
-        if (isChecked) {
-            checkBox.setSelected(true);
-        }
-        return hBoxCheckBox;
-    }
-
-    private HBox hBoxAll(HBox hBox) {
-        hBox.setPrefWidth(225);
-        hBox.setPrefHeight(50);
-        hBox.setMinWidth(Region.USE_PREF_SIZE);
-        hBox.setMinHeight(Region.USE_PREF_SIZE);
-        hBox.setMaxWidth(Region.USE_PREF_SIZE);
-        hBox.setMaxHeight(Region.USE_PREF_SIZE);
-        hBox.setAlignment(Pos.CENTER);
-        return hBox;
-    }
-
-    private ArrayList<String> getSelectedAssignees() {
-        ArrayList<String> assignees = new ArrayList<>();
-
-        ObservableList<Node> hBoxOuter = selectedEmployeeGridPane.getChildren();
-
-        for (Node node : hBoxOuter) {
-            HBox hBoxMiddle = (HBox) node;
-            ObservableList<Node> hBoxChildren = hBoxMiddle.getChildren();
-
-            HBox hBoxInner0 = (HBox) hBoxChildren.get(0);
-            Label labelFullName = (Label) hBoxInner0.getChildren().get(0);
-
-            HBox hBoxInner2 = (HBox) hBoxChildren.get(2);
-            CheckBox checkBox = (CheckBox) hBoxInner2.getChildren().get(0);
-            if (checkBox.isSelected()) {
-                assignees.add(labelFullName.getText());
-            }
-        }
-
-        return assignees;
     }
 
     public EditTaskController(String id) {

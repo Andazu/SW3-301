@@ -2,18 +2,14 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Task;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
 
 public class TaskEmployeeController implements DatabaseMethods, UIMethods {
     @FXML
@@ -37,34 +33,9 @@ public class TaskEmployeeController implements DatabaseMethods, UIMethods {
     private ArrayList<String> assignees = new ArrayList<>();
 
     public void setTaskBoxToUI(Task task) {
-        expandAssigneeButton.setId("down");
         assignees = task.getAssignees();
-        Date today = new Date();
-        int oneDayMS = 86400000;
-        today.setTime(new Date().getTime() - oneDayMS);
-
-        if (task.getDbDate().before(today)) {
-            overdueTask.setVisible(true);
-        }
-
-        switch (task.getUrgency().toLowerCase()) {
-            case "low" -> urgencyCircle.setFill(Color.rgb(71, 209, 178));
-            case "medium" -> urgencyCircle.setFill(Color.rgb(255, 228, 3));
-            case "high" -> urgencyCircle.setFill(Color.rgb(240, 127, 121));
-        }
-
-        progressBar.setProgress(task.getProgress());
-        taskLabel.setText(task.getTitle());
-        dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
-        setDropdownMenuPercentValue(task.getProgress() * 100);
-    }
-
-    public void setDropdownMenuPercentValue(double dropdownMenuPercentValue) {
-        if (dropdownMenuPercentValue != 0.0) {
-            int progress = (int) dropdownMenuPercentValue;
-            String progressToString = Integer.toString(progress) + '%';
-            dropdownMenuPercent.setValue(progressToString);
-        }
+        stdUIForTaskBoxes(expandAssigneeButton, task, overdueTask, urgencyCircle, progressBar, taskLabel, dropdownMenuPercent);
+        setDropdownMenuPercentValue(task.getProgress() * 100, dropdownMenuPercent);
     }
 
     public void showDescription(ActionEvent event) {
@@ -96,51 +67,6 @@ public class TaskEmployeeController implements DatabaseMethods, UIMethods {
     }
 
     public void expandToViewAssignees(ActionEvent event) {
-        if (Objects.equals(expandAssigneeButton.getId(), "down")) {
-            setNewImageInImageView("images/up-chevron.png", "up");
-
-            hBox.getChildren().add(placeAssigneesWhenExpanded());
-        } else {
-            setNewImageInImageView("images/down-chevron.png", "down");
-
-            resetTaskBox();
-        }
-    }
-
-    public void resetTaskBox() {
-        hBox.getChildren().remove(0);
-        hBox.setPrefHeight(0);
-        vBoxTheWholeBox.setPrefHeight(75);
-    }
-
-    public void setNewImageInImageView(String path, String id) {
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(path)));
-        imageView.setImage(image);
-
-        expandAssigneeButton.setId(id);
-    }
-
-    public VBox placeAssigneesWhenExpanded() {
-        VBox expandVBox = createVboxForLabels();
-
-        double prefHeight = expandVBox.getPrefHeight();
-        for (String assignee : assignees) {
-            Label name = new Label(assignee);
-
-            expandVBox.getChildren().add(name);
-            prefHeight += 20;
-        }
-        vBoxTheWholeBox.setPrefHeight(75 + prefHeight);
-
-        expandVBox.setPrefHeight(prefHeight);
-        return expandVBox;
-    }
-
-    public VBox createVboxForLabels() {
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.CENTER_LEFT);
-        vBox.setSpacing(10);
-        vBox.setPrefWidth(167);
-        return vBox;
+        expandToViewAssignees(expandAssigneeButton, hBox, vBoxTheWholeBox, imageView, assignees);
     }
 }

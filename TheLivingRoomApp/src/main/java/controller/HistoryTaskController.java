@@ -8,25 +8,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import model.Task;
-import org.bson.Document;
-import org.bson.types.ObjectId;
 
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class HistoryTaskController implements DatabaseMethods, UIMethods, Initializable {
-
     @FXML
     private Button recoverButton;
     @FXML
     private Button deleteButton;
-
     @FXML
     private Button informationButton;
-
     @FXML
     private Label deadlineLabel;
 

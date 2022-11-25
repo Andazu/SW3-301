@@ -33,15 +33,6 @@ public class AllTasksController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void changeView(ActionEvent event) {
-        if (viewDropdownMenu.getValue().equals("History")) {
-            switchScene(overviewAllTasksBorderPane, "overview-history-page.fxml");
-        } else if (viewDropdownMenu.getValue().equals("Manager")){
-            PinCodeController controller = new PinCodeController();
-            makeModalDialog(controller, "manager-pin-code-page.fxml", 300, 400);
-
-            if (controller.isValidPinCode()) {
-                switchScene(overviewAllTasksBorderPane, "overview-manager-page.fxml");
-            }
-        }
+        changeView(viewDropdownMenu, overviewAllTasksBorderPane);
     }
 }

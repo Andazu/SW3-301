@@ -7,11 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import model.User;
 import org.bson.Document;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class EditUserController implements Initializable, UIMethods, DatabaseMethods {
@@ -57,28 +55,19 @@ public class EditUserController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void submitAndUpdateUser(ActionEvent event) {
-        User createdUser = new User();
-
-        Boolean validFirstName = createdUser.setFirstName(firstNameTextField.getText());
-        Boolean validLastName = createdUser.setLastName(lastNameTextField.getText());
-        Boolean validRole = createdUser.setRole(roleComboBox.getValue());
-        Boolean validEmailAddress = createdUser.setEmailAddress(emailTextField.getText());
-        Boolean validPhoneNumber = createdUser.setPhoneNumber(phoneNumberTextField.getText());
-
-        if (validFirstName & validLastName & validRole & validEmailAddress & validPhoneNumber) {
-            updateUser(id, "users", createdUser);
+        boolean isUserTaskValid = createUserFromUI(firstNameTextField, lastNameTextField, emailTextField, phoneNumberTextField, roleComboBox);
+        if (isUserTaskValid) {
             closeStage(event);
         } else {
-            errorDialog("Empty Fields", "The following fields cannot be empty: First name, last name, role, phone number and e-mail");
+            errorDialog("The fields can't be empty", "");
         }
     }
 
     public void cancelAction(ActionEvent event) {
         closeStage(event);
     }
+
     public EditUserController(String id) {
         this.id = id;
     }
-
-
 }
