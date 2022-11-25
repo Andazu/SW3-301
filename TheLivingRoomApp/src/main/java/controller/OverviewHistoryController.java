@@ -30,6 +30,8 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
     private BorderPane overviewHistoryBorderPane;
     @FXML
     private ComboBox<String> viewDropdownMenu;
+    @FXML
+    private Button closeProgramButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,6 +40,8 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
         viewDropdownMenu.getItems().addAll(
                 "Employee", "Manager"
         );
+
+        addCssToButtons(closeProgramButton, "exit-button");
     }
 
     public void refreshPage(ActionEvent event) {
@@ -46,5 +50,9 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
 
     public void changeView(ActionEvent event) {
         changeView(viewDropdownMenu, overviewHistoryBorderPane);
+    }
+
+    public void closeProgram(ActionEvent event) {
+        System.exit(0);
     }
 }

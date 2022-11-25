@@ -51,7 +51,7 @@ public class EditTaskController implements Initializable, UIMethods, DatabaseMet
         makeButtonsCancelAndDefault(cancelButton, submitButton);
 
         stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, null,
-                null, null, null, false);
+                null, null, null, null,false);
 
         descriptionTextArea.setWrapText(true);
         setValuesInFields();

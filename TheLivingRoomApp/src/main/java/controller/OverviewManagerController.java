@@ -46,14 +46,15 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private String employee;
     private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private final LocalDate localDate = LocalDate.now();
-
+    @FXML
+    private Button closeProgramButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         datePickerFilter.setValue(localDate);
 
         stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, progressDropdownMenu,
-                assigneeDropdownMenu, refreshFilter, dateForShownDay, true);
+                assigneeDropdownMenu, refreshFilter, dateForShownDay, closeProgramButton, true);
 
         viewDropdownMenu.getItems().addAll(
                 "History", "Employee"
@@ -150,6 +151,10 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
 
     public void changeView(ActionEvent event) {
         changeView(viewDropdownMenu, overviewManagerBorderPane);
+    }
+
+    public void closeProgram(ActionEvent event) {
+        System.exit(0);
     }
 }
 
