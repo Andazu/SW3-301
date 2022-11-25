@@ -1,25 +1,17 @@
 package controller;
 
-import com.mongodb.client.model.Filters;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import model.Task;
-import model.User;
 
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
-
-import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.eq;
 
 public class OverviewManagerController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
@@ -52,49 +44,20 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private double progress;
     private String progressValue;
     private String employee;
-    private ArrayList<Task> tasks;
-    private ArrayList<User> users;
-    private DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-    private Date date;
-    private LocalDate localDate = LocalDate.now();
+    private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+    private final LocalDate localDate = LocalDate.now();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
-        users = DatabaseMethods.getEmployeesFromDB(false, "users");
-        date = new Date();
-        
-        dateForShownDay.setText("Today");
-
         datePickerFilter.setValue(localDate);
 
-        frequencyDropdownMenu.getItems().addAll(
-                "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
-        );
-
-        urgencyDropdownMenu.getItems().addAll(
-                "", "Low", "Medium", "High"
-        );
-
-        typeDropdownMenu.getItems().addAll(
-                "", "Cleaner", "Bartender"
-        );
-
-        progressDropdownMenu.getItems().addAll(
-                "", "0%", "25%", "50%", "75%"
-        );
-
-        assigneeDropdownMenu.getItems().addAll("", "General");
-        for (User user : users) {
-            assigneeDropdownMenu.getItems().add(user.getFullName());
-        }
+        stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, progressDropdownMenu,
+                assigneeDropdownMenu, refreshFilter, dateForShownDay, true);
 
         viewDropdownMenu.getItems().addAll(
                 "History", "Employee"
         );
-
-        refreshFilter.setVisible(false);
 
         populateOverviewPageWithTaskBoxes();
     }
@@ -116,7 +79,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         Date dateToFormat = Date.from(datePickerFilter.getValue().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         String dateToParse = df.format(dateToFormat);
 
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse, true);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse, true, false);
     }
 
     public void refreshPage(ActionEvent event) {
@@ -124,15 +87,7 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     }
 
     public void filterTasks(ActionEvent event) {
-        if (filterOptionsHBox.isVisible()) {
-            filterOptionsHBox.setVisible(false);
-            filterOptionsHBox.setPrefHeight(0);
-            refreshFilter.setVisible(false);
-        } else {
-            filterOptionsHBox.setVisible(true);
-            filterOptionsHBox.setPrefHeight(75);
-            refreshFilter.setVisible(true);
-        }
+        filterSectionLogic(filterOptionsHBox, refreshFilter);
     }
 
     public void frequencyFilter(ActionEvent event) {
@@ -157,18 +112,9 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     }
 
     public void progressFilter(ActionEvent event) throws ParseException {
-        if (!Objects.equals(progressValue, progressDropdownMenu.getValue()) & !progressDropdownMenu.getValue().equals("")) {
-            if (progressDropdownMenu.getValue().equals("0%")) {
-                progress = 0.0;
-            } else if (!progressDropdownMenu.getValue().equals("Progress")) {
-                progress = (double)(new DecimalFormat("0.0#%").parse(progressDropdownMenu.getValue()));
-            }
-            progressValue = progressDropdownMenu.getValue();
-            populateOverviewPageWithTaskBoxes();
-        } else {
-            progressValue = progressDropdownMenu.getValue();
-            populateOverviewPageWithTaskBoxes();
-        }
+        progress = progress(progressValue, progressDropdownMenu);
+        progressValue = progressDropdownMenu.getValue();
+        populateOverviewPageWithTaskBoxes();
     }
 
     public void assigneesFilter(ActionEvent event) {
@@ -179,17 +125,13 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     }
 
     public void refreshFilters(ActionEvent event) {
-        frequencyDropdownMenu.setValue("");
-        urgencyDropdownMenu.setValue("");
-        typeDropdownMenu.setValue("");
-        progressDropdownMenu.setValue("");
-        assigneeDropdownMenu.setValue("");
-        datePickerFilter.setValue(localDate);
+        resetFilters(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, progressDropdownMenu, assigneeDropdownMenu,
+                datePickerFilter, localDate);
 
         String dateToParse = df.format(new Date());
         dateForShownDay.setText(dateToParse);
 
-        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse, true);
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse, true, false);
     }
 
     public void dateFilter(ActionEvent event) {
@@ -203,15 +145,11 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
             dateForShownDay.setText(dateToShow);
         }
 
-        populateManagerOverviewFromDatePicker(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToShow, true);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToShow, true, false);
     }
 
     public void changeView(ActionEvent event) {
-        if (viewDropdownMenu.getValue() == "History") {
-            switchScene(overviewManagerBorderPane, "overview-history-page.fxml");
-        } else if (viewDropdownMenu.getValue() == "Employee"){
-            switchScene(overviewManagerBorderPane, "overview-employee-page.fxml");
-        }
+        changeView(viewDropdownMenu, overviewManagerBorderPane);
     }
 }
 

@@ -1,6 +1,5 @@
 package controller;
 
-import com.mongodb.client.model.Filters;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.Button;
@@ -9,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import model.Task;
-import model.User;
 import org.bson.types.ObjectId;
 
 import java.net.URL;
@@ -18,8 +16,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static com.mongodb.client.model.Filters.and;
 
 public class OverviewEmployeeController implements Initializable, UIMethods, DatabaseMethods {
     @FXML
@@ -50,52 +46,26 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private double progress;
     private String progressValue;
     private String employee;
-    private ArrayList<Task> tasks;
-    private ArrayList<User> users;
     private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
     private final int oneDayMS = 86_400_000;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(Filters.eq("active", true), true,"tasks"));
-        users = DatabaseMethods.getEmployeesFromDB(false, "users");
         date = new Date();
 
-        dateForShownDay.setText("Today");
-
-        frequencyDropdownMenu.getItems().addAll(
-                "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
-        );
-
-        urgencyDropdownMenu.getItems().addAll(
-                "", "Low", "Medium", "High"
-        );
-
-        typeDropdownMenu.getItems().addAll(
-                "", "Cleaner", "Bartender", "All"
-        );
-
-        progressDropdownMenu.getItems().addAll(
-                "", "0%", "25%", "50%", "75%"
-        );
-
-        assigneeDropdownMenu.getItems().addAll("", "General");
-        for (User user : users) {
-            assigneeDropdownMenu.getItems().add(user.getFullName());
-        }
+        stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, progressDropdownMenu,
+                assigneeDropdownMenu, refreshFilter, dateForShownDay, true);
 
         viewDropdownMenu.getItems().addAll(
                 "History", "Manager"
         );
-
-        refreshFilter.setVisible(false);
 
         populateOverviewPageWithTaskBoxes();
     }
 
     public void populateOverviewPageWithTaskBoxes() {
         String dateToParse = df.format(this.date);
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse, false);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, dateToParse, false, false);
     }
 
     static Task createTaskToDisplay(ArrayList<Object> values) {
@@ -107,15 +77,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         switchScene(overviewEmployeeBorderPane, "overview-employee-page.fxml");
     }
     public void filterTasks(ActionEvent event) {
-        if (filterOptionsHBox.isVisible()) {
-            filterOptionsHBox.setVisible(false);
-            filterOptionsHBox.setPrefHeight(0);
-            refreshFilter.setVisible(false);
-        } else {
-            filterOptionsHBox.setVisible(true);
-            filterOptionsHBox.setPrefHeight(75);
-            refreshFilter.setVisible(true);
-        }
+        filterSectionLogic(filterOptionsHBox, refreshFilter);
     }
 
     public void frequencyFilter(ActionEvent event) {
@@ -140,18 +102,9 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     }
 
     public void progressFilter(ActionEvent event) throws ParseException {
-        if (!Objects.equals(progressValue, progressDropdownMenu.getValue()) & !progressDropdownMenu.getValue().equals("")) {
-            if (progressDropdownMenu.getValue().equals("0%")) {
-                progress = 0.0;
-            } else {
-                progress = (double)(new DecimalFormat("0.0#%").parse(progressDropdownMenu.getValue()));
-            }
-            progressValue = progressDropdownMenu.getValue();
-            populateOverviewPageWithTaskBoxes();
-        } else {
-            progressValue = progressDropdownMenu.getValue();
-            populateOverviewPageWithTaskBoxes();
-        }
+        progress = progress(progressValue, progressDropdownMenu);
+        progressValue = progressDropdownMenu.getValue();
+        populateOverviewPageWithTaskBoxes();
     }
 
     public void assigneesFilter(ActionEvent event) {
@@ -181,7 +134,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
 
         String dateToParse = df.format(this.date);
 
-        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse, false);
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null,  0.0, null, null, dateToParse, false, false);
     }
 
     public void previousDay(ActionEvent event) {
@@ -196,7 +149,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
             dateForShownDay.setText(df.format(this.date));
         }
 
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, previousDayDate, false);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, previousDayDate, false, false);
     }
 
     public void nextDay(ActionEvent event) {
@@ -210,20 +163,11 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
             dateForShownDay.setText(df.format(this.date));
         }
 
-        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate, false);
+        populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate, false, false);
     }
 
     public void changeView(ActionEvent event) {
-        if (viewDropdownMenu.getValue().equals("History")) {
-            switchScene(overviewEmployeeBorderPane, "overview-history-page.fxml");
-        } else if (viewDropdownMenu.getValue().equals("Manager")){
-            PinCodeController controller = new PinCodeController();
-            makeModalDialog(controller, "manager-pin-code-page.fxml", 300, 400);
-
-            if (controller.isValidPinCode()) {
-                switchScene(overviewEmployeeBorderPane, "overview-manager-page.fxml");
-            }
-        }
+        changeView(viewDropdownMenu, overviewEmployeeBorderPane);
     }
 }
 

@@ -46,7 +46,7 @@ public class TaskEmployeeController implements DatabaseMethods, UIMethods {
         if (task.getDbDate().before(today)) {
             overdueTask.setVisible(true);
         }
-        
+
         switch (task.getUrgency().toLowerCase()) {
             case "low" -> urgencyCircle.setFill(Color.rgb(71, 209, 178));
             case "medium" -> urgencyCircle.setFill(Color.rgb(255, 228, 3));

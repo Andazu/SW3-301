@@ -3,25 +3,35 @@ package controller;
 import com.mongodb.client.model.Filters;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Task;
+import model.User;
 import org.bson.conversions.Bson;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
+
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.ne;
 
 public interface UIMethods {
     default void switchScene(BorderPane pane, String path) {
@@ -146,126 +156,224 @@ public interface UIMethods {
         return filter;
     }
 
-    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date, boolean isManagerView) {
-        taskGrid.getChildren().clear();
+    default void populateOverviewWithTaskBoxes(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date, boolean isManagerView, boolean isAllTask) {
+        if (isAllTask) {
+            Bson filter = and(ne("_id", " "));
+            ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
 
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        Date parsedDate;
+            // Sort tasks based on date
+            tasks.sort(Comparator.comparing(Task::getDbDate).reversed());
 
-        try {
-            parsedDate = df.parse(date);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+            int columns = 1;
+            int rows = 1;
+            String previousDate = (" ");
 
-        Bson frequencyFilter = getFilters("frequency", frequency);
-        Bson urgencyFilter = getFilters("urgency", urgency);
-        Bson typeFilter = getFilters("type", type);
+            try {
+                for (Task task : tasks) {
+                    String newDate = task.makeDateLabel();
 
-        Bson progressFilter;
-        if (progressValue == null || progressValue.equals("")) {
-            progressFilter = getFilters("progress", null);
+                    // Print new month and year if needed
+                    if (!previousDate.equals(newDate)){
+                        Separator separator = new Separator(Orientation.HORIZONTAL);
+                        Label label = new Label(newDate);
+                        label.setPadding(new Insets(20));
+                        label.setStyle("-fx-font-size: 18;");
+
+                        VBox vBox = new VBox(separator, label);
+
+                        taskGrid.add(vBox, columns, rows);
+                        previousDate = newDate;
+                        rows++;
+                    }
+
+                    // Print the tasks
+                    FXMLLoader loader = new FXMLLoader();
+
+                    if (isManagerView) {
+                        loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
+                    } else {
+                        loader.setLocation(getClass().getResource("history-task-box-page.fxml"));
+                    }
+
+                    VBox vBox = loader.load();
+                    vBox.setId(task.getId().toString()); // Store task id as hBox id
+
+                    if (isManagerView) {
+                        TaskManagerController taskManagerController = loader.getController();
+                        taskManagerController.setTaskBoxToUI(task);
+                    } else {
+                        HistoryTaskController historyTaskController = loader.getController();
+                        historyTaskController.setTaskBoxToUI(task);
+                    }
+
+                    taskGrid.add(vBox, columns, rows);
+                    rows++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
-            progressFilter = getFilters("progress", progress);
-        }
+            taskGrid.getChildren().clear();
 
-        boolean filterEmployee = !(Objects.equals(employee, "")) & employee != null;
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            Date parsedDate;
 
-        Bson filter = Filters.and(frequencyFilter, urgencyFilter, typeFilter, progressFilter);
-        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
+            try {
+                parsedDate = df.parse(date);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
-        int columns = 1;
-        int rows = 1;
+            Bson frequencyFilter = getFilters("frequency", frequency);
+            Bson urgencyFilter = getFilters("urgency", urgency);
+            Bson typeFilter = getFilters("type", type);
 
-        try {
-            for (Task task : tasks) {
-                FXMLLoader loader = new FXMLLoader();
-                if (isManagerView) {
-                    loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
-                } else {
-                    loader.setLocation(getClass().getResource("task-box-page.fxml"));
-                }
+            Bson progressFilter;
+            if (progressValue == null || progressValue.equals("")) {
+                progressFilter = getFilters("progress", null);
+            } else {
+                progressFilter = getFilters("progress", progress);
+            }
 
-                VBox vBox = loader.load();
-                vBox.setId(task.getId().toString()); // Store task id as hBox id
+            boolean filterEmployee = !(Objects.equals(employee, "")) & employee != null;
 
-                if (isManagerView) {
-                    TaskManagerController taskController = loader.getController();
-                    taskController.setTaskBoxToUI(task);
-                } else {
-                    TaskEmployeeController taskController = loader.getController();
-                    taskController.setTaskBoxToUI(task);
-                }
+            Bson filter = Filters.and(frequencyFilter, urgencyFilter, typeFilter, progressFilter);
+            ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
+            //.thenComparing(Task::getUrgency): change the urgency to low: 1, medium: 2, high: 3 to sort on it
+            tasks.sort(Comparator.comparing(Task::getDbDate).reversed());
 
-                if (filterEmployee &&
-                        (date.equals(df.format(task.getDbDate())) ||
-                         parsedDate.after(task.getDbDate())       )) {
-                    for (String assignee : task.getAssignees()) {
-                        if (employee.equals(assignee)) {
+            int columns = 1;
+            int rows = 1;
+
+            try {
+                for (Task task : tasks) {
+                    FXMLLoader loader = new FXMLLoader();
+                    if (isManagerView) {
+                        loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
+                    } else {
+                        loader.setLocation(getClass().getResource("task-box-page.fxml"));
+                    }
+
+                    VBox vBox = loader.load();
+                    vBox.setId(task.getId().toString()); // Store task id as hBox id
+
+                    if (isManagerView) {
+                        TaskManagerController taskController = loader.getController();
+                        taskController.setTaskBoxToUI(task);
+                    } else {
+                        TaskEmployeeController taskController = loader.getController();
+                        taskController.setTaskBoxToUI(task);
+                    }
+
+                    if (isManagerView) {
+                        if (filterEmployee && (date.equals(df.format(task.getDbDate())))) {
+                            for (String assignee : task.getAssignees()) {
+                                if (employee.equals(assignee)) {
+                                    taskGrid.add(vBox, columns, rows);
+                                }
+                            }
+                        } else if (date.equals(df.format(task.getDbDate()))){
+                            taskGrid.add(vBox, columns, rows);
+                        }
+                    } else {
+                        if (filterEmployee && (date.equals(df.format(task.getDbDate())) || parsedDate.after(task.getDbDate()))) {
+                            for (String assignee : task.getAssignees()) {
+                                if (employee.equals(assignee)) {
+                                    taskGrid.add(vBox, columns, rows);
+                                }
+                            }
+                        } else if (date.equals(df.format(task.getDbDate())) || parsedDate.after(task.getDbDate())){
                             taskGrid.add(vBox, columns, rows);
                         }
                     }
-                } else if (date.equals(df.format(task.getDbDate())) || parsedDate.after(task.getDbDate())){
-                    taskGrid.add(vBox, columns, rows);
-                }
 
-                rows++;
+                    rows++;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    default void populateManagerOverviewFromDatePicker(GridPane taskGrid, String frequency, String urgency, String type, double progress, String progressValue, String employee, String date, boolean isManagerView) {
-        taskGrid.getChildren().clear();
+    default void stdUIForPages(ComboBox<String> frequencyDropdownMenu, ComboBox<String> urgencyDropdownMenu,
+        ComboBox<String> typeDropdownMenu, ComboBox<String> progressDropdownMenu, ComboBox<String> assigneeDropdownMenu,
+                                          Button refreshFilter, Label dateForShownDay, boolean isOverViewPage) {
+        frequencyDropdownMenu.getItems().addAll(
+                "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
+        );
 
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        urgencyDropdownMenu.getItems().addAll(
+                "", "Low", "Medium", "High"
+        );
 
-        Bson frequencyFilter = getFilters("frequency", frequency);
-        Bson urgencyFilter = getFilters("urgency", urgency);
-        Bson typeFilter = getFilters("type", type);
+        typeDropdownMenu.getItems().addAll(
+                "", "Cleaner", "Bartender", "All"
+        );
 
-        Bson progressFilter;
-        if (progressValue == null || progressValue.equals("")) {
-            progressFilter = getFilters("progress", null);
-        } else {
-            progressFilter = getFilters("progress", progress);
-        }
+        if (isOverViewPage) {
+            ArrayList<User> users = DatabaseMethods.getEmployeesFromDB(false, "users");
 
-        boolean filterEmployee = !(Objects.equals(employee, "")) & employee != null;
+            progressDropdownMenu.getItems().addAll(
+                    "", "0%", "25%", "50%", "75%"
+            );
 
-        Bson filter = Filters.and(frequencyFilter, urgencyFilter, typeFilter, progressFilter);
-        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
+            refreshFilter.setVisible(false);
 
-        int columns = 1;
-        int rows = 1;
-
-        try {
-            for (Task task : tasks) {
-                FXMLLoader loader = new FXMLLoader();
-
-                loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
-
-                VBox vBox = loader.load();
-                vBox.setId(task.getId().toString()); // Store task id as hBox id
-
-                TaskManagerController taskController = loader.getController();
-                taskController.setTaskBoxToUI(task);
-
-                if (filterEmployee &&
-                        (date.equals(df.format(task.getDbDate())))) {
-                    for (String assignee : task.getAssignees()) {
-                        if (employee.equals(assignee)) {
-                            taskGrid.add(vBox, columns, rows);
-                        }
-                    }
-                } else if (date.equals(df.format(task.getDbDate()))){
-                    taskGrid.add(vBox, columns, rows);
-                }
-                rows++;
+            assigneeDropdownMenu.getItems().addAll("", "General");
+            for (User user : users) {
+                assigneeDropdownMenu.getItems().add(user.getFullName());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            dateForShownDay.setText("Today");
         }
+    }
+
+    default void changeView(ComboBox<String> viewDropdownMenu, BorderPane borderPaneToSwitch) {
+        if (viewDropdownMenu.getValue().equals("History")) {
+            switchScene(borderPaneToSwitch, "overview-history-page.fxml");
+        } else if (viewDropdownMenu.getValue().equals("Manager")){
+            PinCodeController controller = new PinCodeController();
+            makeModalDialog(controller, "manager-pin-code-page.fxml", 300, 400);
+
+            if (controller.isValidPinCode()) {
+                switchScene(borderPaneToSwitch, "overview-manager-page.fxml");
+            }
+        } else {
+            switchScene(borderPaneToSwitch, "overview-employee-page.fxml");
+        }
+    }
+
+    default void resetFilters(ComboBox<String> frequencyDropdownMenu, ComboBox<String> urgencyDropdownMenu, ComboBox<String> typeDropdownMenu,
+        ComboBox<String> progressDropdownMenu, ComboBox<String> assigneeDropdownMenu, DatePicker datePickerFilter, LocalDate localDate) {
+        frequencyDropdownMenu.setValue("");
+        urgencyDropdownMenu.setValue("");
+        typeDropdownMenu.setValue("");
+        progressDropdownMenu.setValue("");
+        assigneeDropdownMenu.setValue("");
+        datePickerFilter.setValue(localDate);
+    }
+
+    default void filterSectionLogic(HBox filterOptionsHBox, Button refreshFilter) {
+        if (filterOptionsHBox.isVisible()) {
+            filterOptionsHBox.setVisible(false);
+            filterOptionsHBox.setPrefHeight(0);
+            refreshFilter.setVisible(false);
+        } else {
+            filterOptionsHBox.setVisible(true);
+            filterOptionsHBox.setPrefHeight(75);
+            refreshFilter.setVisible(true);
+        }
+    }
+
+    default double progress(String progressValue, ComboBox<String> progressDropdownMenu) throws ParseException {
+        double progress = 0;
+        if (!Objects.equals(progressValue, progressDropdownMenu.getValue()) & !progressDropdownMenu.getValue().equals("")) {
+            if (progressDropdownMenu.getValue().equals("0%")) {
+                progress = 0.0;
+            } else if (!progressDropdownMenu.getValue().equals("Progress")) {
+                progress = (double)(new DecimalFormat("0.0#%").parse(progressDropdownMenu.getValue()));
+            }
+        }
+        return progress;
     }
 }

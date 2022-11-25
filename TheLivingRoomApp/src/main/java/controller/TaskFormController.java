@@ -40,14 +40,8 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
         makeButtonsCancelAndDefault(cancelButton, submitButton);
 
-        frequencyDropdownMenu.getItems().addAll(
-                "Once", "Every day", "Every Other Day", "Every Week", "Every Month"
-        );
-        urgencyDropdownMenu.getItems().addAll(
-                "Low", "Medium", "High"
-        );
-        typeDropdownMenu.getItems().addAll(
-                "Cleaner", "Bartender");
+        stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, null,
+                null, null, null, false);
 
         populateTaskFormWithAssigneeBoxes();
     }
@@ -76,9 +70,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
                 createdTask.setAssignees(assignees);
             } else {
                 for (String user : selectedUsers){
-                    //assignees = createdTask.getAssignees();
                     assignees.add(user);
-
                     createdTask.setAssignees(assignees);
                 }
             }

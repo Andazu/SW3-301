@@ -33,59 +33,11 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        populateOverviewPageWithTaskBoxes();
+        populateOverviewWithTaskBoxes(taskGrid, null, null, null, 0.0, null, null, null, false, true);
 
         viewDropdownMenu.getItems().addAll(
                 "Employee", "Manager"
         );
-    }
-
-    public void populateOverviewPageWithTaskBoxes() {
-        Bson filter = and(ne("_id", " "));
-        ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, false, "tasks"));
-
-        // Sort tasks based on date
-        tasks.sort(Comparator.comparing(Task::getDbDate).reversed());
-
-        int columns = 1;
-        int rows = 1;
-        String previousDate = (" ");
-
-        try {
-            for (Task task : tasks) {
-                String newDate = task.makeDateLabel();
-
-                // Print new month and year if needed
-                if (!previousDate.equals(newDate)){
-                    Separator separator = new Separator(Orientation.HORIZONTAL);
-                    Label label = new Label(newDate);
-                    label.setPadding(new Insets(20));
-                    label.setStyle("-fx-font-size: 18;");
-
-                    VBox vBox = new VBox(separator, label);
-
-                    taskGrid.add(vBox, columns, rows);
-                    previousDate = newDate;
-                    rows++;
-                }
-
-                // Print the tasks
-                FXMLLoader loader = new FXMLLoader();
-
-                loader.setLocation(getClass().getResource("history-task-box-page.fxml"));
-
-                VBox vBox = loader.load();
-                vBox.setId(task.getId().toString()); // Store task id as hBox id
-
-                HistoryTaskController historyTaskController = loader.getController();
-                historyTaskController.setTaskBoxToUI(task);
-
-                taskGrid.add(vBox, columns, rows);
-                rows++;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void refreshPage(ActionEvent event) {
@@ -93,15 +45,6 @@ public class OverviewHistoryController implements Initializable, UIMethods, Data
     }
 
     public void changeView(ActionEvent event) {
-        if (viewDropdownMenu.getValue().equals("Employee")) {
-            switchScene(overviewHistoryBorderPane, "overview-employee-page.fxml");
-        } else if (viewDropdownMenu.getValue().equals("Manager")){
-            PinCodeController controller = new PinCodeController();
-            makeModalDialog(controller, "manager-pin-code-page.fxml", 300, 400);
-
-            if (controller.isValidPinCode()) {
-                switchScene(overviewHistoryBorderPane, "overview-manager-page.fxml");
-            }
-        }
+        changeView(viewDropdownMenu, overviewHistoryBorderPane);
     }
 }
