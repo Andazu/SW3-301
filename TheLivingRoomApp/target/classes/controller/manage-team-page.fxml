@@ -32,7 +32,7 @@
                   <Font size="24.0" />
                </font>
                <HBox.margin>
-                  <Insets right="100.0" />
+                  <Insets right="70.0" />
                </HBox.margin>
                <padding>
                   <Insets bottom="20.0" top="20.0" />
@@ -51,6 +51,15 @@
                      <tooltip>
                         <Tooltip text="Reload page" />
                      </tooltip></Button>
+               </children>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="30.0">
+               <children>
+                  <Button fx:id="closeProgramButton" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#closeProgram" prefHeight="30.0" prefWidth="30.0" text="X">
+                     <HBox.margin>
+                        <Insets right="1.0" top="1.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
          </children>

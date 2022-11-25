@@ -298,7 +298,7 @@ public interface UIMethods {
 
     default void stdUIForPages(ComboBox<String> frequencyDropdownMenu, ComboBox<String> urgencyDropdownMenu,
         ComboBox<String> typeDropdownMenu, ComboBox<String> progressDropdownMenu, ComboBox<String> assigneeDropdownMenu,
-                                          Button refreshFilter, Label dateForShownDay, boolean isOverViewPage) {
+                                          Button refreshFilter, Label dateForShownDay, Button closeProgramButton, boolean isOverViewPage) {
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
         );
@@ -310,6 +310,8 @@ public interface UIMethods {
         typeDropdownMenu.getItems().addAll(
                 "", "Cleaner", "Bartender", "All"
         );
+
+        addCssToButtons(closeProgramButton, "exit-button");
 
         if (isOverViewPage) {
             ArrayList<User> users = DatabaseMethods.getEmployeesFromDB(false, "users");
@@ -473,5 +475,27 @@ public interface UIMethods {
         progressBar.setProgress(task.getProgress());
         taskLabel.setText(task.getTitle());
         dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
+    }
+
+    default void setTextForDate(String dateToCheck, Label dateForShownDay, Date date) {
+        final int oneDayMS = 86_400_000;
+        Date todayDate = new Date();
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+        Date tomorrow = new Date();
+        tomorrow.setTime(tomorrow.getTime() + oneDayMS);
+
+        Date yesteday = new Date();
+        yesteday.setTime(yesteday.getTime() - oneDayMS);
+
+        if (dateToCheck.equals(df.format(todayDate))) {
+            dateForShownDay.setText("Today");
+        } else if (dateToCheck.equals(df.format(tomorrow))) {
+            dateForShownDay.setText("Tomorrow");
+        } else if (dateToCheck.equals(df.format(yesteday))) {
+            dateForShownDay.setText("Yesterday");
+        } else {
+            dateForShownDay.setText(df.format(date));
+        }
     }
 }

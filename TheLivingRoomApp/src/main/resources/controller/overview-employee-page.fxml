@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="overviewEmployeeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewEmployeeController">
+<BorderPane fx:id="overviewEmployeeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewEmployeeController">
    <top>
-      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1024.0" spacing="20.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1024.0" spacing="15.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="dateForShownDay" alignment="CENTER" prefHeight="69.0" prefWidth="150.0" text="Today's Date" textAlignment="CENTER">
                <font>
@@ -82,10 +82,16 @@
                   <Insets />
                </opaqueInsets>
             </HBox>
+            <HBox prefHeight="30.0" prefWidth="30.0">
+               <children>
+                  <Button fx:id="closeProgramButton" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#closeProgram" prefHeight="30.0" prefWidth="30.0" text="X">
+                     <HBox.margin>
+                        <Insets right="1.0" top="1.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
-         <padding>
-            <Insets left="20.0" right="20.0" />
-         </padding>
       </HBox>
    </top>
    <center>

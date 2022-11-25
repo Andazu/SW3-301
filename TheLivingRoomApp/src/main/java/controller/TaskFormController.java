@@ -39,7 +39,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
         makeButtonsCancelAndDefault(cancelButton, submitButton);
 
         stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, null,
-                null, null, null, false);
+                null, null, null, null, false);
 
         populateTaskFormWithAssigneeBoxes();
     }
