@@ -52,8 +52,10 @@ public class PinCodeController implements Initializable, UIMethods {
 
     public void submitButtonAction(ActionEvent event) {
         if (passwordField.getText().length() < 4) {
+            passwordField.clear();
             errorDialog("Invalid Pin Code", "The Pin Code must be 4 characters");
         } else if (!(passwordField.getText().equals("1234"))) {
+            passwordField.clear();
             errorDialog("Invalid Pin Code", "The Entered Pin Code is incorrect");
         } else {
             this.validPinCode = true;

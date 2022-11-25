@@ -12,7 +12,6 @@ import org.bson.types.ObjectId;
 
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -49,12 +48,15 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     private final DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
     private Date date;
     private final int oneDayMS = 86_400_000;
+    @FXML
+    private Button closeProgramButton;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         date = new Date();
 
         stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, progressDropdownMenu,
-                assigneeDropdownMenu, refreshFilter, dateForShownDay, true);
+                assigneeDropdownMenu, refreshFilter, dateForShownDay, closeProgramButton, true);
 
         viewDropdownMenu.getItems().addAll(
                 "History", "Manager"
@@ -157,6 +159,10 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
 
     public void changeView(ActionEvent event) {
         changeView(viewDropdownMenu, overviewEmployeeBorderPane);
+    }
+
+    public void closeProgram(ActionEvent event) {
+        System.exit(0);
     }
 }
 

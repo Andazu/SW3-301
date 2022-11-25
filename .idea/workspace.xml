@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DatabaseMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DatabaseMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DescriptionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/DescriptionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/EditTaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/EditTaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/model/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/model/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/description-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/description-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/edit-task-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/edit-task-page.fxml" afterDir="false" />
     </list>
     <list id="1022e458-1ade-405c-990a-d1268fa74848" name="Changes by ander" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -174,7 +167,7 @@
       <workItem from="1669119452134" duration="3218000" />
       <workItem from="1669199582809" duration="673000" />
       <workItem from="1669200762310" duration="2605000" />
-      <workItem from="1669376145020" duration="4286000" />
+      <workItem from="1669376145020" duration="4673000" />
     </task>
     <servers />
   </component>

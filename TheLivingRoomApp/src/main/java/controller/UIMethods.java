@@ -298,7 +298,7 @@ public interface UIMethods {
 
     default void stdUIForPages(ComboBox<String> frequencyDropdownMenu, ComboBox<String> urgencyDropdownMenu,
         ComboBox<String> typeDropdownMenu, ComboBox<String> progressDropdownMenu, ComboBox<String> assigneeDropdownMenu,
-                                          Button refreshFilter, Label dateForShownDay, boolean isOverViewPage) {
+                                          Button refreshFilter, Label dateForShownDay, Button closeProgramButton, boolean isOverViewPage) {
         frequencyDropdownMenu.getItems().addAll(
                 "", "Once", "Every Day", "Every Other Day", "Every Week", "Every Month"
         );
@@ -310,6 +310,8 @@ public interface UIMethods {
         typeDropdownMenu.getItems().addAll(
                 "", "Cleaner", "Bartender", "All"
         );
+
+        addCssToButtons(closeProgramButton, "exit-button");
 
         if (isOverViewPage) {
             ArrayList<User> users = DatabaseMethods.getEmployeesFromDB(false, "users");

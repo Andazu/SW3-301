@@ -48,19 +48,17 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
     private final LocalDate localDate = LocalDate.now();
     private Date date;
     private final int oneDayMS = 86_400_000;
-    private Date yesterday = new Date();
-    private Date tommorow = new Date();
+    @FXML
+    private Button closeProgramButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.date = new Date();
-        this.yesterday.setTime(yesterday.getTime() - oneDayMS);
-        this.tommorow.setTime(tommorow.getTime() + oneDayMS);
 
         datePickerFilter.setValue(localDate);
 
         stdUIForPages(frequencyDropdownMenu, urgencyDropdownMenu, typeDropdownMenu, progressDropdownMenu,
-                assigneeDropdownMenu, refreshFilter, dateForShownDay, true);
+                assigneeDropdownMenu, refreshFilter, dateForShownDay, closeProgramButton, true);
 
         viewDropdownMenu.getItems().addAll(
                 "History", "Employee"
@@ -177,11 +175,8 @@ public class OverviewManagerController implements Initializable, UIMethods, Data
         changeView(viewDropdownMenu, overviewManagerBorderPane);
     }
 
-    private String getYesterDateAsString() {
-        return df.format(yesterday);
-    }
-    private String getTomorrowDateAsString() {
-        return df.format(tommorow);
+    public void closeProgram(ActionEvent event) {
+        System.exit(0);
     }
 }
 

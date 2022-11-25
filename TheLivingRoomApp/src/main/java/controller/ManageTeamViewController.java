@@ -26,10 +26,13 @@ public class ManageTeamViewController implements Initializable, UIMethods, Datab
     private GridPane userGrid;
     @FXML
     private BorderPane ManageTeamViewBorderPane;
+    @FXML
+    private Button closeProgramButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateManageTeamViewWithUserBoxes();
+        addCssToButtons(closeProgramButton, "exit-button");
     }
 
     public void populateManageTeamViewWithUserBoxes() {
@@ -72,6 +75,10 @@ public class ManageTeamViewController implements Initializable, UIMethods, Datab
         makeModalDialog(controller,"employee-form-page.fxml", 500,600);
 
         refreshPage(event);
+    }
+
+    public void closeProgram(ActionEvent event) {
+        System.exit(0);
     }
 }
 
