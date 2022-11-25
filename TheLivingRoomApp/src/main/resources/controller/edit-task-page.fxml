@@ -8,6 +8,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -81,6 +82,9 @@
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="When completed, the task will automatically renew with the given frequency" />
+                                       </tooltip>
                                     </Label>
                                  </children>
                               </HBox>
@@ -99,6 +103,9 @@
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
+                                       <tooltip>
+                                          <Tooltip text="The task will be marked with the appropriate colour" />
+                                       </tooltip>
                                     </Label>
                                  </children>
                               </HBox>
