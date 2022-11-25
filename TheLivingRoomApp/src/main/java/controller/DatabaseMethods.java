@@ -141,13 +141,6 @@ public interface DatabaseMethods {
         collection.updateOne(Filters.eq("_id", objectId), Updates.addToSet("comments", comment));
     }
 
-    default void lastEditUpdate(String id, String comment, String collName){
-        ObjectId objectId = new ObjectId(id);
-        MongoCollection<Document> collection = getDBColl(collName);
-        assert collection != null;
-        collection.updateOne(Filters.eq("_id", objectId), Updates.addToSet("comments", comment));
-    }
-
     default void completeTask(String id, String collName, boolean setActive) {
         ObjectId objectId = new ObjectId(id);
         MongoCollection<Document> collection = getDBColl(collName);
