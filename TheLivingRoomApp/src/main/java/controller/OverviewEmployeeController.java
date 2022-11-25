@@ -72,7 +72,7 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
         );
 
         typeDropdownMenu.getItems().addAll(
-                "", "Cleaner", "Bartender"
+                "", "Cleaner", "Bartender", "All"
         );
 
         progressDropdownMenu.getItems().addAll(

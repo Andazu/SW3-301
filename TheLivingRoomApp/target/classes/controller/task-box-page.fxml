@@ -12,15 +12,23 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxTheWholeBox" alignment="CENTER" prefHeight="75.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskEmployeeController">
+<VBox fx:id="vBoxTheWholeBox" alignment="CENTER" prefHeight="75.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TaskEmployeeController">
    <children>
       <HBox fx:id="hbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="1000.0" spacing="15.0">
          <children>
-            <Circle fx:id="overdueTask" fill="#F07F79" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0"/>
+            <ImageView fx:id="overdueTask" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@images/ex-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <Circle fx:id="urgencyCircle" fill="#f0807a" radius="11.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0" />
             <StackPane prefHeight="75.0" prefWidth="494.0">
                <children>
-                  <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="500.0" progress="0.0" />
-                  <Label fx:id="taskLabel" text="The given task" />
+                  <ProgressBar fx:id="progressBar" prefHeight="25.0" prefWidth="500.0" progress="0.0" />
+                  <Label fx:id="taskLabel" text="The given task">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
                </children>
             </StackPane>
             <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#setTaskToInactive" prefHeight="25.0" prefWidth="25.0" text="✓">

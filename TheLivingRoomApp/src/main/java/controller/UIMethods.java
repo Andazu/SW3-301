@@ -65,6 +65,7 @@ public interface UIMethods {
     default Stage makeModalStage() {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initStyle(StageStyle.TRANSPARENT);
         return dialog;
     }
 
