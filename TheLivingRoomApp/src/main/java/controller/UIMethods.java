@@ -5,13 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -375,5 +376,102 @@ public interface UIMethods {
             }
         }
         return progress;
+    }
+
+    default HBox assigneeBox(User user, boolean isChecked) {
+        Label fullName = new Label(user.getFullName());
+        HBox hBoxName = new HBox(fullName);
+        hBoxName.setAlignment(Pos.CENTER);
+        hBoxName.setPrefWidth(120);
+        hBoxName.setPrefHeight(50);
+
+        Label role = new Label(user.getRole());
+        HBox hBoxRole = new HBox(role);
+        hBoxRole.setAlignment(Pos.CENTER);
+        hBoxRole.setPrefWidth(55);
+        hBoxRole.setPrefHeight(50);
+
+        CheckBox checkBox = new CheckBox();
+        HBox hBoxCheckBox = new HBox(checkBox);
+        hBoxCheckBox.setAlignment(Pos.CENTER);
+        hBoxCheckBox.setPrefWidth(50);
+        hBoxCheckBox.setPrefHeight(50);
+        if (isChecked) {
+            checkBox.setSelected(true);
+        }
+
+        HBox hBox = new HBox(hBoxName, hBoxRole, hBoxCheckBox);
+
+        hBox.setPrefWidth(225);
+        hBox.setPrefHeight(50);
+        hBox.setMinWidth(Region.USE_PREF_SIZE);
+        hBox.setMinHeight(Region.USE_PREF_SIZE);
+        hBox.setMaxWidth(Region.USE_PREF_SIZE);
+        hBox.setMaxHeight(Region.USE_PREF_SIZE);
+        hBox.setAlignment(Pos.CENTER);
+
+        return hBox;
+    }
+
+    default void setDropdownMenuPercentValue(double dropdownMenuPercentValue, ComboBox<String> dropdownMenuPercent) {
+        if (dropdownMenuPercentValue != 0.0) {
+            int progress = (int) dropdownMenuPercentValue;
+            String progressToString = Integer.toString(progress) + '%';
+            dropdownMenuPercent.setValue(progressToString);
+        }
+    }
+
+    default void expandToViewAssignees(Button expandAssigneeButton, HBox hBox, VBox vBoxTheWholeBox, ImageView imageView, ArrayList<String> assignees) {
+        if (Objects.equals(expandAssigneeButton.getId(), "down")) {
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/up-chevron.png")));
+            imageView.setImage(image);
+            expandAssigneeButton.setId("up");
+
+            VBox vBox = new VBox();
+            vBox.setAlignment(Pos.CENTER_LEFT);
+            vBox.setSpacing(10);
+            vBox.setPrefWidth(167);
+            double prefHeight = vBox.getPrefHeight();
+            for (String assignee : assignees) {
+                Label name = new Label(assignee);
+
+                vBox.getChildren().add(name);
+                prefHeight += 20;
+            }
+            vBoxTheWholeBox.setPrefHeight(75 + prefHeight);
+            vBox.setPrefHeight(prefHeight);
+
+            hBox.getChildren().add(vBox);
+        } else {
+            Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/down-chevron.png")));
+            imageView.setImage(image);
+            expandAssigneeButton.setId("down");
+
+            hBox.getChildren().remove(0);
+            hBox.setPrefHeight(0);
+            vBoxTheWholeBox.setPrefHeight(75);
+        }
+    }
+
+    default void stdUIForTaskBoxes(Button expandAssigneeButton, Task task, ImageView overdueTask, Circle urgencyCircle,
+                                                ProgressBar progressBar, Label taskLabel, ComboBox<String> dropdownMenuPercent) {
+        expandAssigneeButton.setId("down");
+        Date today = new Date();
+        int oneDayMS = 86400000;
+        today.setTime(new Date().getTime() - oneDayMS);
+
+        if (task.getDbDate().before(today)) {
+            overdueTask.setVisible(true);
+        }
+
+        switch (task.getUrgency().toLowerCase()) {
+            case "low" -> urgencyCircle.setFill(Color.rgb(71, 209, 178));
+            case "medium" -> urgencyCircle.setFill(Color.rgb(255, 228, 3));
+            case "high" -> urgencyCircle.setFill(Color.rgb(240, 127, 121));
+        }
+
+        progressBar.setProgress(task.getProgress());
+        taskLabel.setText(task.getTitle());
+        dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
     }
 }

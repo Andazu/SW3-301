@@ -2,6 +2,11 @@ package controller;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.*;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import model.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -13,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.time.format.DateTimeFormatter;
-import java.util.Set;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Sorts.ascending;
@@ -162,6 +166,7 @@ public interface DatabaseMethods {
 
     default Task getTaskFromDB(ObjectId objectId, MongoCollection<Document> collection) {
         Document doc = collection.find(Filters.eq("_id", objectId)).first();
+        assert doc != null;
         ArrayList<Object> values = new ArrayList<>(doc.values());
 
         return createTaskToDisplay(values);
@@ -175,16 +180,12 @@ public interface DatabaseMethods {
         cal.setTime(date);
         int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         int today = cal.get(Calendar.DATE);
-        cal.add(cal.MONTH, 1);
+        cal.add(Calendar.MONTH, 1);
         int nextMonthDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         if (nextMonthDays < daysInMonth && today > nextMonthDays) {
             month = daysInMonth - (today - nextMonthDays);
-        } else if (daysInMonth < nextMonthDays){
-            month = nextMonthDays;
-        } else {
-            month = daysInMonth;
-        }
+        } else month = Math.max(daysInMonth, nextMonthDays);
 
         switch (frequency.toLowerCase()) {
             case "every day" -> {
@@ -282,6 +283,89 @@ public interface DatabaseMethods {
     default void deleteFromDB(String id, String collName){
         MongoCollection<Document> coll = getDBColl(collName);
         ObjectId objectId = new ObjectId(id);
+        assert coll != null;
         coll.deleteOne(Filters.eq("_id", objectId));
+    }
+
+    default ArrayList<String> getSelectedAssignees(GridPane gridPane) {
+        ArrayList<String> assignees = new ArrayList<>();
+
+        ObservableList<Node> hBoxOuter = gridPane.getChildren();
+
+        for (Node node : hBoxOuter) {
+            HBox hBoxMiddle = (HBox) node;
+            ObservableList<Node> hBoxChildren = hBoxMiddle.getChildren();
+
+            HBox hBoxInner0 = (HBox) hBoxChildren.get(0);
+            Label labelFullName = (Label) hBoxInner0.getChildren().get(0);
+
+            HBox hBoxInner2 = (HBox) hBoxChildren.get(2);
+            CheckBox checkBox = (CheckBox) hBoxInner2.getChildren().get(0);
+            if (checkBox.isSelected()) {
+                assignees.add(labelFullName.getText());
+            }
+        }
+
+        return assignees;
+    }
+
+    default boolean isTaskValidForSubmit(TextField descriptionTextField, DatePicker datePicker, ComboBox<String> typeDropdownMenu,
+                                         TextField titleTextField, ComboBox<String> frequencyDropdownMenu, ComboBox<String> urgencyDropdownMenu,
+                                         TextArea descriptionTextArea, GridPane gridPane, boolean isEditTask) {
+        Task createdTask = new Task(0.0, true);
+
+        if (isEditTask) {
+            createdTask.setDescription(descriptionTextArea.getText());
+        } else {
+            createdTask.setDescription(descriptionTextField.getText());
+        }
+        createdTask.setDate(datePicker.getValue());
+        createdTask.setType(typeDropdownMenu.getValue());
+
+        boolean validTitle = createdTask.setTitle(titleTextField.getText());
+        boolean validFrequency = createdTask.setFrequency(frequencyDropdownMenu.getValue());
+        boolean validUrgency = createdTask.setUrgency(urgencyDropdownMenu.getValue());
+
+        if (validTitle & validFrequency & validUrgency) {
+            ArrayList<String> selectedUsers = getSelectedAssignees(gridPane);
+
+            ArrayList<String> assignees = new ArrayList<>();
+            if(selectedUsers.isEmpty()){
+                assignees.add("General");
+                createdTask.setAssignees(assignees);
+            } else {
+                assignees.addAll(selectedUsers);
+                createdTask.setAssignees(assignees);
+            }
+            exportTaskToDatabase(createdTask, "tasks");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    default boolean createUserFromUI(TextField firstNameTextField, TextField lastNameTextField, TextField emailTextField,
+                                  TextField phoneNumberTextField, ComboBox<String> roleComboBox) {
+        User user = new User();
+
+        boolean validFirstName = user.setFirstName(firstNameTextField.getText());
+        boolean validLastName = user.setLastName(lastNameTextField.getText());
+        boolean validEmail = user.setEmailAddress(emailTextField.getText());
+        boolean validPhoneNumber = user.setPhoneNumber(phoneNumberTextField.getText());
+        boolean validRole;
+        if (roleComboBox.getValue() == null) {
+            validRole = false;
+        } else {
+            user.setRole(roleComboBox.getValue());
+            validRole = true;
+        }
+        user.setAdmin(false);
+
+        if (validFirstName & validLastName & validEmail & validPhoneNumber & validRole) {
+            exportUserToDatabase(user, "users");
+            return true;
+        } else {
+            return false;
+        }
     }
 }
