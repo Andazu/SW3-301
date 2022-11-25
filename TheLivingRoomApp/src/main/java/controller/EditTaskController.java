@@ -42,6 +42,8 @@ public class EditTaskController implements Initializable, UIMethods, DatabaseMet
     private BorderPane taskEditBorderPane;
     @FXML
     private GridPane commentGridPane;
+    @FXML
+    private Label lastEditedLabel;
     private final String id;
 
     @Override
@@ -127,6 +129,7 @@ public class EditTaskController implements Initializable, UIMethods, DatabaseMet
         frequencyDropdownMenu.setValue(doc.get("frequency").toString());
         urgencyDropdownMenu.setValue(doc.get("urgency").toString());
         typeDropdownMenu.setValue(doc.get("type").toString());
+        lastEditedLabel.setText(doc.get("lastEdit").toString());
 
         displaySelectedAssignees(doc);
     }

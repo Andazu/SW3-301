@@ -8,9 +8,11 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -80,6 +82,9 @@ public interface DatabaseMethods {
     }
     default String exportTaskToDatabase(Task task, String collName){
         try {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+            LocalDateTime now = LocalDateTime.now();
+
             if (checkConnection()) {
                 Document document = new Document();
                 document.append("title", task.getTitle());
@@ -92,6 +97,7 @@ public interface DatabaseMethods {
                 document.append("comments", task.getComments());
                 document.append("assignees", task.getAssignees());
                 document.append("date", task.getDate());
+                document.append("lastEdit", dateTimeFormatter.format(now));
 
                 MongoCollection<Document> coll = getDBColl(collName);
                 assert coll != null;
@@ -135,10 +141,20 @@ public interface DatabaseMethods {
         collection.updateOne(Filters.eq("_id", objectId), Updates.addToSet("comments", comment));
     }
 
+    default void lastEditUpdate(String id, String comment, String collName){
+        ObjectId objectId = new ObjectId(id);
+        MongoCollection<Document> collection = getDBColl(collName);
+        assert collection != null;
+        collection.updateOne(Filters.eq("_id", objectId), Updates.addToSet("comments", comment));
+    }
+
     default void completeTask(String id, String collName, boolean setActive) {
         ObjectId objectId = new ObjectId(id);
         MongoCollection<Document> collection = getDBColl(collName);
         assert collection != null;
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        LocalDateTime now = LocalDateTime.now();
 
         Task task = getTaskFromDB(objectId, collection);
 
@@ -147,6 +163,8 @@ public interface DatabaseMethods {
         } else {
             changeDateAndUpdateInDB(task.getFrequency(), objectId, collection, task.getDbDate(), false);
         }
+
+        collection.updateOne(Filters.eq("_id", objectId), Updates.set("lastEdit", dateTimeFormatter.format(now)));
     }
 
     default Task getTaskFromDB(ObjectId objectId, MongoCollection<Document> collection) {
@@ -199,6 +217,9 @@ public interface DatabaseMethods {
     default void updateTask(String id, String collName, Task task) {
         ObjectId objectId = new ObjectId(id);
 
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+
         MongoCollection<Document> collection = getDBColl(collName);
         assert collection != null;
         collection.updateOne(Filters.eq("_id", objectId),
@@ -209,7 +230,8 @@ public interface DatabaseMethods {
                         Updates.set("urgency", task.getUrgency()),
                         Updates.set("type", task.getType()),
                         Updates.set("assignees", task.getAssignees()),
-                        Updates.set("date", task.getDate())
+                        Updates.set("date", task.getDate()),
+                        Updates.set("lastEdit", dateTimeFormatter.format(now))
                 )
         );
     }

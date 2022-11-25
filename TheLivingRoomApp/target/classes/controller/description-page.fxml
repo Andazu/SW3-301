@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPaneInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPaneInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -29,7 +29,7 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="698.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="300.0" prefWidth="200.0" spacing="20.0">
                <children>
@@ -106,12 +106,13 @@
                               <Label fx:id="assigneeLabel" alignment="TOP_CENTER" text="label" />
                            </children>
                         </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                   <VBox prefHeight="250.0" prefWidth="225.0" spacing="10.0">
                      <children>
                         <Label prefHeight="17.0" prefWidth="264.0" text="Comments:" />
-                        <ScrollPane prefHeight="200.0" prefWidth="210.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" VBox.vgrow="ALWAYS">
                            <content>
                               <GridPane fx:id="commentGridPane" prefWidth="1.0">
                                 <columnConstraints>
@@ -122,18 +123,37 @@
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </ScrollPane>
                      </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="698.0">
+               <children>
+                  <Label alignment="TOP_CENTER" text="Last edited: ">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lastEditLabel" alignment="TOP_CENTER" text="label" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="698.0">
                <children>
                   <Button fx:id="okButton" alignment="CENTER" mnemonicParsing="false" onAction="#makeOkButtonLogic" prefHeight="30.0" prefWidth="75.0" text="Close" textAlignment="CENTER" />
                </children>
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" />
+               </padding>
             </HBox>
          </children>
       </VBox>

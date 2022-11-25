@@ -33,6 +33,8 @@ public class DescriptionController implements Initializable, UIMethods {
     @FXML
     private Label assigneeLabel;
     @FXML
+    private Label lastEditLabel;
+    @FXML
     private GridPane commentGridPane;
     private final String id;
 
@@ -74,6 +76,8 @@ public class DescriptionController implements Initializable, UIMethods {
         frequencyLabel.setText(doc.get("frequency").toString());
         urgencyLabel.setText(doc.get("urgency").toString());
         typeLabel.setText(doc.get("type").toString());
+
+        lastEditLabel.setText(doc.get("lastEdit").toString());
 
         setAssigneeLabel(doc);
     }

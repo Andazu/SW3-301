@@ -21,6 +21,8 @@ public class Task {
     private LocalDate date;
     private Date dbDate;
 
+    private String lastEdit;
+
     public ObjectId getId() {
         return id;
     }
@@ -212,6 +214,21 @@ public class Task {
         this.comments = comments;
         this.assignees = assignees;
         this.dbDate = dbDate;
+    }
+
+    public Task(ObjectId id, String title, String description, String frequency, String urgency, String type, double progress, boolean active, ArrayList<String> comments, ArrayList<String> assignees, Date dbDate, String lastEdit) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.frequency = frequency;
+        this.urgency = urgency;
+        this.type = type;
+        this.progress = progress;
+        this.active = active;
+        this.comments = comments;
+        this.assignees = assignees;
+        this.dbDate = dbDate;
+        this.lastEdit = lastEdit;
     }
 
     public Task(double progress, boolean active) {
