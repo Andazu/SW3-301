@@ -474,4 +474,26 @@ public interface UIMethods {
         taskLabel.setText(task.getTitle());
         dropdownMenuPercent.getItems().addAll("0%", "25%","50%","75%");
     }
+
+    default void setTextForDate(String dateToCheck, Label dateForShownDay, Date date) {
+        final int oneDayMS = 86_400_000;
+        Date todayDate = new Date();
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+        Date tomorrow = new Date();
+        tomorrow.setTime(tomorrow.getTime() + oneDayMS);
+
+        Date yesteday = new Date();
+        yesteday.setTime(yesteday.getTime() - oneDayMS);
+
+        if (dateToCheck.equals(df.format(todayDate))) {
+            dateForShownDay.setText("Today");
+        } else if (dateToCheck.equals(df.format(tomorrow))) {
+            dateForShownDay.setText("Tomorrow");
+        } else if (dateToCheck.equals(df.format(yesteday))) {
+            dateForShownDay.setText("Yesterday");
+        } else {
+            dateForShownDay.setText(df.format(date));
+        }
+    }
 }

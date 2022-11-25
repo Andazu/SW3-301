@@ -8,8 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Project" />
         <module name="TheLivingRoomApp" />
-        <module name="TestAfBootstrapJavaFX" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="TestAfBootstrapJavaFX" target="18" />
+    </bytecodeTargetLevel>
   </component>
 </project>

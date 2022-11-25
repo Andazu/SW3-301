@@ -20,17 +20,20 @@
     <top>
         <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1024.0" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="dateForShownDay" alignment="CENTER" prefHeight="69.0" prefWidth="200.0" text="Today's Date" textAlignment="CENTER">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets right="100.0" />
-                    </HBox.margin>
-                    <padding>
-                        <Insets bottom="20.0" top="20.0" />
-                    </padding>
-                </Label>
+            <HBox alignment="CENTER" prefHeight="75.0" prefWidth="213.0">
+               <children>
+                      <Button fx:id="previousDay" minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#previousDay" text="←" />
+                      <Label fx:id="dateForShownDay" alignment="CENTER" prefHeight="69.0" prefWidth="200.0" text="Today's Date" textAlignment="CENTER">
+                          <font>
+                              <Font size="24.0" />
+                          </font>
+                          <padding>
+                              <Insets bottom="20.0" top="20.0" />
+                          </padding>
+                      </Label>
+                      <Button fx:id="nextDay" minHeight="25.0" minWidth="30.0" mnemonicParsing="false" onAction="#nextDay" text="→" />
+               </children>
+            </HBox>
                 <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="750.0" spacing="20.0">
                     <children>
                         <Button fx:id="addTaskButton" mnemonicParsing="false" onAction="#openTaskFormPage" prefHeight="30.0" prefWidth="75.0" text="Add task" textAlignment="CENTER">

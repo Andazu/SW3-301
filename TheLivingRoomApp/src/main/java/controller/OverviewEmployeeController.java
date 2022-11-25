@@ -140,14 +140,8 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     public void previousDay(ActionEvent event) {
         this.date.setTime(this.date.getTime() - oneDayMS);
         String previousDayDate = df.format(this.date);
-        Date todayDate = new Date();
-        String todayDateString = df.format(todayDate);
 
-        if (previousDayDate.equals(todayDateString)) {
-            dateForShownDay.setText("Today");
-        } else {
-            dateForShownDay.setText(df.format(this.date));
-        }
+        setTextForDate(previousDayDate, dateForShownDay, this.date);
 
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, previousDayDate, false, false);
     }
@@ -155,13 +149,8 @@ public class OverviewEmployeeController implements Initializable, UIMethods, Dat
     public void nextDay(ActionEvent event) {
         this.date.setTime(this.date.getTime() + oneDayMS);
         String nextDayDate = df.format(this.date);
-        Date todayDate = new Date();
 
-        if (nextDayDate.equals(df.format(todayDate))) {
-            dateForShownDay.setText("Today");
-        } else {
-            dateForShownDay.setText(df.format(this.date));
-        }
+        setTextForDate(nextDayDate, dateForShownDay, this.date);
 
         populateOverviewWithTaskBoxes(taskGrid, frequency, urgency, type, progress, progressValue, employee, nextDayDate, false, false);
     }
