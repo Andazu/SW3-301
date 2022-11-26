@@ -193,7 +193,7 @@ public interface UIMethods {
                     if (isManagerView) {
                         loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
                     } else {
-                        loader.setLocation(getClass().getResource("history-task-box-page.fxml"));
+                        loader.setLocation(getClass().getResource("history-task-box-employee.page.fxml"));
                     }
 
                     VBox vBox = loader.load();
@@ -252,7 +252,7 @@ public interface UIMethods {
                     if (isManagerView) {
                         loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
                     } else {
-                        loader.setLocation(getClass().getResource("task-box-page.fxml"));
+                        loader.setLocation(getClass().getResource("task-box-employee.page.fxml"));
                     }
 
                     VBox vBox = loader.load();

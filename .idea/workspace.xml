@@ -5,27 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/TheLivingRoomApp.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/AllTasksController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/AllTasksController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/EditTaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/EditTaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/ManageTeamViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/ManageTeamViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewEmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewEmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewHistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewHistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/OverviewManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/PinCodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/PinCodeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/TaskFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/UIMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/manage-team-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/manage-team-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-all-tasks-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-all-tasks-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-employee-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-history-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-history-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-manager-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/overview-manager-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/manage-team-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/manage-team-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-all-tasks-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-all-tasks-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-employee-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-employee-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-history-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-history-page.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-manager-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/overview-manager-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/add-comment-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/add-comment-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/description-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/description-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/edit-task-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/edit-task-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/edit-user-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/edit-user-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/employee-form-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/employee-form-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/manager-pin-code-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/manager-pin-code-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-employee.page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/add-comment-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/description-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/description-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/edit-task-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/edit-task-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/edit-user-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/edit-user-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/employee-form-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/employee-form-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/manager-pin-code-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/target/classes/controller/manager-pin-code-page.fxml" afterDir="false" />
     </list>
     <list id="1022e458-1ade-405c-990a-d1268fa74848" name="Changes by ander" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +73,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bence/Desktop/Git/P2/SW3-301/TheLivingRoomApp/src/main/resources/controller&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bence/Desktop/Git/P2/SW3-301&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
@@ -94,7 +88,7 @@
       <recent name="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="18" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -188,7 +182,10 @@
       <workItem from="1669199582809" duration="673000" />
       <workItem from="1669200762310" duration="2605000" />
       <workItem from="1669376145020" duration="6874000" />
-      <workItem from="1669385876873" duration="375000" />
+      <workItem from="1669385876873" duration="549000" />
+      <workItem from="1669460484333" duration="1045000" />
+      <workItem from="1669461546891" duration="59000" />
+      <workItem from="1669461645486" duration="153000" />
     </task>
     <servers />
   </component>
