@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.User;
@@ -142,7 +141,8 @@ public class EditTaskController implements Initializable, UIMethods, DatabaseMet
 
     private ArrayList<User> createUserList() {
         User generalUser = new User();
-        generalUser.setFullName("General");
+        generalUser.setFirstName("General");
+        generalUser.setLastName("");
         generalUser.setRole("All");
 
         ArrayList<User> users = new ArrayList<>();

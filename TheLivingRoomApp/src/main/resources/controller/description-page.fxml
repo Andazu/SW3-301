@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -31,7 +32,14 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="698.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="300.0" prefWidth="200.0" spacing="20.0">
+            <GridPane alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints />
+              </rowConstraints>
                <children>
                   <VBox prefHeight="250.0" prefWidth="225.0" spacing="10.0">
                      <children>
@@ -40,7 +48,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                            <children>
                               <ScrollPane prefHeight="200.0" prefWidth="250.0">
                                  <content>
@@ -106,13 +114,12 @@
                               <Label fx:id="assigneeLabel" alignment="TOP_CENTER" text="label" />
                            </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="200.0" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="250.0" prefWidth="225.0" spacing="10.0">
+                  <VBox prefHeight="250.0" prefWidth="225.0" spacing="10.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <children>
                         <Label prefHeight="17.0" prefWidth="264.0" text="Comments:" />
-                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" VBox.vgrow="ALWAYS">
+                        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="225.0" VBox.vgrow="ALWAYS">
                            <content>
                               <GridPane fx:id="commentGridPane" prefWidth="1.0">
                                 <columnConstraints>
@@ -133,7 +140,10 @@
                      </opaqueInsets>
                   </VBox>
                </children>
-            </HBox>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="100.0" right="100.0" />
+               </VBox.margin>
+            </GridPane>
             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="698.0">
                <children>
                   <Label alignment="TOP_CENTER" text="Last edited: ">
