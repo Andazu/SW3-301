@@ -193,7 +193,7 @@ public interface UIMethods {
                     if (isManagerView) {
                         loader.setLocation(getClass().getResource("task-box-manager-page.fxml"));
                     } else {
-                        loader.setLocation(getClass().getResource("history-task-box-employee.page.fxml"));
+                        loader.setLocation(getClass().getResource("history-task-box-page.fxml"));
                     }
 
                     VBox vBox = loader.load();
@@ -311,10 +311,10 @@ public interface UIMethods {
                 "", "Cleaner", "Bartender", "All"
         );
 
-        addCssToButtons(closeProgramButton, "exit-button");
-
         if (isOverViewPage) {
             ArrayList<User> users = DatabaseMethods.getEmployeesFromDB(false, "users");
+
+            addCssToButtons(closeProgramButton, "exit-button");
 
             progressDropdownMenu.getItems().addAll(
                     "", "0%", "25%", "50%", "75%"
