@@ -51,7 +51,7 @@
                <tooltip>
                   <Tooltip text="Write a comment" />
                </tooltip></Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editTask" prefHeight="25.0" prefWidth="25.0" text="✎">
+            <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#editTask" prefHeight="25.0" prefWidth="25.0" text="i">
                <font>
                   <Font size="10.0" />
                </font>
