@@ -462,9 +462,14 @@ public interface UIMethods {
         int oneDayMS = 86400000;
         today.setTime(new Date().getTime() - oneDayMS);
 
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
         if (task.getDbDate().before(today)) {
             overdueTask.setVisible(true);
+            Tooltip.install(overdueTask, new Tooltip("This task was due " + df.format(task.getDbDate())));
         }
+
+        Tooltip.install(urgencyCircle, new Tooltip("Urgency of task:\n Red = high \n Yellow = medium \n Green = low"));
 
         switch (task.getUrgency().toLowerCase()) {
             case "low" -> urgencyCircle.setFill(Color.rgb(71, 209, 178));
