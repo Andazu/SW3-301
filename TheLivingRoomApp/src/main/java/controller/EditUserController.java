@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import model.User;
 import org.bson.Document;
 
 import java.net.URL;
@@ -55,12 +56,9 @@ public class EditUserController implements Initializable, UIMethods, DatabaseMet
     }
 
     public void submitAndUpdateUser(ActionEvent event) {
-        boolean isUserTaskValid = createUserFromUI(firstNameTextField, lastNameTextField, emailTextField, phoneNumberTextField, roleComboBox);
-        if (isUserTaskValid) {
-            closeStage(event);
-        } else {
-            errorDialog("The fields can't be empty", "");
-        }
+        User user = new User(firstNameTextField.getText(), lastNameTextField.getText(), emailTextField.getText(), phoneNumberTextField.getText(), false,  roleComboBox.getValue());
+        updateUser(this.id, "users", user);
+        closeStage(event);
     }
 
     public void cancelAction(ActionEvent event) {

@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fd8aad47-58b4-4a0a-b8ef-01bc9045d56c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-manager-page.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/task-box-manager-page.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/EditUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/TheLivingRoomApp/src/main/java/controller/EditUserController.java" afterDir="false" />
     </list>
     <list id="1022e458-1ade-405c-990a-d1268fa74848" name="Changes by ander" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,11 +75,12 @@
       <recent name="$PROJECT_DIR$/TheLivingRoomApp/src/main/resources/controller/images" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="18" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="launcher.Main" />
+      <module name="TheLivingRoomApp" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="launcher.*" />
@@ -177,6 +178,7 @@
       <workItem from="1669569231562" duration="40000" />
       <workItem from="1669569324617" duration="61000" />
       <workItem from="1669623615182" duration="1594000" />
+      <workItem from="1669974284551" duration="923000" />
     </task>
     <servers />
   </component>
