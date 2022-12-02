@@ -163,7 +163,7 @@ public interface UIMethods {
             ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
 
             // Sort tasks based on date
-            tasks.sort(Comparator.comparing(Task::getDbDate).reversed());
+            //tasks.sort(Comparator.comparing(Task::getDbDate).reversed());
 
             int columns = 1;
             int rows = 1;
@@ -241,7 +241,6 @@ public interface UIMethods {
             Bson filter = Filters.and(frequencyFilter, urgencyFilter, typeFilter, progressFilter);
             ArrayList<Task> tasks = new ArrayList<>(DatabaseMethods.getTasksFromDB(filter, true, "tasks"));
             //.thenComparing(Task::getUrgency): change the urgency to low: 1, medium: 2, high: 3 to sort on it
-            tasks.sort(Comparator.comparing(Task::getDbDate).reversed());
 
             int columns = 1;
             int rows = 1;
@@ -267,13 +266,13 @@ public interface UIMethods {
                     }
 
                     if (isManagerView) {
-                        if (filterEmployee && (date.equals(df.format(task.getDbDate())))) {
+                        if (filterEmployee && (date.equals(df.format(task.getDbDate())) || parsedDate.after(task.getDbDate()))) {
                             for (String assignee : task.getAssignees()) {
                                 if (employee.equals(assignee)) {
                                     taskGrid.add(vBox, columns, rows);
                                 }
                             }
-                        } else if (date.equals(df.format(task.getDbDate()))){
+                        } else if (date.equals(df.format(task.getDbDate())) || parsedDate.after(task.getDbDate())){
                             taskGrid.add(vBox, columns, rows);
                         }
                     } else {
