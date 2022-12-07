@@ -77,7 +77,7 @@
                            </tooltip>
                         </Label>
                         <ComboBox fx:id="urgencyDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Urgency" />
-                        <Label text="Type">
+                        <Label text="Role">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -85,7 +85,7 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="typeDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Type" />
+                        <ComboBox fx:id="typeDropdownMenu" prefHeight="25.0" prefWidth="250.0" promptText="Role" />
                         <HBox alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="240.0">
                            <children>
                               <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelAndReturnToOverviewPage" prefHeight="30.0" prefWidth="75.0" text="Cancel" />
