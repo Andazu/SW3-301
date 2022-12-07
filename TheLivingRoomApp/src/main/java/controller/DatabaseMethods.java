@@ -311,7 +311,7 @@ public interface DatabaseMethods {
 
     default boolean isTaskValidForSubmit(TextField descriptionTextField, DatePicker datePicker, ComboBox<String> typeDropdownMenu,
                                          TextField titleTextField, ComboBox<String> frequencyDropdownMenu, ComboBox<String> urgencyDropdownMenu,
-                                         TextArea descriptionTextArea, GridPane gridPane, boolean isEditTask) {
+                                         TextArea descriptionTextArea, GridPane gridPane, boolean isEditTask, String id) {
         Task createdTask = new Task(0.0, true);
 
         if (isEditTask) {
@@ -337,7 +337,11 @@ public interface DatabaseMethods {
                 assignees.addAll(selectedUsers);
                 createdTask.setAssignees(assignees);
             }
-            exportTaskToDatabase(createdTask, "tasks");
+            if (isEditTask) {
+                updateTask(id, "tasks", createdTask);
+            } else {
+                exportTaskToDatabase(createdTask, "tasks");
+            }
             return true;
         } else {
             return false;

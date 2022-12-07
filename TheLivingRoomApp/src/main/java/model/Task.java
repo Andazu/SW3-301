@@ -20,7 +20,6 @@ public class Task {
     private ArrayList<String> assignees;
     private LocalDate date;
     private Date dbDate;
-
     private String lastEdit;
 
     public ObjectId getId() {
@@ -229,6 +228,16 @@ public class Task {
         this.assignees = assignees;
         this.dbDate = dbDate;
         this.lastEdit = lastEdit;
+    }
+
+    public Task(String title, String description, String frequency, String urgency, String type, ArrayList<String> assignees, LocalDate date) {
+        this.title = title;
+        this.description = description;
+        this.frequency = frequency;
+        this.urgency = urgency;
+        this.type = type;
+        this.assignees = assignees;
+        this.date = date;
     }
 
     public Task(double progress, boolean active) {

@@ -50,7 +50,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
 
     public void submitAndReturnToOverviewPage(ActionEvent event) {
          boolean exportedTask = isTaskValidForSubmit(descriptionTextField, datePicker, typeDropdownMenu, titleTextField, frequencyDropdownMenu,
-                urgencyDropdownMenu,null,  selectedEmployeeGridPane, false);
+                urgencyDropdownMenu,null,  selectedEmployeeGridPane, false, null);
 
          if (exportedTask) {
              switchScene(taskFormBorderPane, "overview-manager-page.fxml");

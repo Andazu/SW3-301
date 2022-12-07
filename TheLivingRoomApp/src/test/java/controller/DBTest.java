@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static com.mongodb.client.model.Filters.*;
@@ -70,7 +72,7 @@ public class DBTest implements DatabaseMethods{
 
         // [THEN] Asserting the expected values and the documents values
         assertEquals(id, document.get("_id").toString());
-        assertDocument(expectedValues, document);
+        assertTaskDocument(expectedValues, document, false);
     }
 
     @Test
@@ -334,6 +336,68 @@ public class DBTest implements DatabaseMethods{
     }
 
     @Test
+    public void updateUserTest() {
+        // [SCENARIO] That we can update a user in the database
+
+        // [GIVEN] That we have a user in database, and we store the document's id
+        String id = populateDBWithUser(false);
+
+        // [GIVEN] That we have a new user to update in current user in the database
+        User user = new User("test", "user", "test@example.com", "12345678", false, "Barista");
+
+        // [GIVEN] We store the expected values
+        ArrayList<Object> expectedValues = new ArrayList<>();
+        expectedValues.add("test");
+        expectedValues.add("user");
+        expectedValues.add("test@example.com");
+        expectedValues.add("12345678");
+        expectedValues.add(false);
+        expectedValues.add("Barista");
+
+        // [WHEN] Updating the user in the database
+        updateUser(id, "test", user);
+
+        // [THEN] The document should be updated
+        Document userDocument = getDocumentById(id, "test");
+        assertUserDocument(expectedValues, userDocument);
+    }
+
+    @Test
+    public void updateTaskTest() {
+        // [SCENARIO] That we can update a task in the database
+
+        // [GIVEN] That we have a task in database, and we store the document's id
+        String id = populateDBWithTask(true);
+
+        // [GIVEN] That we have a date
+        LocalDate date = LocalDate.now();
+
+        // [GIVEN] That we have today's datetime
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+
+        // [GIVEN] That we have a new task to update in current task in the database
+        Task task = new Task("test", "task", "Once", "High", "Cleaner", new ArrayList<>(), date);
+
+        // [GIVEN] We store the expected values
+        ArrayList<Object> expectedValues = new ArrayList<>();
+        expectedValues.add("test");
+        expectedValues.add("task");
+        expectedValues.add("Once");
+        expectedValues.add("High");
+        expectedValues.add("Cleaner");
+        expectedValues.add(new ArrayList<>());
+        expectedValues.add(dateTimeFormatter.format(now));
+
+        // [WHEN] Updating the task in the database
+        updateTask(id, "test", task);
+
+        // [THEN] The document should be updated
+        Document taskDocument = getDocumentById(id, "test");
+        assertTaskDocument(expectedValues, taskDocument, true);
+    }
+
+    @Test
     public void updateProgressBarInDBWithZeroAndReturnValueTest() throws ParseException {
         // [SCENARIO] When updating the progress dropdown menu with "0%" then it should be 0.0 in the DB
 
@@ -432,13 +496,32 @@ public class DBTest implements DatabaseMethods{
         assertEquals(expected, actual);
     }
 
-    private void assertDocument(ArrayList<Object> expectedValues, Document document) {
-        assertEquals(expectedValues.get(0), document.get("title"));
-        assertEquals(expectedValues.get(1), document.get("description"));
-        assertEquals(expectedValues.get(2), document.get("progress"));
-        assertEquals(expectedValues.get(3), document.get("active"));
-        assertEquals(expectedValues.get(4), document.get("comments"));
-        assertEquals(expectedValues.get(5), document.get("assignees"));
+    private void assertTaskDocument(ArrayList<Object> expectedValues, Document document, boolean updateTask) {
+        if (updateTask) {
+            assertEquals(expectedValues.get(0), document.get("title"));
+            assertEquals(expectedValues.get(1), document.get("description"));
+            assertEquals(expectedValues.get(2), document.get("frequency"));
+            assertEquals(expectedValues.get(3), document.get("urgency"));
+            assertEquals(expectedValues.get(4), document.get("type"));
+            assertEquals(expectedValues.get(5), document.get("assignees"));
+            assertEquals(expectedValues.get(6), document.get("lastEdit"));
+        } else {
+            assertEquals(expectedValues.get(0), document.get("title"));
+            assertEquals(expectedValues.get(1), document.get("description"));
+            assertEquals(expectedValues.get(2), document.get("progress"));
+            assertEquals(expectedValues.get(3), document.get("active"));
+            assertEquals(expectedValues.get(4), document.get("comments"));
+            assertEquals(expectedValues.get(5), document.get("assignees"));
+        }
+    }
+
+    private void assertUserDocument(ArrayList<Object> expectedValues, Document document) {
+        assertEquals(expectedValues.get(0), document.get("firstName"));
+        assertEquals(expectedValues.get(1), document.get("lastName"));
+        assertEquals(expectedValues.get(2), document.get("emailAddress"));
+        assertEquals(expectedValues.get(3), document.get("phoneNumber"));
+        assertEquals(expectedValues.get(4), document.get("admin"));
+        assertEquals(expectedValues.get(5), document.get("role"));
     }
 
     private ArrayList<Object> expectedValues() {

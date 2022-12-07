@@ -89,7 +89,7 @@ public class EditTaskController implements Initializable, UIMethods, DatabaseMet
 
     public void submitAndUpdateTask(ActionEvent event) {
         boolean exportedTask = isTaskValidForSubmit(null, datePicker, typeDropdownMenu, titleTextField, frequencyDropdownMenu,
-                urgencyDropdownMenu, descriptionTextArea, selectedEmployeeGridPane, true);
+                urgencyDropdownMenu, descriptionTextArea, selectedEmployeeGridPane, true, id);
 
         if (exportedTask) {
             switchScene(taskEditBorderPane, "overview-manager-page.fxml");
