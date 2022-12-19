@@ -55,7 +55,7 @@ public class TaskFormController implements Initializable, UIMethods, DatabaseMet
          if (exportedTask) {
              switchScene(taskFormBorderPane, "overview-manager-page.fxml");
          } else {
-             errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, Urgency, or Date");
+             errorDialog("Empty Fields", "The following fields cannot be empty: Title, Frequency, or Urgency");
          }
     }
 
